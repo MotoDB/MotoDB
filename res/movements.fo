@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet version="1.0" xmlns:j4lif="http://java4less.com/fop/iform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:j4lext="xalan://com.java4less.xreport.fop.XLSTExtension" extension-element-prefixes="j4lext j4luserext" xmlns:j4luserext="xalan://com.java4less.xreport.fop.XLSTDummyExtension"  >
+<xsl:template match="/"><fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:layout-master-set>
+<fo:simple-page-master master-name="master0" page-width="29.7cm" page-height="21.0cm" margin-top="0.5cm"   margin-bottom="0.5cm" margin-left="0.5cm"  margin-right="0.5cm"  > 
+  <fo:region-body  region-name="body0" margin-top="0.0cm" margin-bottom="1.5cm"  /> 
+  <fo:region-before region-name="header0" extent="0.0cm"/> 
+  <fo:region-after region-name="footer0" extent="1.5cm"/> 
+  </fo:simple-page-master>
+</fo:layout-master-set>
+<fo:page-sequence master-reference="master0">
+<fo:static-content flow-name="header0">
+<!-- 240b1171218b403295d85c2ca68c1721 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="0.0cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="0.0cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+</fo:static-content>
+<fo:static-content flow-name="footer0">
+<!-- d5ca35f7d44b4cafb17279a59547661c -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="1.5cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="1.5cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+</fo:static-content>
+<fo:flow flow-name="body0"> 
+
+<!-- START Area Header -->
+<!-- d6eaa73447454db4927e9840c940931f -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#2196f3"  height="0.25cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#2196f3"  height="0.25cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+    <fo:table-row   background-color="#2196f3"  height="0.75cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="0.25cm"/>
+      <fo:table-column column-width="28.45cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#2196f3"  height="0.75cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 7a855ddf7fb646f4bd38e4edeedc94f6 -->
+      <fo:block     margin-left="0.0cm" margin-right="23.45cm"  margin-top="0.0cm"  font-size="16pt"  font-family="SansSerif"  color="#ffffff"   text-align="left">Movements</fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Detail -->
+<xsl:if test="movements/movement" >
+<!-- 7f128617e5514d7b990f6d75a8c10039 -->
+<fo:table width="28.7cm">
+  <fo:table-column column-width="0.25cm"/>
+  <fo:table-column column-width="1.0cm"/>
+  <fo:table-column column-width="5.75cm"/>
+  <fo:table-column column-width="5.75cm"/>
+  <fo:table-column column-width="2.5cm"/>
+  <fo:table-column column-width="7.0cm"/>
+  <fo:table-column column-width="2.50cm"/>
+  <fo:table-column column-width="2.50cm"/>
+  <fo:table-column column-width="1.25cm"/>
+  <fo:table-column column-width="0.24cm"/>
+  <!-- d3a6cfe8d8c6414194c42764d9525dc8 -->
+  <fo:table-header>
+    <fo:table-row    background-color="#f4f4f4"  height="0.75cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- c32b5dadf87842828cc74355d5cb8a79 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Q.</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 6c3f5977dac54832a323e3a0b9ea4bb2 -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Sender</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 741c56a4b2404c2e8b15d2c3e8a7f254 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Receiver</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 4e1a5adf267f4c4a8f04b1961e76f7aa -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">ISBN</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 2a14e62b7f8d422e90192e6d86f1981a -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Title</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- ec06f23565514716945e52707c8a810c -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Date</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 0897f2d5fb654f1e9804487d42fac3a5 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Type</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 9bb6ebe69822471ea9b3cb3eff6951e2 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left">Price</fo:block>
+		</fo:table-cell> 
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </fo:table-header>
+  <fo:table-body>
+  <xsl:for-each select="movements/movement">
+    <fo:table-row    background-color="#ffffff"  height="0.5cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 82e810eb6ed84ca0b709dc45305d062c -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="quantity"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- db189e7c34a140f590a62268ecf6f4eb -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="sender/name"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- b21c9440dcea477c9c2c832bc0d1bff7 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="receiver/name"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 2fd0e500b7004e4fa4cfb8755d147d88 -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="book/isbn"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 5c18afd64752490f83a200fffc5a33aa -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="book/title"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- ccd38a8220424b6fb9e194e63a098a4c -->
+      <fo:block     margin-left="0.02cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="leavingDate"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 452aedddeebf460f899c7280bd0d5d4e -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="type"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- da5f627af6264c14b04fea8239497421 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="totalPrice"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </xsl:for-each>
+  </fo:table-body>
+</fo:table>
+</xsl:if>
+
+<!-- END Area Detail -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Footer -->
+<!-- b43ee22a5af64acdb4c6d1e604518b93 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="1.5cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="1.5cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+
+<!-- END Area Footer -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+  </fo:table-body>
+</fo:table>
+
+<!-- END Area Header -->
+<fo:block id="last-page"/></fo:flow>
+</fo:page-sequence>
+</fo:root>
+</xsl:template>
+</xsl:stylesheet>

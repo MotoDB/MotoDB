@@ -39,10 +39,10 @@ public class ChampionshipManager {
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();
-            if (result.next()) {
+            while (result.next()) {
                 Championship championship = new Championship();
                 championship.setYear(result.getInt("anno"));
-                championship.setEdition(result.getInt("edition"));
+                championship.setEdition(result.getInt("edizione"));
                 listChampionship.add(championship);
             }
         } catch (SQLException e) {

@@ -75,18 +75,22 @@ public class ChampionshipManager {
         
     }
     
-    public List<Classes> showClasses() {
+    public List<Classes> showClasses(int year) {
 
         final DBManager db = new DBManager();
         final Connection conn  = db.getConnection();
         
         List<Classes> listClasses = new LinkedList<>();
-        final String retrieve = "SELECT nomeClasse" +
-                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca" +
-                                "WHERE c.annoCampionato = ca.anno " + 
+        final String retrieve = "SELECT nomeClasse " +
+                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca " +
+                                "WHERE c.annoCampionato = ? " + 
+                                "AND WHERE ca.anno = ? " +
                                 "order by indiceImportanza";
+        
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement.setInt(1, year);
+            statement.setInt(2, year);
             final ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Classes classe = new Classes();

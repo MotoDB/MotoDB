@@ -74,10 +74,6 @@ public class WorldStandingControl extends ScreenControl {
 		championships.forEach(e -> {
 			yearsList.add(e.getYear());
 	    });
-	    
-	                
-	    System.out.println(yearsList.toString());
-	    System.out.println(championships.toString());
 	                
 	                
 	   

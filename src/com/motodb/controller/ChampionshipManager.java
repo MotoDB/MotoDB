@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.motodb.model.Championship;
+import com.motodb.view.alert.AlertTypes;
+import com.motodb.view.alert.AlertTypesImpl;
 
 public class ChampionshipManager {    
     
@@ -23,8 +25,8 @@ public class ChampionshipManager {
             statement.setInt(2, edition);
             statement.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
         }
 
     }
@@ -46,7 +48,8 @@ public class ChampionshipManager {
                 listChampionship.add(championship);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
         }
         
         return listChampionship;

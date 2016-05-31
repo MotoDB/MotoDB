@@ -12,6 +12,11 @@ import com.motodb.model.Classes;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+
 public class ChampionshipManager {    
     
     public void insertChampionship(final int year, final int edition) {
@@ -75,12 +80,12 @@ public class ChampionshipManager {
         
     }
     
-    public List<Classes> showClasses(int year) {
+    public ObservableList<Classes> showClasses(int year) {
 
         final DBManager db = new DBManager();
         final Connection conn  = db.getConnection();
         
-        List<Classes> listClasses = new LinkedList<>();
+        ObservableList<Classes> listClasses = FXCollections.observableArrayList();
         final String retrieve = "SELECT cla.nomeClasse " +
                                 "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, CLASSE cla " +
                                 "WHERE c.annoCampionato=? " + 
@@ -96,7 +101,7 @@ public class ChampionshipManager {
             while (result.next()) {
                 Classes classe = new Classes();
                 classe.setName(result.getString("nomeClasse"));
-                classe.setRules(result.getString("regolamento"));
+                //classe.setRules(result.getString("regolamento"));
                 listClasses.add(classe);
             }
         } catch (SQLException e) {

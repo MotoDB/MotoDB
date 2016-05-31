@@ -32,6 +32,24 @@ public class ChampionshipManager {
 
     }
     
+    /*public void insertClasses(final int year, ) {
+        final DBManager db = new DBManager();
+        final Connection conn  = db.getConnection();
+        
+        final java.sql.PreparedStatement statement;
+        final String insert = "insert into CAMPIONATO(anno, edizione) values (?,?)";
+        try {
+            statement = conn.prepareStatement(insert);
+            statement.setInt(1, year);
+            statement.setInt(2, edition);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+
+    }*/
+    
     public List<Championship> showChampionship() {
 
         final DBManager db = new DBManager();
@@ -63,7 +81,10 @@ public class ChampionshipManager {
         final Connection conn  = db.getConnection();
         
         List<Classes> listClasses = new LinkedList<>();
-        final String retrieve = "select * from CLASSE ORDER BY indiceImportanza";
+        final String retrieve = "SELECT nomeClasse" +
+                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca" +
+                                "WHERE c.annoCampionato = ca.anno " + 
+                                "order by indiceImportanza";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();

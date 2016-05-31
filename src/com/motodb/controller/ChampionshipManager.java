@@ -81,10 +81,11 @@ public class ChampionshipManager {
         final Connection conn  = db.getConnection();
         
         List<Classes> listClasses = new LinkedList<>();
-        final String retrieve = "SELECT nomeClasse " +
-                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca " +
-                                "WHERE c.annoCampionato = ? " + 
-                                "AND WHERE ca.anno = ? " +
+        final String retrieve = "SELECT cla.nomeClasse " +
+                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, CLASSE cla " +
+                                "WHERE c.annoCampionato=? " + 
+                                "AND ca.anno=? " +
+                                "AND cla.nomeClasse = c.nomeClasse " +
                                 "order by indiceImportanza";
         
         try {

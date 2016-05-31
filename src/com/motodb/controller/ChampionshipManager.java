@@ -1,10 +1,13 @@
 package com.motodb.controller;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
-import com.mysql.jdbc.PreparedStatement;
+import com.motodb.model.Championship;
 
 public class ChampionshipManager {    
     
@@ -24,6 +27,30 @@ public class ChampionshipManager {
             e.printStackTrace();
         }
 
+    }
+    
+    public List<Championship> showChampionship() {
+
+        final DBManager db = new DBManager();
+        final Connection conn  = db.getConnection();
+        
+        List<Championship> listChampionship = new LinkedList<>();
+        final String retrieve = "select * from CAMPIONATO";
+        try {
+            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            final ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Championship championship = new Championship();
+                championship.setYear(result.getInt("anno"));
+                championship.setEdition(result.getInt("edition"));
+                listChampionship.add(championship);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return listChampionship;
+        
     }
     
 }

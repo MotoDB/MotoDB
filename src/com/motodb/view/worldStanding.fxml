@@ -27,10 +27,6 @@
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>
-	            	<children>
-	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CLASS" onAction="#switchScreen" fx:id="addDepot" />
-                    </children>
                 </HBox>
 	            <HBox VBox.vgrow="ALWAYS">
 	               <children>

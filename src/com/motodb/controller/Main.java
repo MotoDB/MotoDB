@@ -7,8 +7,6 @@ public class Main {
 	private final GUI firstFrame;
 
 	public Main() {
-		
-		
 		this.firstFrame = new GUI();
 		this.firstFrame.launcher(new String[] {});
 	}

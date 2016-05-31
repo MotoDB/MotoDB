@@ -4,24 +4,26 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ChampionshipManager {
-    
-    private int year;
-    private int edition;
-    
+import com.mysql.jdbc.PreparedStatement;
+
+public class ChampionshipManager {    
     
     public void insertChampionship(final int year, final int edition) {
         final DBManager db = new DBManager();
         final Connection conn  = db.getConnection();
         
-        final String sql = "INSERT INTO CAMPIONATO" +
-                           "VALUES (year, edition);";
+        final java.sql.PreparedStatement statement;
+        final String insert = "insert into CAMPIONATO(anno, edizione) values (?,?)";
         try {
-            final Statement stm = conn.createStatement();
-            stm.executeQuery(sql);
+            statement = conn.prepareStatement(insert);
+            statement.setInt(1, year);
+            statement.setInt(2, edition);
+            statement.executeUpdate();
         } catch (SQLException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }        
+        }
+
     }
     
 }

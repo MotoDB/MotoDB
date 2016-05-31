@@ -11,18 +11,8 @@ public class Test {
         DBManager db = new DBManager();
         Connection conn = db.getConnection();
         
-        ResultSet rs;
-        try {
-            Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM CAMPIONATO");
-            while (rs.next()) {
-                System.out.println(rs.getString("anno"));
-                System.out.println(rs.getString("edizione"));
-            }
-            db.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ChampionshipManager ch = new ChampionshipManager();
+        ch.insertChampionship(2013, 64);
 
     }
 

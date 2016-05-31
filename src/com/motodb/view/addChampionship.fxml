@@ -20,8 +20,9 @@
 					<children>
 						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
 							<children> 
-					        	<Label styleClass="control-label" text="Name" />
+					        	<Label styleClass="control-label" text="Year" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="yearField"/>
+				                <Label styleClass="control-label" text="Edition" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="editionField"/>
                            		<Pane prefHeight="20.0" />
                            		<HBox>

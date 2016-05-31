@@ -6,7 +6,7 @@
 <?import javafx.scene.chart.*?>
 <?import com.medusabookdepot.view.util.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.StatisticsControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.StatisticsControl">
 	<content>
 		<VBox styleClass="card">
 			<HBox>

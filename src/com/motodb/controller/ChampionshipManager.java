@@ -63,7 +63,7 @@ public class ChampionshipManager {
         final Connection conn  = db.getConnection();
         
         List<Classes> listClasses = new LinkedList<>();
-        final String retrieve = "select * from CLASSE";
+        final String retrieve = "select * from CLASSE ORDER BY indiceImportanza";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();

@@ -16,6 +16,7 @@ import com.motodb.model.Championship;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -36,7 +37,7 @@ public class AddChampionshipControl extends ScreenControl {
     @FXML
 	private TableView<Championship> championshipTable;
 	@FXML
-	private TableColumn<Championship, String> yearColumn, editionColumn;
+	private TableColumn<Championship, String> yearColumn, editionColumn, sponsorsColumn, classesColumn;
 	@FXML
 	private TextField yearField, editionField, searchField;
 	@FXML
@@ -55,7 +56,6 @@ public class AddChampionshipControl extends ScreenControl {
      * the fxml control class. 
      */
     public void initialize() {
-    	
     	classesField=new CheckComboBox<String>(classesManager.getClassesNames());
     	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
     	
@@ -65,7 +65,15 @@ public class AddChampionshipControl extends ScreenControl {
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
     	editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
-        
+    	classesColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+    			
+    		manager.getClassesStrings(cellData.getValue().getYear()).toString()
+    	));
+    	
+    	sponsorsColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+    		manager.getSponsorStrings(cellData.getValue().getYear()).toString()  
+        ));
+    	
         // Add observable list data to the table
         championshipTable.setItems(manager.showChampionship());
         
@@ -86,6 +94,7 @@ public class AddChampionshipControl extends ScreenControl {
         try {
         	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
         			classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
+        	championshipTable.setItems(manager.showChampionship());
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
@@ -126,4 +135,5 @@ public class AddChampionshipControl extends ScreenControl {
 	private void update(){
         
 	}
+
 }

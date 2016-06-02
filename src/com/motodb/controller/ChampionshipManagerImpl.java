@@ -19,6 +19,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
     public void insertChampionship(final int year, final int edition, final ObservableList<String> classes, final ObservableList<String> sponsors) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
+        boolean ok = true;
         
         final java.sql.PreparedStatement statement;
         final String insert = "insert into CAMPIONATO(anno, edizione) values (?,?)";
@@ -29,39 +30,42 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
+        	ok = false;
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
         }
         
-        final String insert2 = "insert into CLASSE_IN_CAMPIONATO(annoCampionato, nomeClasse) values (?,?)";
-        classes.forEach(e -> {
-            java.sql.PreparedStatement statement2;
-            try {
-                statement2 = conn.prepareStatement(insert2);
-                statement2.setInt(1, year);
-                statement2.setString(2, e);
-                statement2.executeUpdate();
-                statement2.close();
-            } catch (SQLException ex) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(ex);
-            }
-        });
-        
-        final String insert3 = "insert into SPONSORIZZAZIONE(annoCampionato, nomeSponsor) values (?,?)";
-        sponsors.forEach(e -> {
-            java.sql.PreparedStatement statement3;
-            try {
-                statement3 = conn.prepareStatement(insert3);
-                statement3.setInt(1, year);
-                statement3.setString(2, e);
-                statement3.executeUpdate();
-                statement3.close();
-            } catch (SQLException ex) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(ex);
-            }
-        });
+        if (ok) {
+	        final String insert2 = "insert into CLASSE_IN_CAMPIONATO(annoCampionato, nomeClasse) values (?,?)";
+	        classes.forEach(e -> {
+	            java.sql.PreparedStatement statement2;
+	            try {
+	                statement2 = conn.prepareStatement(insert2);
+	                statement2.setInt(1, year);
+	                statement2.setString(2, e);
+	                statement2.executeUpdate();
+	                statement2.close();
+	            } catch (SQLException ex) {
+	                AlertTypes alert = new AlertTypesImpl();
+	                alert.showError(ex);
+	            }
+	        });
+	        
+	        final String insert3 = "insert into SPONSORIZZAZIONE(annoCampionato, nomeSponsor) values (?,?)";
+	        sponsors.forEach(e -> {
+	            java.sql.PreparedStatement statement3;
+	            try {
+	                statement3 = conn.prepareStatement(insert3);
+	                statement3.setInt(1, year);
+	                statement3.setString(2, e);
+	                statement3.executeUpdate();
+	                statement3.close();
+	            } catch (SQLException ex) {
+	                AlertTypes alert = new AlertTypesImpl();
+	                alert.showError(ex);
+	            }
+	        });
+        }
         
 
     }
@@ -128,13 +132,22 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         return listClasses;
         
     }
+    
+    public ObservableList<String> getClassesStrings(int year){
+    	
+    	ObservableList<String> list = FXCollections.observableArrayList();
+    	this.showClasses(year).forEach(e->{
+    		list.add(e.getName());
+    	});
+    	return list;
+    }
 
     public ObservableList<Sponsor> getSponsor(int year) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         ObservableList<Sponsor> listSponsor = FXCollections.observableArrayList();
-        final String retrieve = "SELECT sponsor.nomeSponsor" +
+        final String retrieve = "SELECT sponsor.nomeSponsor " +
                                 "from SPONSOR sponsor, SPONSORIZZAZIONE s, CAMPIONATO cam " +
                                 "where s.annoCampionato = ? " + 
                                 "AND cam.anno = ? " +
@@ -159,7 +172,17 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         
         return listSponsor;
     }
-
+    
+    
+    public ObservableList<String> getSponsorStrings(int year){
+    	
+    	ObservableList<String> list = FXCollections.observableArrayList();
+    	this.getSponsor(year).forEach(e->{
+    		list.add(e.getName());
+    	});
+    	
+    	return list;
+    }
     
 }
 

@@ -12,6 +12,10 @@ public interface ChampionshipManager {
     void insertChampionship(int year, int edition, ObservableList<String> classes, final ObservableList<String> sponsors);
 
     ObservableList<Championship> showChampionship();
+    
+    public ObservableList<String> getClassesStrings(int year);
+    
+    public ObservableList<String> getSponsorStrings(int year);
 
     ObservableList<Classes> showClasses(int year);
     

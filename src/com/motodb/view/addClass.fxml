@@ -5,13 +5,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddSponsorControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddClassControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Sponsor"/>
+					    <Label styleClass="card-title" text="Add Class"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
                         <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
 					</children>
@@ -22,8 +22,8 @@
 							<children> 
 					        	<Label styleClass="control-label" text="Name" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>
-				                <Label styleClass="control-label" text="Logo (url)" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="logoUrlField"/>
+				                <Label styleClass="control-label" text="Rules (url)" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="rulesUrlField"/>
 				                <Pane prefHeight="20.0" />
 				                <HBox>
 	                           		<children>

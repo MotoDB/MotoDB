@@ -7,6 +7,8 @@ package com.motodb.view;
 import java.io.IOException;
 import java.net.URL;
 
+import org.controlsfx.control.CheckComboBox;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,6 +68,9 @@ public class ScreenControl extends GUI{
     	    }
     		if (node instanceof ComboBox) {
     	        ((ComboBox)node).getSelectionModel().clearSelection();
+    	    }
+    		if (node instanceof CheckComboBox) {
+    	        ((CheckComboBox)node).getCheckModel().clearChecks();
     	    }
     	}
     }

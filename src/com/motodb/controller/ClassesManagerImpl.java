@@ -20,9 +20,11 @@ public class ClassesManagerImpl implements ClassesManager {
         
         ObservableList<Classes> listClasses = FXCollections.observableArrayList();
         final String retrieve = "select * from CLASSE";
+        PreparedStatement statement = null;
+        ResultSet result = null;
         try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
-            final ResultSet result = statement.executeQuery();
+            statement = conn.prepareStatement(retrieve);
+            result = statement.executeQuery();
             while (result.next()) {
                 Classes classe = new Classes();
                 classe.setName(result.getString("nomeClasse"));
@@ -32,6 +34,20 @@ public class ClassesManagerImpl implements ClassesManager {
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        }
+        finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) { 
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
         
         return listClasses;
@@ -53,8 +69,8 @@ public class ClassesManagerImpl implements ClassesManager {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        final java.sql.PreparedStatement statement;
         final String insert = "insert into CLASSE(nomeClasse, regolamento) values (?,?)";
+        PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, name);
@@ -63,6 +79,16 @@ public class ClassesManagerImpl implements ClassesManager {
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
     }
 

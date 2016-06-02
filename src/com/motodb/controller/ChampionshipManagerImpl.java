@@ -27,6 +27,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             statement.setInt(1, year);
             statement.setInt(2, edition);
             statement.executeUpdate();
+            statement.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
@@ -40,6 +41,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 statement2.setInt(1, year);
                 statement2.setString(2, e);
                 statement2.executeUpdate();
+                statement2.close();
             } catch (SQLException ex) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(ex);
@@ -54,6 +56,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 statement3.setInt(1, year);
                 statement3.setString(2, e);
                 statement3.executeUpdate();
+                statement3.close();
             } catch (SQLException ex) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(ex);
@@ -80,6 +83,8 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 championship.setEdition(result.getInt("edizione"));
                 listChampionship.add(championship);
             }
+            result.close();
+            statement.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
@@ -113,6 +118,8 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 classe.setName(result.getString("nomeClasse"));
                 listClasses.add(classe);
             }
+            statement.close();
+            result.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
@@ -143,6 +150,8 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 sponsor.setName(result.getString("nomeSponsor"));
                 listSponsor.add(sponsor);
             }
+            result.close();
+            statement.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);

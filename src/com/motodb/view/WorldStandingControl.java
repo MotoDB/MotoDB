@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.motodb.controller.ChampionshipManager;
+import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.model.Classes;
 import com.motodb.view.alert.AlertTypes;
@@ -36,7 +37,7 @@ public class WorldStandingControl extends ScreenControl {
     private final List<ToggleButton> yearsButtonsList = new ArrayList<>();
     private final ObservableList<ToggleButton> classesButtonsList = FXCollections.observableArrayList();
     
-    private final ChampionshipManager manager = new ChampionshipManager();
+    private final ChampionshipManager manager = new ChampionshipManagerImpl();
     private List<Championship> championships  = manager.showChampionship();
     private final List<Integer> yearsList = new ArrayList<>();
     private final ObservableList<String> classesList = FXCollections.observableArrayList();

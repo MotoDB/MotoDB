@@ -7,7 +7,9 @@ package com.motodb.view;
 import org.controlsfx.control.CheckComboBox;
 
 import com.motodb.controller.ChampionshipManager;
+import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClassesManager;
+import com.motodb.controller.ClassesManagerImpl;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -28,8 +30,8 @@ public class AddChampionship extends ScreenControl {
 	@FXML
 	private TableColumn<Championship, String> nameColumn;*/
     
-    ChampionshipManager manager = new ChampionshipManager();
-    ClassesManager classesManager = new ClassesManager();
+    ChampionshipManager manager = new ChampionshipManagerImpl();
+    ClassesManager classesManager = new ClassesManagerImpl();
 	
 	@FXML
 	private TextField yearField, editionField, searchField;;

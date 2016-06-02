@@ -53,6 +53,7 @@ public class GUI extends Application implements GuiInterface {
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         mainStage.setIconified(false);
         mainStage.setScene(scene);
+        //mainStage.setFullScreen(true);;
         
         // Showing the main stage after and hiding splashStage with an animation
     	FadeTransition fadeSplash = new FadeTransition(Duration.millis(1.0), splashLayout);

@@ -1,6 +1,5 @@
 package com.motodb.controller;
 
-import java.util.List;
 
 import com.motodb.model.Championship;
 import com.motodb.model.Classes;
@@ -11,7 +10,7 @@ public interface ChampionshipManager {
 
     void insertChampionship(int year, int edition, ObservableList<String> classes, final ObservableList<String> sponsors);
 
-    List<Championship> showChampionship();
+    ObservableList<Championship> showChampionship();
 
     ObservableList<Classes> showClasses(int year);
 

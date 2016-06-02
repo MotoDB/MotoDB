@@ -66,12 +66,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
     }
   
     @Override
-    public List<Championship> showChampionship() {
+    public ObservableList<Championship> showChampionship() {
 
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        List<Championship> listChampionship = new LinkedList<>();
+        ObservableList<Championship> listChampionship = FXCollections.observableArrayList();
         final String retrieve = "select * from CAMPIONATO order by anno";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);

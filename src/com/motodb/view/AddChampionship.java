@@ -10,11 +10,14 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClassesManager;
 import com.motodb.controller.ClassesManagerImpl;
+import com.motodb.model.Championship;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -24,11 +27,14 @@ public class AddChampionship extends ScreenControl {
 	// Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
-	/*@FXML
-	private TableView<Championship> depotsTable;
+	@FXML
+	private TableView<Championship> championshipTable;
 	
 	@FXML
-	private TableColumn<Championship, String> nameColumn;*/
+	private TableColumn<Championship, String> yearColumn;
+	
+	@FXML
+	private TableColumn<Championship, String> editionColumn;
     
     ChampionshipManager manager = new ChampionshipManagerImpl();
     ClassesManager classesManager = new ClassesManagerImpl();
@@ -45,8 +51,7 @@ public class AddChampionship extends ScreenControl {
     
 	public AddChampionship(){
 		super();
-		
-		
+
 	}
 	    
     /**
@@ -59,10 +64,11 @@ public class AddChampionship extends ScreenControl {
     	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-1, combo);
     	
     	// Initialize the table
-        //nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getName()));
+    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
+    	editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
         
         // Add observable list data to the table
-        //depotsTable.setItems(depotsController.getDepots());
+        championshipTable.setItems(manager.showChampionship());
         
         // Make the table columns editable by double clicking
         this.edit();

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.motodb.model.Championship;
+import com.motodb.model.ChampionshipsView;
 import com.motodb.model.Classes;
 import com.motodb.model.Sponsor;
 import com.motodb.view.alert.AlertTypes;
@@ -182,6 +183,52 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
     	});
     	
     	return list;
+    }
+    
+    
+    public ObservableList<ChampionshipsView> getChampionshipViews() {
+        
+        ObservableList<ChampionshipsView> listCh = FXCollections.observableArrayList();
+        
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        final String insert =   "SELECT anno, edizione, group_concat(distinct c.nomeClasse SEPARATOR ', ') as 'classi', group_concat(distinct spo.nomeSponsor SEPARATOR ', ') as 'sponsor' " +
+                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, SPONSORIZZAZIONE spo " +
+                                "WHERE c.annoCampionato=ca.anno "+
+                                "AND c.annoCampionato=spo.annoCampionato "+
+                                "group by anno";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = conn.prepareStatement(insert);
+            result = statement.executeQuery();
+            while (result.next()) {
+                ChampionshipsView view = new ChampionshipsView();
+                view.setYear(result.getInt("anno"));
+                view.setEdition(result.getInt("edizione"));
+                view.setClasses(result.getString(3));
+                view.setSponsors(result.getString(4));
+                listCh.add(view);
+            }
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
+        }
+        return listCh;
     }
     
 }

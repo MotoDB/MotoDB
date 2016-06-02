@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Championship {
 
-	private final IntegerProperty year;
+    private final IntegerProperty year;
     private final IntegerProperty edition;
     
     public Championship() {

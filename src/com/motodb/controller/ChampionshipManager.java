@@ -2,6 +2,7 @@ package com.motodb.controller;
 
 
 import com.motodb.model.Championship;
+import com.motodb.model.ChampionshipsView;
 import com.motodb.model.Classes;
 import com.motodb.model.Sponsor;
 
@@ -20,5 +21,7 @@ public interface ChampionshipManager {
     ObservableList<Classes> showClasses(int year);
     
     ObservableList<Sponsor> getSponsor(int year);
+    
+    public ObservableList<ChampionshipsView> getChampionshipViews();
 
 }

@@ -10,11 +10,23 @@ public class DBManager {
     private static final String url = "motodb.c1s5lipxxzvy.eu-west-1.rds.amazonaws.com";
     private static final String username = "Administrator";
     private static final String password = "cocomero";
+    private static final DBManager DB = new DBManager();
+
     private Connection connection;
     private MysqlDataSource dataSource;
     
-    public Connection getConnection()  {
-
+    private DBManager() {
+    }
+    
+    public static DBManager getDB() {
+        return DB;
+    }
+    
+    public Connection getConnection()  {        
+        return this.connection;
+    }
+    
+    public void createConnection() {
         dataSource = new MysqlDataSource();
         dataSource.setUser(username);
         dataSource.setPassword(password);
@@ -32,7 +44,6 @@ public class DBManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return this.connection;
     }
     
     public void closeConnection() {
@@ -42,5 +53,6 @@ public class DBManager {
             e.printStackTrace();
         }
     }
+
 
 }

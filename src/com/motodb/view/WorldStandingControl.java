@@ -7,8 +7,6 @@ package com.motodb.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.controlsfx.control.CheckComboBox;
-
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.model.Championship;
 import com.motodb.model.Classes;

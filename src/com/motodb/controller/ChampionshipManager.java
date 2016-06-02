@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
 public class ChampionshipManager {    
     
     public void insertChampionship(final int year, final int edition) {
-        final DBManager db = new DBManager();
+        final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         final java.sql.PreparedStatement statement;
@@ -55,7 +55,7 @@ public class ChampionshipManager {
     
     public List<Championship> showChampionship() {
 
-        final DBManager db = new DBManager();
+        final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         List<Championship> listChampionship = new LinkedList<>();
@@ -80,7 +80,7 @@ public class ChampionshipManager {
     
     public ObservableList<Classes> showClasses(int year) {
 
-        final DBManager db = new DBManager();
+        final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         ObservableList<Classes> listClasses = FXCollections.observableArrayList();
@@ -99,7 +99,6 @@ public class ChampionshipManager {
             while (result.next()) {
                 Classes classe = new Classes();
                 classe.setName(result.getString("nomeClasse"));
-                //classe.setRules(result.getString("regolamento"));
                 listClasses.add(classe);
             }
         } catch (SQLException e) {

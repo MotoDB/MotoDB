@@ -12,11 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ClassesManager {
-    
-    
+        
     public ObservableList<Classes> showClasses() {
 
-        final DBManager db = new DBManager();
+        final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         ObservableList<Classes> listClasses = FXCollections.observableArrayList();

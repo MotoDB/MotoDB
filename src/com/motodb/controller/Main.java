@@ -1,17 +1,21 @@
 package com.motodb.controller;
 
+import java.sql.Connection;
+
 import com.motodb.view.GUI;
 
 public class Main {
 
-	private final GUI firstFrame;
+    private final GUI firstFrame;
 
-	public Main() {
-		this.firstFrame = new GUI();
-		this.firstFrame.launcher(new String[] {});
-	}
+    public Main() {
+	final DBManager db = DBManager.getDB();
+	db.createConnection();
+	this.firstFrame = new GUI();
+	this.firstFrame.launcher(new String[] {});
+    }
 
-	public static void main(String[] args) {
-		new Main();
-	}
+    public static void main(String[] args) {
+	new Main();
+    }
 }

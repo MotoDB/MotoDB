@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 
+import com.motodb.controller.DBManager;
+
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +54,11 @@ public class GUI extends Application implements GuiInterface {
         mainStage.setTitle("book-depot");
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         mainStage.setIconified(false);
+        mainStage.setOnCloseRequest(e -> {
+            DBManager db = DBManager.getDB();
+            db.closeConnection();
+            mainStage.close();
+        });
         mainStage.setScene(scene);
         //mainStage.setFullScreen(true);;
         

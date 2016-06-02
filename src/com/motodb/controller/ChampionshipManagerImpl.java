@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.motodb.model.Championship;
 import com.motodb.model.Classes;
+import com.motodb.model.Sponsor;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -123,6 +121,36 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         return listClasses;
         
     }
+
+    public ObservableList<Sponsor> getSponsor(int year) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Sponsor> listSponsor = FXCollections.observableArrayList();
+        final String retrieve = "SELECT sponsor.nomeSponsor" +
+                                "from SPONSOR sponsor, SPONSORIZZAZIONE s, CAMPIONATO cam " +
+                                "where s.annoCampionato = ? " + 
+                                "AND cam.anno = ? " +
+                                "and s.nomeSponsor = sponsor.nomeSponsor ";
+        
+        try {
+            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement.setInt(1, year);
+            statement.setInt(2, year);
+            final ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Sponsor sponsor = new Sponsor();
+                sponsor.setName(result.getString("nomeSponsor"));
+                listSponsor.add(sponsor);
+            }
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return listSponsor;
+    }
+
     
 }
 

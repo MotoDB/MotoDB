@@ -13,6 +13,7 @@ import com.motodb.controller.ClassesManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.model.Championship;
+import com.motodb.model.ChampionshipsView;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -25,25 +26,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class AddChampionshipControl extends ScreenControl {
-	
-	
-	// Alert panel to manage exceptions
-    private final AlertTypes alert = new AlertTypesImpl();
     
+    
+    // Alert panel to manage exceptions
+    private final AlertTypes alert = new AlertTypesImpl();
+
     ChampionshipManager manager = new ChampionshipManagerImpl();
     ClassesManager classesManager = new ClassesManagerImpl();
     SponsorManager sponsorManager = new SponsorManagerImpl();
-	
+    
     @FXML
-	private TableView<Championship> championshipTable;
-	@FXML
-	private TableColumn<Championship, String> yearColumn, editionColumn, sponsorsColumn, classesColumn;
-	@FXML
-	private TextField yearField, editionField, searchField;
-	@FXML
+    private TableView<ChampionshipsView> championshipTable;
+    @FXML
+    private TableColumn<ChampionshipsView, String> yearColumn, editionColumn, sponsorsColumn, classesColumn;
+    @FXML
+    private TextField yearField, editionField, searchField;
+    @FXML
     private CheckComboBox<String> classesField, sponsorsField;
-	@FXML
-	private Button addSponsor;
+    @FXML
+    private Button addSponsor;
     @FXML
     private VBox vBoxFields;
     
@@ -66,20 +67,14 @@ public class AddChampionshipControl extends ScreenControl {
     	sponsorsField.setPrefWidth(300.0);
     	sponsorsField.setMaxWidth(300.0);
         
+    	
     	// Initialize the table
-    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
-    	editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
-    	classesColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-    			
-    		manager.getClassesStrings(cellData.getValue().getYear()).toString()
-    	));
-    	
-    	sponsorsColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-    		manager.getSponsorStrings(cellData.getValue().getYear()).toString()  
-        ));
-    	
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
+        editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
+        classesColumn.setCellValueFactory(cellData -> cellData.getValue().classesProperty());
+        sponsorsColumn.setCellValueFactory(cellData -> cellData.getValue().sponsorsProperty());
         // Add observable list data to the table
-        championshipTable.setItems(manager.showChampionship());
+        championshipTable.setItems(manager.getChampionshipViews());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -93,28 +88,28 @@ public class AddChampionshipControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
-	@FXML
+        @FXML
     private void add() {
         try {
-        	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
-        			classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
-        	championshipTable.setItems(manager.showChampionship());
-        	this.clear();
+                manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
+                                classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
+                championshipTable.setItems(manager.getChampionshipViews());
+                this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
         }
     }
-	
-	/**
+        
+        /**
      * Called when the user edit a depot name directly from the tableColumn;
      * This method edits the selected field in the observableList of depots and 
      * makes fields editable directly from the table
      */
-	private void edit() {
-		
-	}
-	
-	/**
+        private void edit() {
+                
+        }
+        
+        /**
      * Called on delete button press, opens a confirmation dialog asking if you 
      * really want to delete the element; this method is called 
      * to delete the selected element from the observableList
@@ -129,15 +124,15 @@ public class AddChampionshipControl extends ScreenControl {
      * It search name of the depot
      */
     private void search(){
-    	
+        
     }
     
     /**
-	 * It listen for selection changes to disable/enable the delete button 
-	 * when the user selects something in the table
-	 */
-	private void update(){
+         * It listen for selection changes to disable/enable the delete button 
+         * when the user selects something in the table
+         */
+        private void update(){
         
-	}
+        }
 
 }

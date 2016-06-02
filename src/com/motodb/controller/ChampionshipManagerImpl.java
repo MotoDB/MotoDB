@@ -200,6 +200,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                                 "group by anno";
         PreparedStatement statement = null;
         ResultSet result = null;
+      
         try {
             statement = conn.prepareStatement(insert);
             result = statement.executeQuery();

@@ -79,7 +79,7 @@ public class AddChampionship extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()));
+        	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),combo.getCheckModel().getCheckedItems());
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);

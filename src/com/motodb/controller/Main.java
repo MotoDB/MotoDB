@@ -1,7 +1,5 @@
 package com.motodb.controller;
 
-import java.sql.Connection;
-
 import com.motodb.view.GUI;
 
 public class Main {

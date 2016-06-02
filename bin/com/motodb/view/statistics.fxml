@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import com.medusabookdepot.view.util.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.StatisticsControl">
+	<content>
+		<VBox styleClass="card">
+			<HBox>
+				<fx:define>
+        			<PersistentButtonToggleGroup fx:id="group"/>
+    			</fx:define>
+    			<children>
+					<Label styleClass="card-title" text="Statistics" />
+					<Pane prefWidth="15.0"/>
+					<ToggleButton text="Movements per month" onAction="#uploadMovStats" toggleGroup="$group" fx:id="movStats"/>
+					<ToggleButton text="Earnings per month" onAction="#uploadEarningsStats" toggleGroup="$group" fx:id="earningStats"/>
+					<Pane HBox.hgrow="ALWAYS" />
+					<Label styleClass="control-label" text="Select the year" />
+					<Pane prefWidth="20" />
+					<ChoiceBox prefHeight="10.0" fx:id="yearBox"/>
+				</children>
+				<padding>
+					<Insets bottom="5" left="0" right="17.0" top="0" />
+				</padding>
+			</HBox>
+			<HBox VBox.vgrow="ALWAYS" fx:id="hBox">
+				<children>
+		        	<BarChart HBox.hgrow="ALWAYS" fx:id="barChart" layoutX="53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
+	        			<xAxis>
+	          				<CategoryAxis side="BOTTOM" fx:id="xMovAxis" />
+	        			</xAxis>
+	        			<yAxis>
+	          				<NumberAxis side="LEFT" />
+	        			</yAxis>
+	      			</BarChart>
+	      			<LineChart HBox.hgrow="ALWAYS" fx:id="lineChart" layoutX="53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
+	        			<xAxis>
+	          				<CategoryAxis side="BOTTOM" fx:id="xPriceAxis" />
+	        			</xAxis>
+	        			<yAxis>
+	          				<NumberAxis side="LEFT" />
+	        			</yAxis>
+	      			</LineChart>
+	      		</children>
+	      	</HBox>
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>

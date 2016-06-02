@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 public interface ChampionshipManager {
 
-    void insertChampionship(int year, int edition, List<String> classes);
+    void insertChampionship(int year, int edition, ObservableList<String> classes);
 
     List<Championship> showChampionship();
 

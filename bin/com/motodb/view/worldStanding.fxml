@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.WorldStandingControl">
+	<content>
+		<VBox styleClass="card">
+			<children>
+				<HBox>
+	            	<children>
+                   		<Label styleClass="card-title" text="World Standings" />
+                   	</children>
+                </HBox>
+	        	<HBox fx:id="years">
+	        		<padding>
+						<Insets bottom="0" left="0" right="0" top="5" />
+					</padding>
+	            	<children>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CHAMPIONSHIP" onAction="#switchScreen" fx:id="addChampionship" />
+                    </children>
+                </HBox>
+                <HBox fx:id="classes">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
+	            <HBox VBox.vgrow="ALWAYS">
+	               <children>
+	                  <VBox HBox.hgrow="ALWAYS">
+	                     <children>
+	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="worldStandingTable">
+	                          <columns>
+	                          	<TableColumn text="Position" fx:id="positionColumn" />
+	                            <TableColumn text="Rider" fx:id="riderColumn" />
+	                          	<TableColumn text="Bike" fx:id="bikeColumn" />
+	                            <TableColumn text="Nation" fx:id="nationColumn" />
+	                            <TableColumn text="Points" fx:id="pointsColumn" />
+	                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+	                        </TableView>
+	                     </children>
+	                  </VBox>
+	               </children>
+	            </HBox>
+	            <HBox>
+	            	<children>
+	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   
+	            		<TextField promptText="Search" fx:id="searchField" />
+	            		<Label styleClass="icon-label" text="" />
+	            	</children>
+                </HBox>
+	        </children>	
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>

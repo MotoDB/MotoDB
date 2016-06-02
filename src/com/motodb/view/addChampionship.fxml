@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddChampionship">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddChampionshipControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
@@ -13,7 +13,7 @@
 					<children>
 					    <Label styleClass="card-title" text="Add Championship"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
-                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
+                        <Button fx:id="addSponsor" mnemonicParsing="false" styleClass="button-flat" text="CREATE SPONSOR" onAction="#switchScreen"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
@@ -24,8 +24,11 @@
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="yearField"/>
 				                <Label styleClass="control-label" text="Edition" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="editionField"/>
-                           		<Pane prefHeight="20.0" />
                            		<Label styleClass="control-label" text="Classes" />
+                           		<!-- CheckComboBox classes (size -3) -->
+                           		<Label styleClass="control-label" text="Sponsors" />
+                           		<!-- CheckComboBox sponsrs (size -2) -->
+                           		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -43,6 +46,8 @@
 									<columns>
 			                          	<TableColumn text="Year" fx:id="yearColumn"/>
 			                          	<TableColumn text="Edition" fx:id="editionColumn"/>
+			                          	<TableColumn text="Classes" fx:id="classesColumn"/>
+			                          	<TableColumn text="Sponsors" fx:id="sponsorsColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

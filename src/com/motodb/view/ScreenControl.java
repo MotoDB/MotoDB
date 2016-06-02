@@ -29,7 +29,7 @@ import javafx.stage.Popup;
 public class ScreenControl extends GUI{
 	
 	@FXML
-	private Button worldStanding, addChampionship, statistics, credits;
+	private Button worldStanding, addChampionship, addSponsor, statistics, credits;
 	
 	@FXML
 	private VBox vBoxFields;

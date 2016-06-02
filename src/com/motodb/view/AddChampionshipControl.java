@@ -10,6 +10,8 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClassesManager;
 import com.motodb.controller.ClassesManagerImpl;
+import com.motodb.controller.SponsorManager;
+import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -21,37 +23,31 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class AddChampionship extends ScreenControl {
+public class AddChampionshipControl extends ScreenControl {
 	
 	
-	// Aler panel to manage exceptions
+	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-
-	@FXML
-	private TableView<Championship> championshipTable;
-	
-	@FXML
-	private TableColumn<Championship, String> yearColumn;
-	
-	@FXML
-	private TableColumn<Championship, String> editionColumn;
     
     ChampionshipManager manager = new ChampionshipManagerImpl();
     ClassesManager classesManager = new ClassesManagerImpl();
+    SponsorManager sponsorManager = new SponsorManagerImpl();
 	
-	@FXML
-	private TextField yearField, editionField, searchField;;
-	@FXML
-	private Button delete;
     @FXML
-    private CheckComboBox<String> combo;
-    
+	private TableView<Championship> championshipTable;
+	@FXML
+	private TableColumn<Championship, String> yearColumn, editionColumn;
+	@FXML
+	private TextField yearField, editionField, searchField;
+	@FXML
+    private CheckComboBox<String> classesField, sponsorsField;
+	@FXML
+	private Button addSponsor;
     @FXML
     private VBox vBoxFields;
     
-	public AddChampionship(){
-		super();
-
+	public AddChampionshipControl(){
+		
 	}
 	    
     /**
@@ -60,9 +56,12 @@ public class AddChampionship extends ScreenControl {
      */
     public void initialize() {
     	
-    	combo=new CheckComboBox<String>(classesManager.getClassesNames());
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-1, combo);
+    	classesField=new CheckComboBox<String>(classesManager.getClassesNames());
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
     	
+    	sponsorsField=new CheckComboBox<String>(sponsorManager.getSponsor());
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
+        
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
     	editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
@@ -85,7 +84,8 @@ public class AddChampionship extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),combo.getCheckModel().getCheckedItems());
+        	manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
+        			classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
@@ -98,16 +98,7 @@ public class AddChampionship extends ScreenControl {
      * makes fields editable directly from the table
      */
 	private void edit() {
-		/*
-        // nameColumn
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameColumn.setOnEditCommit(t -> {
-	        try{
-	        	//depotsController.editName(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
-	        }catch(Exception e){
-	        	alert.showWarning(e);
-	        }
-        });*/
+		
 	}
 	
 	/**
@@ -116,13 +107,8 @@ public class AddChampionship extends ScreenControl {
      * to delete the selected element from the observableList
      */
     @FXML
-    private void delete() {/*
-        Optional<ButtonType> result = alert.showConfirmation(depotsTable.getSelectionModel().getSelectedItem().getName());
-
-        if (result.get() == ButtonType.OK) {
-            int selectedIndex = depotsTable.getSelectionModel().getSelectedIndex();
-            depotsController.removeDepot(depotsTable.getItems().get(selectedIndex));
-        }*/
+    private void delete() {
+        
     }
     
     /**
@@ -130,21 +116,14 @@ public class AddChampionship extends ScreenControl {
      * It search name of the depot
      */
     private void search(){
-    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-        	/*if (!newValue.isEmpty()){
-		        depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(newValue)));
-        	}else depotsTable.setItems(depotsController.getDepots());*/
-        });
+    	
     }
     
     /**
 	 * It listen for selection changes to disable/enable the delete button 
 	 * when the user selects something in the table
 	 */
-	private void update(){/*
-        delete.setDisable(true);
-        depotsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        } );*/
+	private void update(){
+        
 	}
 }

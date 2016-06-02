@@ -41,13 +41,6 @@ public class WorldStandingControl extends ScreenControl {
     private List<Championship> championships  = manager.showChampionship();
     private final List<Integer> yearsList = new ArrayList<>();
     private final ObservableList<String> classesList = FXCollections.observableArrayList();
-
-	/*@FXML
-	private TableView<Entry<StandardBookImpl,Integer>> worldStandingTable;
-	
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> positionColumn, riderColumn, bikeColumn,
-	nationColumn, pointsColumn;*/
 	
 	@FXML
 	private HBox years;
@@ -72,11 +65,15 @@ public class WorldStandingControl extends ScreenControl {
 			button.setUserData(y);
 		}	
 		
-		if(!yearsButtonsList.isEmpty()) yearsButtonsList.get(0).setSelected(true);
-		
-		for(Classes c: manager.showClasses(Integer.parseInt(yearsButtonsGroup.getSelectedToggle().getUserData().toString()))){
-			classesList.add(c.getName());
+		if(!yearsButtonsList.isEmpty()){
+			yearsButtonsList.get(0).setSelected(true);
+			
+			for(Classes c: manager.showClasses(Integer.parseInt(yearsButtonsGroup.getSelectedToggle().getUserData().toString()))){
+				classesList.add(c.getName());
+			}
+			
 		}
+		
 		
 		// Creating a button for each CLASS and adding such button to the group and to the list
 		for(String c : classesList){

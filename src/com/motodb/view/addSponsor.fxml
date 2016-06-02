@@ -5,31 +5,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddChampionshipControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddSponsorControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Championship"/>
+					    <Label styleClass="card-title" text="Add Sponsor"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
-                        <Button fx:id="addSponsor" mnemonicParsing="false" styleClass="button-flat" text="CREATE SPONSOR" onAction="#switchScreen"/>
+                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
 						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
 							<children> 
-					        	<Label styleClass="control-label" text="Year" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="yearField"/>
-				                <Label styleClass="control-label" text="Edition" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="editionField"/>
-                           		<Label styleClass="control-label" text="Classes" />
-                           		<!-- CheckComboBox classes (size -3) -->
-                           		<Label styleClass="control-label" text="Sponsors" />
-                           		<!-- CheckComboBox sponsrs (size -2) -->
-                           		<Pane prefHeight="20.0" />
-                           		<HBox>
+					        	<Label styleClass="control-label" text="Name" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>
+				                <Label styleClass="control-label" text="Logo (url)" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="urlLogoField"/>
+				                <Pane prefHeight="20.0" />
+				                <HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
 								        <Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" onAction="#add"/>
@@ -42,12 +38,10 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="championshipTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="depotsTable">
 									<columns>
-			                          	<TableColumn text="Year" fx:id="yearColumn"/>
-			                          	<TableColumn text="Edition" fx:id="editionColumn"/>
-			                          	<TableColumn text="Classes" fx:id="classesColumn"/>
-			                          	<TableColumn text="Sponsors" fx:id="sponsorsColumn"/>
+			                          	<TableColumn text="Name" fx:id="nameColumn"/>
+			                          	<TableColumn text="Logo" fx:id="nameColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

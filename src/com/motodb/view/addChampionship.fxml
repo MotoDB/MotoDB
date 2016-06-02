@@ -12,7 +12,8 @@
 				<HBox>
 					<children>
 					    <Label styleClass="card-title" text="Add Championship"/>
-                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
+                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                   		<Button fx:id="addClass" mnemonicParsing="false" styleClass="button-flat" text="CREATE NEW CLASS" onAction="#switchScreen"/>
                         <Button fx:id="addSponsor" mnemonicParsing="false" styleClass="button-flat" text="CREATE SPONSOR" onAction="#switchScreen"/>
 					</children>
 				</HBox>
@@ -27,7 +28,7 @@
                            		<Label styleClass="control-label" text="Classes" />
                            		<!-- CheckComboBox classes (size -3) -->
                            		<Label styleClass="control-label" text="Sponsors" />
-                           		<!-- CheckComboBox sponsrs (size -2) -->
+                           		<!-- CheckComboBox sponsors (size -2) -->
                            		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>

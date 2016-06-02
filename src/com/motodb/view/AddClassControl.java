@@ -1,5 +1,7 @@
 package com.motodb.view;
 
+import com.motodb.controller.ClassesManager;
+import com.motodb.controller.ClassesManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.view.alert.AlertTypes;
@@ -9,7 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class AddSponsorControl extends ScreenControl {
+public class AddClassControl extends ScreenControl {
 	
 	
 	// Alert panel to manage exceptions
@@ -21,14 +23,14 @@ public class AddSponsorControl extends ScreenControl {
 	@FXML
 	private TableColumn<Championship, String> nameColumn;*/
     
-    SponsorManager manager = new SponsorManagerImpl();
+    ClassesManager manager = new ClassesManagerImpl();
 	
 	@FXML
-	private TextField nameField, logoUrlField;
+	private TextField nameField, rulesUrlField;
 	@FXML
 	private Button delete;
     
-	public AddSponsorControl(){
+	public AddClassControl(){
 		super();
 	}
 	    
@@ -47,7 +49,7 @@ public class AddSponsorControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addSponsor(nameField.getText(), logoUrlField.getText());
+        	manager.addClass(nameField.getText(), rulesUrlField.getText());
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);

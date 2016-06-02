@@ -58,9 +58,13 @@ public class AddChampionshipControl extends ScreenControl {
     public void initialize() {
     	classesField=new CheckComboBox<String>(classesManager.getClassesNames());
     	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
+    	classesField.setPrefWidth(300.0);
+    	classesField.setMaxWidth(300.0);
     	
     	sponsorsField=new CheckComboBox<String>(sponsorManager.getSponsor());
     	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
+    	sponsorsField.setPrefWidth(300.0);
+    	sponsorsField.setMaxWidth(300.0);
         
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());

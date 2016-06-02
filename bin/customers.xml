@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customers>
+    <person>
+        <name>Andrea Colombo</name>
+        <address>Via San Bartolo 37</address>
+        <telephoneNumber>3319048937</telephoneNumber>
+    </person>
+    <library>
+        <name>Libreria Mondadori</name>
+        <address>Via Lombardia 15</address>
+        <telephoneNumber>0547332000</telephoneNumber>
+    </library>
+    <printery>
+        <name>Centro Stampa Digital Print</name>
+        <address>Via Termoli 13</address>
+        <telephoneNumber>0547968521</telephoneNumber>
+    </printery>
+</customers>

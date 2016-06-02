@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet version="1.0" xmlns:j4lif="http://java4less.com/fop/iform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:j4lext="xalan://com.java4less.xreport.fop.XLSTExtension" extension-element-prefixes="j4lext j4luserext" xmlns:j4luserext="xalan://com.java4less.xreport.fop.XLSTDummyExtension"  >
+<xsl:template match="/"><fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:layout-master-set>
+<fo:simple-page-master master-name="master0" page-width="29.7cm" page-height="21.0cm" margin-top="0.5cm"   margin-bottom="0.5cm" margin-left="0.5cm"  margin-right="0.5cm"  > 
+  <fo:region-body  region-name="body0" margin-top="0.0cm" margin-bottom="1.5cm"  /> 
+  <fo:region-before region-name="header0" extent="0.0cm"/> 
+  <fo:region-after region-name="footer0" extent="1.5cm"/> 
+  </fo:simple-page-master>
+</fo:layout-master-set>
+<fo:page-sequence master-reference="master0">
+<fo:static-content flow-name="header0">
+<!-- 01d31de65ea3418dbcd65ab757534f27 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="0.0cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="0.0cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+</fo:static-content>
+<fo:static-content flow-name="footer0">
+<!-- be48030a050b458f8470e40fe8447e2a -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="1.5cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="1.5cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+</fo:static-content>
+<fo:flow flow-name="body0"> 
+
+<!-- START Area Header -->
+<!-- 8d73448591ec410181cabc3d8bf0479e -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#2196f3"  height="0.24cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#2196f3"  height="0.24cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+    <fo:table-row   background-color="#2196f3"  height="0.76cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="0.24cm"/>
+      <fo:table-column column-width="28.46cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#2196f3"  height="0.76cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 6650eff9cc4249a89b1842c18c6ac02d -->
+      <fo:block     margin-left="0.0cm" margin-right="13.46cm"  margin-top="0.0cm"  font-size="16pt"  font-family="SansSerif"  color="#ffffff"   text-align="left">Customers/Suppliers</fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Detail 4 -->
+<xsl:if test="customers/library" >
+<!-- 55189937d9c74b12b7abfa7bf3770ad3 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="0.24cm"/>
+  <fo:table-column column-width="9.76cm"/>
+  <fo:table-column column-width="13.49cm"/>
+  <fo:table-column column-width="5.0cm"/>
+  <fo:table-column column-width="0.21cm"/>
+  <!-- 22c7110bbfc746c3b898a8c47e43d462 -->
+  <fo:table-header>
+    <fo:table-row    background-color="#f4f4f4"  height="0.75cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- ef1d8c4932aa48e68cc9aeb5c17aa41a -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Library Name</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- f745eeb6aaab4086b98e20d3e76be5eb -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Library Address</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 5c067b2ce3ef4d0fa0a23b26c04db548 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Telephone #</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </fo:table-header>
+  <fo:table-body>
+  <xsl:for-each select="customers/library">
+    <fo:table-row    background-color="#ffffff"  height="0.5cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 0fe2e28b652c48f7a3a30a8b547499d7 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="name"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 745cb8c3db8245a9adfcd8a4a0a2a587 -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="address"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 340d0ce969b84302858d637ebbb7c3ad -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="telephoneNumber"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </xsl:for-each>
+  </fo:table-body>
+</fo:table>
+</xsl:if>
+
+<!-- END Area Detail 4 -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Detail -->
+<xsl:if test="customers/person" >
+<!-- ae3e067e59884c5a8a9af9fe7faba0e1 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="0.24cm"/>
+  <fo:table-column column-width="9.76cm"/>
+  <fo:table-column column-width="13.49cm"/>
+  <fo:table-column column-width="5.0cm"/>
+  <fo:table-column column-width="0.21cm"/>
+  <!-- 8d4cda87ebb941d0ab92a38a708f1b4c -->
+  <fo:table-header>
+    <fo:table-row    background-color="#f4f4f4"  height="0.75cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 95ba9c8f4688439dad65c1c6f9606d56 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Person Name</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 0718081c200049beac8c68c54e1c8240 -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Person Address</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 8d68999202d4432ca9ccf0a9ad725f67 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Telephone #</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </fo:table-header>
+  <fo:table-body>
+  <xsl:for-each select="customers/person">
+    <fo:table-row    background-color="#ffffff"  height="0.5cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 9ab5a559f8d045eba83d1ec5716ec76c -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="name"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 49f3f782bc9048bfa8582b4c792e5998 -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="address"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- ca5f7627349941bb9fee88d19d724951 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="telephoneNumber"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </xsl:for-each>
+  </fo:table-body>
+</fo:table>
+</xsl:if>
+
+<!-- END Area Detail -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Detail -->
+<xsl:if test="customers/printery" >
+<!-- ae3e067e59884c5a8a9af9fe7faba0e1 -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="0.24cm"/>
+  <fo:table-column column-width="9.76cm"/>
+  <fo:table-column column-width="13.49cm"/>
+  <fo:table-column column-width="5.0cm"/>
+  <fo:table-column column-width="0.21cm"/>
+  <!-- 8d4cda87ebb941d0ab92a38a708f1b4c -->
+  <fo:table-header>
+    <fo:table-row    background-color="#f4f4f4"  height="0.75cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 95ba9c8f4688439dad65c1c6f9606d56 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Printery Name</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 0718081c200049beac8c68c54e1c8240 -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Printery Address</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 8d68999202d4432ca9ccf0a9ad725f67 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="9pt"  font-family="SansSerif"  color="#000000"   text-align="left">Telephone #</fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </fo:table-header>
+  <fo:table-body>
+  <xsl:for-each select="customers/printery">
+    <fo:table-row    background-color="#ffffff"  height="0.5cm"   >
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 9ab5a559f8d045eba83d1ec5716ec76c -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="name"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- 49f3f782bc9048bfa8582b4c792e5998 -->
+      <fo:block     margin-left="0.0cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="address"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+      <!-- ca5f7627349941bb9fee88d19d724951 -->
+      <fo:block     margin-left="0.01cm" margin-right="0.0cm"  margin-top="0.25cm"  font-size="8pt"  font-family="SansSerif"  color="#000000"   text-align="left"><xsl:value-of select="telephoneNumber"></xsl:value-of></fo:block>
+        </fo:table-cell>
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+  </xsl:for-each>
+  </fo:table-body>
+</fo:table>
+</xsl:if>
+
+<!-- END Area Detail -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell number-columns-spanned="1">
+<fo:block>
+
+<!-- START Area Footer -->
+<!-- b3115aa4fdfe4c06b7af1a52dfd436df -->
+<fo:table  width="28.7cm"   >
+  <fo:table-column column-width="28.7cm"/>
+  <fo:table-body>
+    <fo:table-row   background-color="#ffffff"  height="1.5cm">
+      <fo:table-cell><fo:table>
+      <fo:table-column column-width="28.7cm"/>
+      <fo:table-body>
+      <fo:table-row   background-color="#ffffff"  height="1.5cm">
+        <fo:table-cell    number-columns-spanned="1">
+        <fo:block></fo:block>        </fo:table-cell>
+    </fo:table-row>
+    </fo:table-body>
+    </fo:table></fo:table-cell>
+    </fo:table-row>
+  </fo:table-body>
+</fo:table>
+
+<!-- END Area Footer -->
+</fo:block>
+</fo:table-cell>
+</fo:table-row>
+  </fo:table-body>
+</fo:table>
+
+<!-- END Area Header -->
+<fo:block id="last-page"/></fo:flow>
+</fo:page-sequence>
+</fo:root>
+</xsl:template>
+</xsl:stylesheet>

@@ -25,6 +25,7 @@
 				                <Label styleClass="control-label" text="Edition" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="editionField"/>
                            		<Pane prefHeight="20.0" />
+                           		<Label styleClass="control-label" text="Classes" />
                            		<HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />

@@ -4,13 +4,18 @@
 
 package com.motodb.view;
 
+import org.controlsfx.control.CheckComboBox;
+
 import com.motodb.controller.ChampionshipManager;
+import com.motodb.controller.ClassesManager;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class AddChampionship extends ScreenControl {
 	
@@ -25,17 +30,22 @@ public class AddChampionship extends ScreenControl {
 	private TableColumn<Championship, String> nameColumn;*/
     
     ChampionshipManager manager = new ChampionshipManager();
+    ClassesManager classesManager = new ClassesManager();
 	
 	@FXML
-	private TextField yearField, editionField;
-	
+	private TextField yearField, editionField, searchField;;
 	@FXML
 	private Button delete;
     @FXML
-    private TextField searchField;
+    private CheckComboBox<String> combo;
+    
+    @FXML
+    private VBox vBoxFields;
     
 	public AddChampionship(){
 		super();
+		
+		
 	}
 	    
     /**
@@ -43,6 +53,9 @@ public class AddChampionship extends ScreenControl {
      * the fxml control class. 
      */
     public void initialize() {
+    	
+    	combo=new CheckComboBox<String>(classesManager.getClassesNames());
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-1, combo);
     	
     	// Initialize the table
         //nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getName()));

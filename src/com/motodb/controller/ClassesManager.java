@@ -4,22 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.motodb.model.Classes;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class ClassesManager {
     
     
-    public List<Classes> showClasses() {
+    public ObservableList<Classes> showClasses() {
 
         final DBManager db = new DBManager();
         final Connection conn  = db.getConnection();
         
-        List<Classes> listClasses = new LinkedList<>();
+        ObservableList<Classes> listClasses = FXCollections.observableArrayList();
         final String retrieve = "select * from CLASSE";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
@@ -37,6 +37,15 @@ public class ClassesManager {
         
         return listClasses;
         
+    }
+    
+    public ObservableList<String> getClassesNames() {
+    	ObservableList<Classes> classes = this.showClasses();
+    	ObservableList<String> classesNames = FXCollections.observableArrayList();
+    	for(Classes c : classes){
+    		classesNames.add(c.getName());
+    	}
+    	return classesNames;
     }
 
 }

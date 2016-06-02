@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
 public class ChampionshipManagerImpl implements ChampionshipManager {    
     
     @Override
-    public void insertChampionship(final int year, final int edition, final ObservableList<String> classes) {
+    public void insertChampionship(final int year, final int edition, final ObservableList<String> classes, final ObservableList<String> sponsors) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
@@ -48,6 +48,20 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             }
         });
         
+        final String insert3 = "insert into SPONSORIZZAZIONE(annoCampionato, nomeSponsor) values (?,?)";
+        sponsors.forEach(e -> {
+            java.sql.PreparedStatement statement3;
+            try {
+                statement3 = conn.prepareStatement(insert3);
+                statement3.setInt(1, year);
+                statement3.setString(2, e);
+                statement3.executeUpdate();
+            } catch (SQLException ex) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(ex);
+            }
+        });
+        
 
     }
   
@@ -58,7 +72,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         final Connection conn  = db.getConnection();
         
         List<Championship> listChampionship = new LinkedList<>();
-        final String retrieve = "select * from CAMPIONATO";
+        final String retrieve = "select * from CAMPIONATO order by anno";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();

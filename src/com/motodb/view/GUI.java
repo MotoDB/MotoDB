@@ -33,7 +33,8 @@ public class GUI extends Application implements GuiInterface {
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		// Loading splash image
-		ImageView splash = new ImageView(new Image(getClass().getResource("/splash.png").toString()));     
+		ImageView splash = new ImageView(new Image(getClass().getResource("/splash.png").toString()));   
+		splashStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 		
 		// Initializing the splash screen, first making a layout and adding the image to it
 		StackPane splashLayout = new StackPane();
@@ -51,9 +52,10 @@ public class GUI extends Application implements GuiInterface {
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         scene.getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
         Stage mainStage = new Stage(StageStyle.DECORATED);    
-        mainStage.setTitle("book-depot");
+        mainStage.setTitle("MotoDB");
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         mainStage.setIconified(false);
+        mainStage.setMaximized(true);
         mainStage.setOnCloseRequest(e -> {
             DBManager db = DBManager.getDB();
             db.closeConnection();

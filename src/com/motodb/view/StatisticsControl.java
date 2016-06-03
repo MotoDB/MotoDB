@@ -11,7 +11,6 @@ import javafx.collections.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;

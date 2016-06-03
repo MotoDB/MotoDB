@@ -18,7 +18,7 @@ public class SponsorManagerImpl implements SponsorManager {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        final java.sql.PreparedStatement statement;
+        java.sql.PreparedStatement statement = null;
         final String insert = "insert into SPONSOR(nomeSponsor, logo) values (?,?)";
         try {
             statement = conn.prepareStatement(insert);
@@ -28,6 +28,16 @@ public class SponsorManagerImpl implements SponsorManager {
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
     }
     
@@ -39,8 +49,9 @@ public class SponsorManagerImpl implements SponsorManager {
         
         final ObservableList<String> listSponsors = FXCollections.observableArrayList();
         final String retrieve = "select nomeSponsor from SPONSOR";
+        PreparedStatement statement = null;
         try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();
             while (result.next()) {
                 listSponsors.add(result.getString("nomeSponsor"));
@@ -48,6 +59,16 @@ public class SponsorManagerImpl implements SponsorManager {
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
         
         return listSponsors;

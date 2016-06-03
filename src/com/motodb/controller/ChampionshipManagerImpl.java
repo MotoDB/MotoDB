@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.motodb.model.Championship;
 import com.motodb.model.ChampionshipsView;
-import com.motodb.model.Classes;
-import com.motodb.model.Sponsor;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -22,7 +20,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         final Connection conn  = db.getConnection();
         boolean ok = true;
         
-        final java.sql.PreparedStatement statement;
+        java.sql.PreparedStatement statement = null;
         final String insert = "insert into CAMPIONATO(anno, edizione) values (?,?)";
         try {
             statement = conn.prepareStatement(insert);
@@ -31,15 +29,25 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
-        	ok = false;
+            ok = false;
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
         
         if (ok) {
 	        final String insert2 = "insert into CLASSE_IN_CAMPIONATO(annoCampionato, nomeClasse) values (?,?)";
 	        classes.forEach(e -> {
-	            java.sql.PreparedStatement statement2;
+	            java.sql.PreparedStatement statement2 = null;
 	            try {
 	                statement2 = conn.prepareStatement(insert2);
 	                statement2.setInt(1, year);
@@ -64,7 +72,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
 	            } catch (SQLException ex) {
 	                AlertTypes alert = new AlertTypesImpl();
 	                alert.showError(ex);
-	            }
+	            } 
 	        });
         }
         
@@ -99,13 +107,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         
     }
     
-    @Override
-    public ObservableList<Classes> showClasses(int year) {
-
+    
+    public ObservableList<String> getClassesStrings(int year){
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        ObservableList<Classes> listClasses = FXCollections.observableArrayList();
+        ObservableList<String> list = FXCollections.observableArrayList();
         final String retrieve = "SELECT cla.nomeClasse " +
                                 "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, CLASSE cla " +
                                 "WHERE c.annoCampionato=? " + 
@@ -113,41 +120,48 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                                 "AND cla.nomeClasse = c.nomeClasse " +
                                 "order by indiceImportanza";
         
+        PreparedStatement statement = null;
+        ResultSet result = null;
         try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement = conn.prepareStatement(retrieve);
             statement.setInt(1, year);
             statement.setInt(2, year);
-            final ResultSet result = statement.executeQuery();
+            result = statement.executeQuery();
             while (result.next()) {
-                Classes classe = new Classes();
-                classe.setName(result.getString("nomeClasse"));
-                listClasses.add(classe);
+                 list.add(result.getString("nomeClasse"));
             }
             statement.close();
             result.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
         
-        return listClasses;
-        
+        return list;
+
     }
     
-    public ObservableList<String> getClassesStrings(int year){
+    public ObservableList<String> getSponsorStrings(int year){
     	
-    	ObservableList<String> list = FXCollections.observableArrayList();
-    	this.showClasses(year).forEach(e->{
-    		list.add(e.getName());
-    	});
-    	return list;
-    }
-
-    public ObservableList<Sponsor> getSponsor(int year) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
+        PreparedStatement statement = null;
+        ResultSet result = null;
         
-        ObservableList<Sponsor> listSponsor = FXCollections.observableArrayList();
+        ObservableList<String> listSponsor = FXCollections.observableArrayList();
         final String retrieve = "SELECT sponsor.nomeSponsor " +
                                 "from SPONSOR sponsor, SPONSORIZZAZIONE s, CAMPIONATO cam " +
                                 "where s.annoCampionato = ? " + 
@@ -155,34 +169,34 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                                 "and s.nomeSponsor = sponsor.nomeSponsor ";
         
         try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement = conn.prepareStatement(retrieve);
             statement.setInt(1, year);
             statement.setInt(2, year);
-            final ResultSet result = statement.executeQuery();
+            result = statement.executeQuery();
             while (result.next()) {
-                Sponsor sponsor = new Sponsor();
-                sponsor.setName(result.getString("nomeSponsor"));
-                listSponsor.add(sponsor);
+                listSponsor.add(result.getString("nomeSponsor"));
             }
             result.close();
             statement.close();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
         }
         
         return listSponsor;
-    }
-    
-    
-    public ObservableList<String> getSponsorStrings(int year){
-    	
-    	ObservableList<String> list = FXCollections.observableArrayList();
-    	this.getSponsor(year).forEach(e->{
-    		list.add(e.getName());
-    	});
-    	
-    	return list;
     }
     
     

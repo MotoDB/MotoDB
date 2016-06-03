@@ -60,15 +60,15 @@ public class ChampionshipsView {
     }
 
     public void setEdition(int edition) {
-        this.edition.set(edition);;
+        this.edition.set(edition);
     }
 
     public void setClasses(String classes) {
-        this.classes.set(classes);;
+        this.classes.set(classes);
     }
 
     public void setSponsors(String sponsors) {
-        this.sponsors.set(sponsors);;
+        this.sponsors.set(sponsors);
     }
   
 }

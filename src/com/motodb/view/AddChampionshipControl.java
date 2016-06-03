@@ -12,12 +12,9 @@ import com.motodb.controller.ClassesManager;
 import com.motodb.controller.ClassesManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
-import com.motodb.model.Championship;
 import com.motodb.model.ChampionshipsView;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
-
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;

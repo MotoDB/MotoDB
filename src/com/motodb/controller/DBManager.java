@@ -12,7 +12,7 @@ public class DBManager {
     private static final String password = "cocomero";
     private static final DBManager DB = new DBManager();
 
-    private Connection connection;
+    private Connection connection = null;
     private MysqlDataSource dataSource;
     
     private DBManager() {
@@ -27,6 +27,10 @@ public class DBManager {
     }
     
     public void createConnection() {
+        if (this.connection != null) {
+            System.out.println("Connection already established!");
+            return;
+        }
         dataSource = new MysqlDataSource();
         dataSource.setUser(username);
         dataSource.setPassword(password);

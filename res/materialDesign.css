@@ -32,6 +32,8 @@
  * Root					 				                       				   *
  *                                                                             *
  ******************************************************************************/
+
+
 .root {
 	/* Swatch Colors - Blue*/
 	-swatch-100: #FF3C13;
@@ -90,6 +92,10 @@
 	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
 		1.5);
 	-fx-padding: 16 16 16 16;
+}
+
+@font-face {
+    src: url("Material-Design-Iconic-Font.ttf");
 }
 
 .card-title {

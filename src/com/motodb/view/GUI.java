@@ -72,13 +72,15 @@ public class GUI extends Application implements GuiInterface {
 		
 		// Loading the custom font before loading the files which use it
     	final int fontSize = 10; // This value is not needed, as it will be overrided by CSS
-		Font.loadFont(getClass().getResource("/Roboto-Regular.ttf").toExternalForm(), fontSize);
-		Font.loadFont(getClass().getResource("/Roboto-Bold.ttf").toExternalForm(), fontSize);
-		Font.loadFont(getClass().getResource("/Roboto-Medium.ttf").toExternalForm(), fontSize);
-		Font.loadFont(getClass().getResource("/Roboto-Black.ttf").toExternalForm(), fontSize);
-		Font.loadFont(getClass().getResource("/Roboto-Light.ttf").toExternalForm(), fontSize);
-		Font.loadFont(getClass().getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), fontSize);
-		
+	Font.loadFont(getClass().getResource("/Roboto-Regular.ttf").toExternalForm(), fontSize);
+	Font.loadFont(GUI.class.getResource("/Roboto-Regular.ttf").toExternalForm(), fontSize);
+	Font.loadFont(getClass().getResource("/Roboto-Bold.ttf").toExternalForm(), fontSize);
+	Font.loadFont(getClass().getResource("/Roboto-Medium.ttf").toExternalForm(), fontSize);
+	Font.loadFont(getClass().getResource("/Roboto-Black.ttf").toExternalForm(), fontSize);
+	Font.loadFont(getClass().getResource("/Roboto-Light.ttf").toExternalForm(), fontSize);
+	Font.loadFont(getClass().getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), fontSize);
+	Font.loadFont(GUI.class.getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), fontSize);
+
 		// Loading the top menu
 		URL menuUrl = getClass().getResource("menu.fxml");
 		ToolBar menu = FXMLLoader.load( menuUrl );

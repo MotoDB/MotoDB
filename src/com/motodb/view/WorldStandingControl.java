@@ -69,7 +69,7 @@ public class WorldStandingControl extends ScreenControl {
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
 
-        // Method which handle the selection of a year
+        // Method which handles the selection of a year
         this.filter();
 
         if (!classesButtons.getToggles().isEmpty()) {
@@ -78,8 +78,8 @@ public class WorldStandingControl extends ScreenControl {
     }
 
     /**
-     * Called when the user selects a toggle-button Method to filter CLASSES so
-     * in the table there are only the books from the selected depot
+     * Called when the user selects a toggle-button to filter classes so
+     * there are only buttons for each class of that year
      */
     private void filter() {
     	

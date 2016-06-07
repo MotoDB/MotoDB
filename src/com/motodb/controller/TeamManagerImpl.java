@@ -119,7 +119,7 @@ public class TeamManagerImpl implements TeamManager{
         ObservableList<String> list = FXCollections.observableArrayList();
         final String retrieve = "SELECT t.nomeTeam " +
                                 "from TEAM t " +
-                                "WHERE t.nomeTeam like " + 
+                                "WHERE t.nomeTeam = " + 
                                 "(SELECT i.nomeTeam " +
                                 "FROM ISCRIZIONE_CLASSE i " +
                                 "WHERE i.annoCampionato = ? " +

@@ -10,6 +10,6 @@ public interface ClaxManager {
     
     ObservableList<Clax> getClasses();
 
-    void addClass(String name, String rules);
+    void addClass(String name, String rules, Integer index);
 
 }

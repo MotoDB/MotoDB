@@ -62,16 +62,17 @@ public class ClaxManagerImpl implements ClaxManager {
     }
     
     @Override
-    public void addClass(final String name, final String rules) {
+    public void addClass(final String name, final String rules, final Integer index) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        final String insert = "insert into CLASSE(nomeClasse, regolamento) values (?,?)";
+        final String insert = "insert into CLASSE(nomeClasse, regolamento, indiceImportanza) values (?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, name);
             statement.setString(2, rules);
+            statement.setInt(3, index);
             statement.executeUpdate();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();

@@ -42,13 +42,7 @@ public class AddChampionshipControl extends ScreenControl {
     @FXML
     private CheckComboBox<String> classesField, sponsorsField;
     @FXML
-    private Button addSponsor;
-    @FXML
     private VBox vBoxFields;
-    
-	public AddChampionshipControl(){
-		
-	}
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 
@@ -91,7 +85,7 @@ public class AddChampionshipControl extends ScreenControl {
         try {
                 manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
                                 classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
-                championshipTable.setItems(manager.getChampionshipViews());
+                championshipTable.setItems(manager.getChampionshipViews()); // Update table view
                 this.clear();
         } catch (Exception e) {
             alert.showWarning(e);

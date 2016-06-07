@@ -10,9 +10,9 @@ public interface ChampionshipManager {
 
     ObservableList<Championship>getChampionships();
     
-    ObservableList<String> getClassesStrings(int year);
+    ObservableList<String> getClassesNames(int year);
     
-    ObservableList<String> getSponsorStrings(int year);
+    ObservableList<String> getSponsorsNames(int year);
     
     ObservableList<ChampionshipsView> getChampionshipViews();
 

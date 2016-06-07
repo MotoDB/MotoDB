@@ -30,10 +30,6 @@ public class AddSponsorControl extends ScreenControl {
 	private TextField nameField, logoUrlField, searchField;
 	@FXML
 	private Button delete;
-    
-	public AddSponsorControl(){
-		super();
-	}
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 

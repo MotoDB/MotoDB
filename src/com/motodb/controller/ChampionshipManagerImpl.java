@@ -108,7 +108,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
     }
     
     
-    public ObservableList<String> getClassesStrings(int year){
+    public ObservableList<String> getClassesNames(int year){
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
@@ -154,7 +154,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
 
     }
     
-    public ObservableList<String> getSponsorStrings(int year){
+    public ObservableList<String> getSponsorsNames(int year){
     	
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();

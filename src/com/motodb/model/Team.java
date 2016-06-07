@@ -14,7 +14,7 @@ public class Team {
     
     
     public Team() {
-        this(null, null, null, null);
+        this(null, 0, null, null);
     }
     
     public Team(String name, Integer year, String location, String logo){

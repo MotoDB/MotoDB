@@ -1,47 +1,82 @@
 package com.motodb.view;
 
-import com.motodb.controller.ClaxManager;
-import com.motodb.controller.ClaxManagerImpl;
-import com.motodb.model.Clax;
+import org.controlsfx.control.CheckComboBox;
+
+import com.motodb.controller.ChampionshipManager;
+import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.SponsorManager;
+import com.motodb.controller.SponsorManagerImpl;
+import com.motodb.controller.TeamManager;
+import com.motodb.controller.TeamManagerImpl;
+import com.motodb.model.Championship;
+import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
-public class AddClassControl extends ScreenControl {
+public class AddTeamControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
     // Controller
-    private final ClaxManager manager = new ClaxManagerImpl();
+    private final TeamManager manager = new TeamManagerImpl();
+    private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
+    private final SponsorManager sponsorManager = new SponsorManagerImpl();
     
 	@FXML
-	private TableView<Clax> classesTable;
+	private TableView<Team> teamsTable;
 	@FXML
-	private TableColumn<Clax, String> nameColumn, rulesColumn, indexColumn;
+	private TableColumn<Team, String> nameColumn, yearColumn, locationColumn, logoColumn;
 	@FXML
-	private TextField nameField, rulesUrlField, indexField, searchField;
+	private TextField nameField, locationField, logoField;
+	@FXML
+	private CheckComboBox<String> classesField, sponsorsField;
+	@FXML
+	private ComboBox<String> yearField = new ComboBox<String>();
 	@FXML
 	private Button delete;
+	@FXML
+	private VBox vBoxFields;
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
      */
     public void initialize() {
+    	
+    	championshipManager.getChampionships().forEach(l->yearField.getItems().add(Integer.toString(l.getYear())));
+    	
+    	classesField=new CheckComboBox<String>();
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
+    	classesField.setDisable(true);
+    	classesField.setPrefWidth(300.0);
+    	classesField.setMaxWidth(300.0);
+    	
+    	sponsorsField=new CheckComboBox<String>();
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
+    	sponsorsField.getItems().addAll(sponsorManager.getSponsorsNames());
+    	sponsorsField.setPrefWidth(300.0);
+    	sponsorsField.setMaxWidth(300.0);
+ 
     	// Initialize the table
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        rulesColumn.setCellValueFactory(cellData -> cellData.getValue().rulesProperty());
-        indexColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty().asString());
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
+        locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
+        logoColumn.setCellValueFactory(cellData -> cellData.getValue().logoProperty());
+        
         // Add observable list data to the table
-        classesTable.setItems(manager.getClasses());
+        teamsTable.setItems(manager.getTeams());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -58,8 +93,8 @@ public class AddClassControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addClass(nameField.getText(), rulesUrlField.getText(), Integer.parseInt(indexField.getText()));
-        	classesTable.setItems(manager.getClasses());
+        	manager.addTeam(Integer.parseInt(yearField.getSelectionModel().getSelectedItem()), nameField.getText(), locationField.getText(), logoField.getText(), classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
+        	teamsTable.setItems(manager.getTeams()); // Update table view
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
@@ -89,7 +124,7 @@ public class AddClassControl extends ScreenControl {
      * Called when the user enter something in the search field;
      * It search name of the depot
      */
-    private void search(){
+    private void search(){/*
     	// 1. Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Clax> filteredData = new FilteredList<>(manager.getClasses(), p -> true);
 
@@ -120,7 +155,7 @@ public class AddClassControl extends ScreenControl {
         sortedData.comparatorProperty().bind(classesTable.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
-        classesTable.setItems(sortedData);
+        classesTable.setItems(sortedData);*/
     }
     
     /**
@@ -128,6 +163,19 @@ public class AddClassControl extends ScreenControl {
 	 * when the user selects something in the table
 	 */
 	private void update(){
+		
+		yearField.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				classesField.getItems().clear();
+				classesField.setDisable(false);
+				classesField.getItems().addAll(championshipManager.getClassesNames(Integer.parseInt(yearField.getSelectionModel().getSelectedItem())));
+			} else {
+				classesField.setDisable(true);
+			}
+		});
 
+		yearField.valueProperty().addListener((ChangeListener<String>) (ov, t, t1) -> {
+			
+		});
 	}
 }

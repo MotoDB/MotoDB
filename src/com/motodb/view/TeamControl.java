@@ -2,6 +2,8 @@ package com.motodb.view;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.TeamManager;
+import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -16,27 +18,29 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
-public class WorldStandingControl extends ScreenControl {
+public class TeamControl extends ScreenControl {
 
     // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
     
     // Controller
-    private final ChampionshipManager manager = new ChampionshipManagerImpl();
+    private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
+    private final TeamManager manager = new TeamManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
+    private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
     
     @FXML
-    private HBox years,classes;
+    private HBox years,classes,teams;
     @FXML
     private TextField searchField;
 
-    public WorldStandingControl() {
+    public TeamControl() {
         super();
 
-        for (Championship c : manager.getChampionships()) {
+        for (Championship c : championshipManager.getChampionships()) {
         	ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
             button.setToggleGroup(yearsButtons);
             button.setUserData(c.getYear());
@@ -46,10 +50,21 @@ public class WorldStandingControl extends ScreenControl {
             yearsButtons.getToggles().get(0).setSelected(true);
             
             // Creating a button for each class of that year, and adding such button to the group
-            for (String s : manager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+            for (String s : championshipManager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                 ToggleButton button = new ToggleButton(s);
                 button.setToggleGroup(classesButtons);
                 button.setUserData(s);
+            }
+            
+            if (!classesButtons.getToggles().isEmpty()) {
+            	classesButtons.getToggles().get(0).setSelected(true);
+            	
+            	// Creating a button for each team of that year, and adding such button to the group
+            	for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
+                    ToggleButton button = new ToggleButton(s);
+                    button.setToggleGroup(teamsButtons);
+                    button.setUserData(s);
+                }
             }
         }
     }
@@ -68,12 +83,19 @@ public class WorldStandingControl extends ScreenControl {
             button.setToggleGroup(classesButtons);
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
+        for (Toggle button : teamsButtons.getToggles()) {
+            button.setToggleGroup(teamsButtons);
+            teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
+        }
 
         // Method which handles the selection of a year
         this.filter();
 
         if (!classesButtons.getToggles().isEmpty()) {
         	classesButtons.getToggles().get(0).setSelected(true);
+        	if (!teamsButtons.getToggles().isEmpty()) {
+            	teamsButtons.getToggles().get(0).setSelected(true);
+            }
         }
     }
 
@@ -90,7 +112,7 @@ public class WorldStandingControl extends ScreenControl {
                 classes.getChildren().clear();
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (String s : manager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                for (String s : championshipManager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                     ToggleButton button = new ToggleButton(s);
                     button.setToggleGroup(classesButtons);
                     button.setUserData(s);
@@ -99,8 +121,35 @@ public class WorldStandingControl extends ScreenControl {
                 for (Toggle button : classesButtons.getToggles()) {
                     button.setToggleGroup(classesButtons);
                     classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
-                } 
+                }
             }
         });
+        
+        classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+            	
+                teamsButtons.getToggles().clear();
+                teams.getChildren().clear();
+
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
+                    ToggleButton button = new ToggleButton(s);
+                    button.setToggleGroup(teamsButtons);
+                    button.setUserData(s);
+                }
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (Toggle button : teamsButtons.getToggles()) {
+                    button.setToggleGroup(teamsButtons);
+                    teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
+                }
+                
+                if (!classesButtons.getToggles().isEmpty()) {
+                	if (!teamsButtons.getToggles().isEmpty()) {
+                    	teamsButtons.getToggles().get(0).setSelected(true);
+                    }
+                }
+            }
+        });
+        
     }
 }

@@ -19,7 +19,7 @@ public class ClaxManagerImpl implements ClaxManager {
         final Connection conn  = db.getConnection();
         
         ObservableList<Clax> classes = FXCollections.observableArrayList();
-        final String retrieve = "select * from CLASSE";
+        final String retrieve = "select * from CLASSE order by indiceImportanza";
         PreparedStatement statement = null;
         ResultSet result = null;
         try {

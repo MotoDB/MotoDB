@@ -48,7 +48,7 @@ public class TeamManagerImpl implements TeamManager{
         
         if (ok) {
                 final String insert2 = "insert into FINANZIAMENTO(annoCampionato, nomeTeam, nomeSponsor) values (?,?,?)";
-                classes.forEach(e -> {
+                sponsors.forEach(e -> {
                     java.sql.PreparedStatement statement2 = null;
                     try {
                         statement2 = conn.prepareStatement(insert2);
@@ -64,7 +64,7 @@ public class TeamManagerImpl implements TeamManager{
                 });
                 
                 final String insert3 = "insert into ISCRIZIONE_CLASSE(annoCampionato, nomeTeam, nomeClasse) values (?,?,?)";
-                sponsors.forEach(e -> {
+                classes.forEach(e -> {
                     java.sql.PreparedStatement statement3;
                     try {
                         statement3 = conn.prepareStatement(insert3);
@@ -89,13 +89,13 @@ public class TeamManagerImpl implements TeamManager{
         final Connection conn  = db.getConnection();
         
         ObservableList<Team> listTeam = FXCollections.observableArrayList();
-        final String retrieve = "select * from CAMPIONATO order by anno";
+        final String retrieve = "select * from TEAM order by annoCampionato";
         try {
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             final ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Team team = new Team();
-                team.setYear(result.getInt("anno"));
+                team.setYear(result.getInt("annoCampionato"));
                 team.setName(result.getString("nomeTeam"));
                 team.setLocation(result.getString("sede"));
                 team.setLogo(result.getString("logo"));
@@ -117,13 +117,10 @@ public class TeamManagerImpl implements TeamManager{
         final Connection conn  = db.getConnection();
         
         ObservableList<String> list = FXCollections.observableArrayList();
-        final String retrieve = "SELECT t.nomeTeam " +
-                                "from TEAM t " +
-                                "WHERE t.nomeTeam = " + 
-                                "(SELECT i.nomeTeam " +
+        final String retrieve = "SELECT i.nomeTeam " +
                                 "FROM ISCRIZIONE_CLASSE i " +
                                 "WHERE i.annoCampionato = ? " +
-                                "AND I.nomeClasse = ? ";
+                                "AND i.nomeClasse = ? ";
         
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -133,11 +130,12 @@ public class TeamManagerImpl implements TeamManager{
             statement.setString(2, clax);
             result = statement.executeQuery();
             while (result.next()) {
-                 list.add(result.getString("nomeClasse"));
+                 list.add(result.getString("nomeTeam"));
             }
             statement.close();
             result.close();
         } catch (SQLException e) {
+        	e.printStackTrace();
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
         } finally {

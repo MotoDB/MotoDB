@@ -8,8 +8,8 @@ import org.controlsfx.control.CheckComboBox;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
-import com.motodb.controller.ClassesManager;
-import com.motodb.controller.ClassesManagerImpl;
+import com.motodb.controller.ClaxManager;
+import com.motodb.controller.ClaxManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.model.ChampionshipsView;
@@ -28,9 +28,10 @@ public class AddChampionshipControl extends ScreenControl {
     // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
-    ChampionshipManager manager = new ChampionshipManagerImpl();
-    ClassesManager classesManager = new ClassesManagerImpl();
-    SponsorManager sponsorManager = new SponsorManagerImpl();
+    // Controller
+    private final ChampionshipManager manager = new ChampionshipManagerImpl();
+    private final ClaxManager classesManager = new ClaxManagerImpl();
+    private final SponsorManager sponsorManager = new SponsorManagerImpl();
     
     @FXML
     private TableView<ChampionshipsView> championshipTable;
@@ -59,7 +60,7 @@ public class AddChampionshipControl extends ScreenControl {
     	classesField.setPrefWidth(300.0);
     	classesField.setMaxWidth(300.0);
     	
-    	sponsorsField=new CheckComboBox<String>(sponsorManager.getSponsor());
+    	sponsorsField=new CheckComboBox<String>(sponsorManager.getSponsorsNames());
     	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
     	sponsorsField.setPrefWidth(300.0);
     	sponsorsField.setMaxWidth(300.0);
@@ -125,11 +126,11 @@ public class AddChampionshipControl extends ScreenControl {
     }
     
     /**
-         * It listen for selection changes to disable/enable the delete button 
-         * when the user selects something in the table
-         */
-        private void update(){
-        
-        }
+     * It listen for selection changes to disable/enable the delete button 
+     * when the user selects something in the table
+     */
+    private void update(){
+    
+    }
 
 }

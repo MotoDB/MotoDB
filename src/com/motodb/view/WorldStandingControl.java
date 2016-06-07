@@ -1,24 +1,14 @@
-/**
- * 'worldStanding.fxml' Control Class
- */
-
 package com.motodb.view;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.model.Championship;
-import com.motodb.model.Classes;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.PersistentButtonToggleGroup;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
@@ -28,61 +18,40 @@ import javafx.scene.layout.HBox;
 
 public class WorldStandingControl extends ScreenControl {
 
-    // Aler panel to manage exceptions
+    // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
+    
+    // Controller
+    private final ChampionshipManager manager = new ChampionshipManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
-    private final ToggleGroup yearsButtonsGroup = new PersistentButtonToggleGroup();
-    private final ToggleGroup classesButtonsGroup = new PersistentButtonToggleGroup();
-    private final List<ToggleButton> yearsButtonsList = new ArrayList<>();
-    private final ObservableList<ToggleButton> classesButtonsList = FXCollections.observableArrayList();
-
-    private final ChampionshipManager manager = new ChampionshipManagerImpl();
-    private List<Championship> championships = manager.showChampionship();
-    private final List<Integer> yearsList = new ArrayList<>();
-    private final ObservableList<String> classesList = FXCollections.observableArrayList();
-
+    private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
+    private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
+    
     @FXML
-    private HBox years;
-
-    @FXML
-    private HBox classes;
-
+    private HBox years,classes;
     @FXML
     private TextField searchField;
 
     public WorldStandingControl() {
         super();
 
-        for (Championship c : manager.showChampionship()) {
-            yearsList.add(c.getYear());
+        for (Championship c : manager.getChampionships()) {
+        	ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
+            button.setToggleGroup(yearsButtons);
+            button.setUserData(c.getYear());
         }
 
-        for (Integer y : yearsList) {
-            ToggleButton button = new ToggleButton(y.toString());
-            button.setToggleGroup(yearsButtonsGroup);
-            yearsButtonsList.add(button);
-            button.setUserData(y);
-        }
-
-        if (!yearsButtonsList.isEmpty()) {
-            yearsButtonsList.get(0).setSelected(true);
-
-            for (String c : manager.getClassesStrings((Integer.parseInt(yearsButtonsGroup.getSelectedToggle().getUserData().toString())))) {
-                classesList.add(c);
+        if (!yearsButtons.getToggles().isEmpty()) {
+            yearsButtons.getToggles().get(0).setSelected(true);
+            
+            // Creating a button for each class of that year, and adding such button to the group
+            for (String s : manager.getClassesStrings((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                ToggleButton button = new ToggleButton(s);
+                button.setToggleGroup(classesButtons);
+                button.setUserData(s);
             }
-
         }
-
-        // Creating a button for each CLASS and adding such button to the group
-        // and to the list
-        for (String c : classesList) {
-            ToggleButton button = new ToggleButton(c);
-            button.setToggleGroup(classesButtonsGroup);
-            classesButtonsList.add(button);
-            button.setUserData(c);
-        }
-
     }
 
     /**
@@ -91,51 +60,21 @@ public class WorldStandingControl extends ScreenControl {
      */
     public void initialize() {
 
-        // Adding the buttons created in the constructor to the hBox, after the
-        // title
-        int hBoxPos = 0; // hBoxPos is 0 because I need to add buttons before
-                         // the elements already there
-        for (ToggleButton button : yearsButtonsList) {
-            years.getChildren().add(hBoxPos, button);
-            hBoxPos++; // the other buttons will be added after the one I just
-                       // added
+        // Adding the buttons created in the constructor to the hBox, before the button
+        for (Toggle button : yearsButtons.getToggles()) {
+            years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
-        hBoxPos = 0;
-        for (ToggleButton button : classesButtonsList) {
-            button.setToggleGroup(classesButtonsGroup);
-            classes.getChildren().add(hBoxPos, button);
-            hBoxPos++; // the other buttons will be added after the one I just
-                       // added
+        for (Toggle button : classesButtons.getToggles()) {
+            button.setToggleGroup(classesButtons);
+            classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
 
-        // Initializing the table
-        /*
-         * positionColumn.setCellValueFactory(cellData -> new
-         * ReadOnlyStringWrapper(cellData.getValue().getValue().toString()));
-         * riderColumn.setCellValueFactory(cellData ->
-         * cellData.getValue().getKey().isbnProperty());
-         * bikeColumn.setCellValueFactory(cellData ->
-         * cellData.getValue().getKey().titleProperty());
-         * nationColumn.setCellValueFactory(cellData ->
-         * cellData.getValue().getKey().yearProperty().asString());
-         * pointsColumn.setCellValueFactory(cellData ->
-         * cellData.getValue().getKey().pagesProperty().asString());
-         */
-
-        // Method which handle the selection of a depot
+        // Method which handle the selection of a year
         this.filter();
 
-        // Use a 'searchField' to search for books in the tableView
-        // this.search();
-
-        // Selecting the first depot of the list for the first time the user
-        // opens the screen
-
-        if (!classesButtonsList.isEmpty())
-            classesButtonsList.get(0).setSelected(true);
-
-        // Putting data into the table
-        // worldStandingTable.setItems(data);
+        if (!classesButtons.getToggles().isEmpty()) {
+        	classesButtons.getToggles().get(0).setSelected(true);
+        }
     }
 
     /**
@@ -143,42 +82,25 @@ public class WorldStandingControl extends ScreenControl {
      * in the table there are only the books from the selected depot
      */
     private void filter() {
-
-        yearsButtonsGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+    	
+        yearsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                if (newValue == null) {
-                    // data.clear();
-                } else {
-                    // The table is cleaned
-                    classesList.clear();
-                    classesButtonsList.clear();
-                    classes.getChildren().clear();
+            	
+                classesButtons.getToggles().clear();
+                classes.getChildren().clear();
 
-                    for (String c : manager.getClassesStrings((Integer.parseInt(yearsButtonsGroup.getSelectedToggle().getUserData().toString())))) {
-                        classesList.add(c);
-                    }
-
-                    // Creating a button for each CLASS and adding such button
-                    // to the group and to the list
-                    for (String c : classesList) {
-                        ToggleButton button = new ToggleButton(c);
-                        button.setToggleGroup(classesButtonsGroup);
-                        classesButtonsList.add(button);
-                        button.setUserData(c);
-                    }
-
-                    int hBoxPos = 0;
-                    for (ToggleButton button : classesButtonsList) {
-                        button.setToggleGroup(classesButtonsGroup);
-                        classes.getChildren().add(hBoxPos, button);
-                        hBoxPos++; // the other buttons will be added after the
-                                   // one I just added
-                    }
-
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (String s : manager.getClassesStrings((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                    ToggleButton button = new ToggleButton(s);
+                    button.setToggleGroup(classesButtons);
+                    button.setUserData(s);
                 }
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (Toggle button : classesButtons.getToggles()) {
+                    button.setToggleGroup(classesButtons);
+                    classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
+                } 
             }
         });
     }
-
-    // @TODO Search Method
 }

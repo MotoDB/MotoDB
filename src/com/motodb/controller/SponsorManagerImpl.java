@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.motodb.model.Sponsor;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -13,6 +14,53 @@ import javafx.collections.ObservableList;
 
 public class SponsorManagerImpl implements SponsorManager {
 
+    public ObservableList<Sponsor> getSponsors() {
+
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Sponsor> sponsors = FXCollections.observableArrayList();
+        final String retrieve = "select * from SPONSOR";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = conn.prepareStatement(retrieve);
+            result = statement.executeQuery();
+            while (result.next()) {
+                sponsors.add(new Sponsor(result.getString("nomeSponsor"), result.getString("logo")));
+            }
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) { 
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
+        }
+        
+        return sponsors;
+        
+    }
+    
+    public ObservableList<String> getSponsorsNames() {
+    	ObservableList<Sponsor> sponsors = this.getSponsors();
+    	ObservableList<String> names = FXCollections.observableArrayList();
+    	for(Sponsor s : sponsors){
+    		names.add(s.getName());
+    	}
+    	return names;
+    }
+	
     @Override
     public void addSponsor(final String name, final String urlLogo) {
         final DBManager db = DBManager.getDB();
@@ -40,38 +88,5 @@ public class SponsorManagerImpl implements SponsorManager {
             }
         }
     }
-    
-    @Override
-    public ObservableList<String> getSponsor() {
 
-        final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
-        final ObservableList<String> listSponsors = FXCollections.observableArrayList();
-        final String retrieve = "select nomeSponsor from SPONSOR";
-        PreparedStatement statement = null;
-        try {
-            statement = conn.prepareStatement(retrieve);
-            final ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                listSponsors.add(result.getString("nomeSponsor"));
-            }
-        } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            }
-            catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
-            }
-        }
-        
-        return listSponsors;
-        
-    }
 }

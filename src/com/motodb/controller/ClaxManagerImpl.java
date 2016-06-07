@@ -4,21 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.motodb.model.Classes;
+import com.motodb.model.Clax;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ClassesManagerImpl implements ClassesManager {
+public class ClaxManagerImpl implements ClaxManager {
         
-    private ObservableList<Classes> showClasses() {
+    public ObservableList<Clax> getClasses() {
 
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        ObservableList<Classes> listClasses = FXCollections.observableArrayList();
+        ObservableList<Clax> classes = FXCollections.observableArrayList();
         final String retrieve = "select * from CLASSE";
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -26,10 +26,7 @@ public class ClassesManagerImpl implements ClassesManager {
             statement = conn.prepareStatement(retrieve);
             result = statement.executeQuery();
             while (result.next()) {
-                Classes classe = new Classes();
-                classe.setName(result.getString("nomeClasse"));
-                classe.setRules(result.getString("regolamento"));
-                listClasses.add(classe);
+                classes.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento")));
             }
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
@@ -50,18 +47,18 @@ public class ClassesManagerImpl implements ClassesManager {
             }
         }
         
-        return listClasses;
+        return classes;
         
     }
     
     @Override
     public ObservableList<String> getClassesNames() {
-    	ObservableList<Classes> classes = this.showClasses();
-    	ObservableList<String> classesNames = FXCollections.observableArrayList();
-    	for(Classes c : classes){
-    		classesNames.add(c.getName());
+    	ObservableList<Clax> classes = this.getClasses();
+    	ObservableList<String> names = FXCollections.observableArrayList();
+    	for(Clax c : classes){
+    		names.add(c.getName());
     	}
-    	return classesNames;
+    	return names;
     }
     
     @Override

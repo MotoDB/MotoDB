@@ -38,10 +38,10 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="depotsTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="classesTable">
 									<columns>
 			                          	<TableColumn text="Name" fx:id="nameColumn"/>
-			                          	<TableColumn text="Logo" fx:id="nameColumn"/>
+			                          	<TableColumn text="Rules" fx:id="rulesColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

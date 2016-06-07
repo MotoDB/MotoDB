@@ -80,7 +80,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
     }
   
     @Override
-    public ObservableList<Championship> showChampionship() {
+    public ObservableList<Championship> getChampionships() {
 
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();

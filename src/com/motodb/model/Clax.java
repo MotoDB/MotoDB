@@ -1,20 +1,20 @@
 package com.motodb.model;
 
-import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-public class Sponsor {
-	
+public class Clax {
+
 	private final StringProperty name;
-    private final StringProperty logo;
+    private final StringProperty rules;
     
-    public Sponsor() {
+    public Clax() {
         this(null, null);
     }
     
-    public Sponsor(String name, String logo){
+    public Clax(String name, String rules){
     	 this.name = new SimpleStringProperty(name);
-         this.logo = new SimpleStringProperty(logo);
+         this.rules = new SimpleStringProperty(rules);
     }
 
     public StringProperty nameProperty() {
@@ -28,15 +28,16 @@ public class Sponsor {
         this.name.set(name);
     }
     
-    public StringProperty logoProperty() {
-        return logo;
+    public StringProperty rulesProperty() {
+        return rules;
     }
     
-    public void setLogo(String logo) {
-        this.logo.set(logo);
+    public void setRules(String rules) {
+        this.rules.set(rules);
     }
     
-    public String getLogo() {
-        return logo.get();
+    public String getRules() {
+        return rules.get();
     }
+    
 }

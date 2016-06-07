@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.motodb.model.Championship;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -110,6 +109,53 @@ public class TeamManagerImpl implements TeamManager{
         }
         
         return listTeam;
+    }
+
+    @Override
+    public ObservableList<String> getTeamsByYearAndClass(int year, String clax) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<String> list = FXCollections.observableArrayList();
+        final String retrieve = "SELECT t.nomeTeam " +
+                                "from TEAM t " +
+                                "WHERE t.nomeTeam like " + 
+                                "(SELECT i.nomeTeam " +
+                                "FROM ISCRIZIONE_CLASSE i " +
+                                "WHERE i.annoCampionato = ? " +
+                                "AND I.nomeClasse = ? ";
+        
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = conn.prepareStatement(retrieve);
+            statement.setInt(1, year);
+            statement.setString(2, clax);
+            result = statement.executeQuery();
+            while (result.next()) {
+                 list.add(result.getString("nomeClasse"));
+            }
+            statement.close();
+            result.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            }
+            catch (SQLException e) {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            }
+        }
+        
+        return list;
     }
 
 }

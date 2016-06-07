@@ -10,4 +10,6 @@ public interface TeamManager {
     
     ObservableList<Team> getTeams();
     
+    ObservableList<String> getTeamsByYearAndClass(int year, String clax);
+    
 }

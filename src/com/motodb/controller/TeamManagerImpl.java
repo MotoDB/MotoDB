@@ -156,4 +156,30 @@ public class TeamManagerImpl implements TeamManager{
         return list;
     }
 
+    @Override
+    public Team getTeamByName(final String name) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        final Team team = new Team();
+        final String retrieve = "select * from TEAM where TEAM.nomeTeam = ?";
+        try {
+            final PreparedStatement statement = conn.prepareStatement(retrieve);
+            statement.setString(1, name);
+            final ResultSet result = statement.executeQuery();
+            
+            team.setYear(result.getInt("annoCampionato"));
+            team.setName(result.getString("nomeTeam"));
+            team.setLocation(result.getString("sede"));
+            team.setLogo(result.getString("logo"));
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return team;
+    }
+
 }

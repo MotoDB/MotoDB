@@ -12,4 +12,6 @@ public interface TeamManager {
     
     ObservableList<String> getTeamsByYearAndClass(int year, String clax);
     
+    Team getTeamByName(final String name);
+    
 }

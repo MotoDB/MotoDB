@@ -24,6 +24,8 @@
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>
 				                <Label styleClass="control-label" text="Rules (url)" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="rulesUrlField"/>
+				                <Label styleClass="control-label" text="Importance Index" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="indexField"/>
 				                <Pane prefHeight="20.0" />
 				                <HBox>
 	                           		<children>
@@ -42,6 +44,7 @@
 									<columns>
 			                          	<TableColumn text="Name" fx:id="nameColumn"/>
 			                          	<TableColumn text="Rules" fx:id="rulesColumn"/>
+			                          	<TableColumn text="Importance Index" fx:id="indexColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

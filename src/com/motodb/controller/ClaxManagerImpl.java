@@ -26,7 +26,7 @@ public class ClaxManagerImpl implements ClaxManager {
             statement = conn.prepareStatement(retrieve);
             result = statement.executeQuery();
             while (result.next()) {
-                classes.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento")));
+                classes.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento"), result.getInt("indiceImportanza")));
             }
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();

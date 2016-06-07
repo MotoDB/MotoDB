@@ -25,9 +25,9 @@ public class AddClassControl extends ScreenControl {
 	@FXML
 	private TableView<Clax> classesTable;
 	@FXML
-	private TableColumn<Clax, String> nameColumn, rulesColumn;
+	private TableColumn<Clax, String> nameColumn, rulesColumn, indexColumn;
 	@FXML
-	private TextField nameField, rulesUrlField, searchField;
+	private TextField nameField, rulesUrlField, indexField, searchField;
 	@FXML
 	private Button delete;
     
@@ -43,6 +43,7 @@ public class AddClassControl extends ScreenControl {
     	// Initialize the table
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         rulesColumn.setCellValueFactory(cellData -> cellData.getValue().rulesProperty());
+        indexColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty().asString());
         // Add observable list data to the table
         classesTable.setItems(manager.getClasses());
         
@@ -61,7 +62,7 @@ public class AddClassControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addClass(nameField.getText(), rulesUrlField.getText());
+        	manager.addClass(nameField.getText(), rulesUrlField.getText(), Integer.parseInt(indexField.getText()));
         	classesTable.setItems(manager.getClasses());
         	this.clear();
         } catch (Exception e) {

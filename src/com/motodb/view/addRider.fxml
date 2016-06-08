@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddRiderControl">
+	<content>
+		<VBox styleClass="card">
+			<children>
+				<HBox>
+					<children>
+					    <Label styleClass="card-title" text="Add Rider"/>
+                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                   		<Button fx:id="addClass" mnemonicParsing="false" styleClass="button-flat" text="CREATE NEW CLASS" onAction="#switchScreen"/>
+                        <Button fx:id="addTeam" mnemonicParsing="false" styleClass="button-flat" text="CREATE TEAM" onAction="#switchScreen"/>
+					</children>
+				</HBox>
+				<HBox VBox.vgrow="ALWAYS">
+					<children>
+						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
+							<children>
+								<HBox>
+			                    	<children>
+                          				<VBox prefWidth="150.0" >
+			                    			<children>
+                          						<Label styleClass="control-label" text="First Name" />
+				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="firstNameField"/> 
+                          					</children>
+			                    		</VBox>
+			                    		<VBox  prefWidth="150.0">
+			                    			<children>
+                          						<Label styleClass="control-label" text="Last Name" />
+				                				<TextField prefHeight="43.0" maxWidth="150.0" fx:id="lastNameField"/> 
+                          					</children>
+			                    		</VBox>
+                          			</children>
+			                    </HBox>
+				                <Label styleClass="control-label" text="Personal Code" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="idField"/> 
+				                <Label styleClass="control-label" text="Date of Birth" />
+				                <DatePicker prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
+					        	<HBox>
+			                    	<children>
+                          				<VBox prefWidth="200.0" >
+			                    			<children>
+								                <Label styleClass="control-label" text="Birthplace" />
+									        	<TextField prefHeight="43.0" maxWidth="185.0" fx:id="birthplaceField"/> 
+                          					</children>
+			                    		</VBox>
+			                    		<VBox  prefWidth="100.0">
+			                    			<children>
+                          						<Label styleClass="control-label" text="State" />
+				                				<TextField prefHeight="43.0" maxWidth="100.0" fx:id="stateField"/>
+                          					</children>
+			                    		</VBox>
+                          			</children>
+			                    </HBox>
+					        	<Label styleClass="control-label" text="Role" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="roleField"/>
+				                <HBox>
+			                    	<children>
+                          				<VBox prefWidth="150.0" >
+			                    			<children>
+                          						<Label styleClass="control-label" text="Weight" />
+				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="weightField"/>
+                          					</children>
+			                    		</VBox>
+			                    		<VBox  prefWidth="150.0">
+			                    			<children>
+                          						<Label styleClass="control-label" text="Height" />
+				                				<TextField prefHeight="43.0" maxWidth="150.0" fx:id="heightField"/>
+                          					</children>
+			                    		</VBox>
+                          			</children>
+			                    </HBox>
+				             	<Label styleClass="control-label" text="Number" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="numberField"/>
+				             	<Label styleClass="control-label" text="Acronym" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="acronymField"/>
+				                <Label styleClass="control-label" text="Photo (URL)" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="photoField"/>
+              					<Pane prefHeight="20.0" />
+                           		<HBox>
+	                           		<children>
+	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+								        <Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" onAction="#add"/>
+									</children> 
+						   		</HBox>
+							</children>
+		                    <padding>
+		                        <Insets right="20.0" />
+		                    </padding> 
+						</VBox>
+						<VBox HBox.hgrow="ALWAYS">
+							<children>
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="ridersTable">
+									<columns>
+			                          	<TableColumn text="First Name" fx:id="firstNameColumn"/>
+			                          	<TableColumn text="Last Name" fx:id="lastNameColumn"/>
+			                          	<TableColumn text="Personal Code" fx:id="idColumn"/>
+			                          	<TableColumn text="Date Of Birth" fx:id="dateColumn"/>
+			                          	<TableColumn text="Birthplace" fx:id="birthplaceColumn"/>
+			                          	<TableColumn text="State" fx:id="stateColumn"/>
+			                          	<TableColumn text="Role" fx:id="roleColumn"/>
+			                          	<TableColumn text="Weight" fx:id="weightColumn"/>
+			                          	<TableColumn text="Height" fx:id="heightColumn"/>
+			                          	<TableColumn text="Number" fx:id="numberColumn"/>
+			                          	<TableColumn text="Acronym" fx:id="acronymColumn"/>
+								    </columns>
+							        <columnResizePolicy>
+							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							        </columnResizePolicy>
+								</TableView>
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<HBox>
+	            	<children>
+	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   
+	            		<TextField promptText="Search" fx:id="searchField" />
+	            		<Label styleClass="icon-label" text="" />
+	            	</children>
+                </HBox>
+	        </children>	
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>
+

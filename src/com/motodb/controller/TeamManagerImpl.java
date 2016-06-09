@@ -167,11 +167,12 @@ public class TeamManagerImpl implements TeamManager{
             final PreparedStatement statement = conn.prepareStatement(retrieve);
             statement.setString(1, name);
             final ResultSet result = statement.executeQuery();
-            
-            team.setYear(result.getInt("annoCampionato"));
-            team.setName(result.getString("nomeTeam"));
-            team.setLocation(result.getString("sede"));
-            team.setLogo(result.getString("logo"));
+            while(result.next()){
+		        team.setYear(result.getInt("annoCampionato"));
+		        team.setName(result.getString("nomeTeam"));
+		        team.setLocation(result.getString("sede"));
+		        team.setLogo(result.getString("logo"));
+            }
             result.close();
             statement.close();
         } catch (SQLException e) {

@@ -5,6 +5,7 @@ import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
+import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.PersistentButtonToggleGroup;
@@ -16,7 +17,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class TeamControl extends ScreenControl {
 
@@ -35,11 +39,13 @@ public class TeamControl extends ScreenControl {
     @FXML
     private HBox years,classes,teams;
     @FXML
+    private VBox vBoxTeam;
+    @FXML
     private TextField searchField;
 
     public TeamControl() {
-        super();
-
+    	
+    	
         for (Championship c : championshipManager.getChampionships()) {
         	ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
             button.setToggleGroup(yearsButtons);
@@ -67,6 +73,7 @@ public class TeamControl extends ScreenControl {
                 }
             }
         }
+        
     }
 
     /**
@@ -110,7 +117,7 @@ public class TeamControl extends ScreenControl {
             	
                 classesButtons.getToggles().clear();
                 classes.getChildren().clear();
-
+                
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                 for (String s : championshipManager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                     ToggleButton button = new ToggleButton(s);
@@ -122,6 +129,11 @@ public class TeamControl extends ScreenControl {
                     button.setToggleGroup(classesButtons);
                     classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
                 }
+                
+                if (!classesButtons.getToggles().isEmpty()) {
+                	classesButtons.getToggles().get(0).setSelected(true);
+                }
+                
             }
         });
         
@@ -130,24 +142,38 @@ public class TeamControl extends ScreenControl {
             	
                 teamsButtons.getToggles().clear();
                 teams.getChildren().clear();
-
-                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
-                    ToggleButton button = new ToggleButton(s);
-                    button.setToggleGroup(teamsButtons);
-                    button.setUserData(s);
-                }
-                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (Toggle button : teamsButtons.getToggles()) {
-                    button.setToggleGroup(teamsButtons);
-                    teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
-                }
                 
                 if (!classesButtons.getToggles().isEmpty()) {
-                	if (!teamsButtons.getToggles().isEmpty()) {
-                    	teamsButtons.getToggles().get(0).setSelected(true);
+                	classesButtons.getToggles().get(0).setSelected(true);
+                	
+                	// THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                    for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
+                        ToggleButton button = new ToggleButton(s);
+                        button.setToggleGroup(teamsButtons);
+                        button.setUserData(s);
                     }
+                    // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                    for (Toggle button : teamsButtons.getToggles()) {
+                        button.setToggleGroup(teamsButtons);
+                        teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
+                    }
+                    
+                    
+                    	if (!teamsButtons.getToggles().isEmpty()) {
+                        	teamsButtons.getToggles().get(0).setSelected(true);
+                        }
                 }
+            }
+        });
+        
+        teamsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+            	vBoxTeam.getChildren().clear();
+            	if(newValue!=null){
+	            	Team team = manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString());
+	            	ImageView img = new ImageView(new Image(team.getLogo()));
+	            	vBoxTeam.getChildren().add(img);
+            	}
             }
         });
         

@@ -1,6 +1,9 @@
 package com.motodb.controller;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.motodb.view.alert.AlertTypes;
+import com.motodb.view.alert.AlertTypesImpl;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class DBManager {
@@ -12,7 +15,7 @@ public class DBManager {
     private static final String password = "cocomero";
     private static final DBManager DB = new DBManager();
 
-    private Connection connection = null;
+    private Connection connection;
     private MysqlDataSource dataSource;
     
     private DBManager() {
@@ -40,12 +43,16 @@ public class DBManager {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
             e.printStackTrace();
         }
 
         try {
             this.connection = dataSource.getConnection();
         } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
             e.printStackTrace();
         }
     }
@@ -54,6 +61,8 @@ public class DBManager {
         try {
             this.connection.close();
         } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
             e.printStackTrace();
         }
     }

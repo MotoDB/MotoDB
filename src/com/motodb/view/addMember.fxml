@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddRiderControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddMemberControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
@@ -40,7 +40,7 @@
 				                <Label styleClass="control-label" text="Personal Code" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="personalCodeField"/> 
 				                <Label styleClass="control-label" text="Date of Birth" />
-				                <DatePicker prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
+				                <DatePicker editable="false" prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
 					        	<HBox>
 			                    	<children>
                           				<VBox prefWidth="200.0" >
@@ -58,7 +58,7 @@
                           			</children>
 			                    </HBox>
 					        	<Label styleClass="control-label" text="Role" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="roleField"/>
+				                <ComboBox prefHeight="43.0" prefWidth="300.0" fx:id="roleComboBox"/>
 				                <Label styleClass="control-label" text="Photo (URL)" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="photoField"/>
               					<Pane prefHeight="20.0" />
@@ -75,7 +75,7 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="ridersTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="membersTable">
 									<columns>
 			                          	<TableColumn text="First Name" fx:id="firstNameColumn"/>
 			                          	<TableColumn text="Last Name" fx:id="lastNameColumn"/>

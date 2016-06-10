@@ -67,7 +67,7 @@ public class MemberManagerImpl implements MemberManager {
         final Connection conn  = db.getConnection();
         
         java.sql.PreparedStatement statement = null;
-        final String insert = "insert into INGEGNERE(foto, codicePersonale, nomeMembero, cognomeMembero, dataNascita, luogoNascita, nazione, ruolo) values (?,?,?,?,?,?,?,?)";
+        final String insert = "insert into INGEGNERE(foto, codicePersonale, nomeMembro, cognomeMembro, dataNascita, luogoNascita, nazione, ruolo) values (?,?,?,?,?,?,?,?)";
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, photo);
@@ -90,6 +90,7 @@ public class MemberManagerImpl implements MemberManager {
                 }
             }
             catch (SQLException e) {
+            	e.printStackTrace();
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(e);
             }
@@ -105,7 +106,7 @@ public class MemberManagerImpl implements MemberManager {
         final Connection conn  = db.getConnection();
         
         java.sql.PreparedStatement statement = null;
-        final String insert = "insert into MECCANICO(foto, codicePersonale, nomeMembero, cognomeMembero, dataNascita, luogoNascita, nazione, ruolo) values (?,?,?,?,?,?,?,?)";
+        final String insert = "insert into MECCANICO(foto, codicePersonale, nomeMembro, cognomeMembro, dataNascita, luogoNascita, nazione, ruolo) values (?,?,?,?,?,?,?,?)";
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, photo);

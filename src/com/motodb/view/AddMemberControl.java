@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
-import com.motodb.model.Rider;
+import com.motodb.model.Member;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -20,7 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class AddRiderControl extends ScreenControl {
+public class AddMemberControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
@@ -29,25 +29,25 @@ public class AddRiderControl extends ScreenControl {
     private final MemberManager memberManager = new MemberManagerImpl();
 
 	@FXML
-	private TableView<Rider> ridersTable;
+	private TableView<Member> membersTable;
 	@FXML
-	private TableColumn<Rider, String> firstNameColumn, lastNameColumn, personalCodeColumn, birthplaceColumn, stateColumn, dateColumn, 
-		roleColumn, weightColumn, heightColumn, numberColumn, acronymColumn;
+	private TableColumn<Member, String> firstNameColumn, lastNameColumn, personalCodeColumn, 
+		birthplaceColumn, stateColumn, dateColumn, roleColumn;
 	@FXML
-	private TextField firstNameField, lastNameField, personalCodeField, birthplaceField, stateField, photoField, 
-		weightField, heightField, numberField, acronymField, searchField;
+	private TextField firstNameField, lastNameField, personalCodeField, birthplaceField, 
+		stateField, photoField, searchField;
 	@FXML
 	private ComboBox<Type> roleComboBox;
 	@FXML
 	private DatePicker datePicker = new DatePicker();
 	@FXML
-	private Button delete, addClass, addMember;
+	private Button delete, addClass, addTeam;
 	@FXML
 	private VBox vBoxFields;
 
 	private enum Type{
-		OfficialRider,
-		TestRider;
+		Mechanic,
+		Engineer;
 	}
 	
     /**
@@ -66,13 +66,9 @@ public class AddRiderControl extends ScreenControl {
         stateColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
         roleColumn.setCellValueFactory(cellData -> cellData.getValue().roleProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
-        heightColumn.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asString());
-        weightColumn.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asString());
-        numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asString());
-        acronymColumn.setCellValueFactory(cellData -> cellData.getValue().acronymProperty());
         
         // Add observable list data to the table
-        ridersTable.setItems(memberManager.getRiders());
+        membersTable.setItems(memberManager.getOtherMembers());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -93,12 +89,22 @@ public class AddRiderControl extends ScreenControl {
     private void add() {
         try {
         	java.util.Date date= new SimpleDateFormat("yyyy-MM-dd").parse(datePicker.getValue().toString());
-        	memberManager.addRider(Integer.parseInt(personalCodeField.getText()), firstNameField.getText(), 
-        			lastNameField.getText(), photoField.getText(), birthplaceField.getText(), stateField.getText(), roleComboBox.getSelectionModel().getSelectedItem().toString(),
-        				new java.sql.Date(date.getTime()), Integer.parseInt(numberField.getText()), Integer.parseInt(weightField.getText()), Integer.parseInt(heightField.getText()), acronymField.getText());
-        	ridersTable.setItems(memberManager.getRiders()); // Update table view
+        	
+        	if(roleComboBox.getSelectionModel().getSelectedItem()==Type.Mechanic){
+        		System.out.println("prova");
+        		memberManager.addMechanic(Integer.parseInt(personalCodeField.getText()), firstNameField.getText(), 
+            			lastNameField.getText(), photoField.getText(), birthplaceField.getText(), stateField.getText(), roleComboBox.getSelectionModel().getSelectedItem().toString(),
+            				new java.sql.Date(date.getTime()));
+        	}else{
+        		memberManager.addEngineer(Integer.parseInt(personalCodeField.getText()), firstNameField.getText(), 
+            			lastNameField.getText(), photoField.getText(), birthplaceField.getText(), stateField.getText(), roleComboBox.getSelectionModel().getSelectedItem().toString(),
+            				new java.sql.Date(date.getTime()));
+        	}
+        	
+        	membersTable.setItems(memberManager.getOtherMembers()); // Update table view
         	this.clear();
         } catch (Exception e) {
+        	e.printStackTrace();
             alert.showWarning(e);
         }
     }

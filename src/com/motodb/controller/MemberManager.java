@@ -7,13 +7,13 @@ import javafx.collections.ObservableList;
 
 public interface MemberManager {
     
-    void addRider(int personalCode, String firstName, String lastName, String id, String photo, String birthplace, String state,
+    void addRider(int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
             String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym);
     
-    void addEngineer(int personalCode, String firstName, String lastName, String id, String photo,
+    void addEngineer(int personalCode, String firstName, String lastName, String photo,
             String birthplace, String state, String role, java.sql.Date dateOfBirth);
     
-    void addMechanic(int personalCode, String firstName, String lastName, String id, String photo, String birthplace, String state,
+    void addMechanic(int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
             String role, java.sql.Date dateOfBirth);
     
     ObservableList<Rider> getRiders();

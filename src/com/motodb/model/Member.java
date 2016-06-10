@@ -12,7 +12,6 @@ public class Member {
     private final IntegerProperty personalCode;
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private final StringProperty id;
     private final StringProperty photo;
     private final StringProperty birthplace;
     private final StringProperty state;
@@ -20,15 +19,14 @@ public class Member {
     private Date dateOfBirth;
 
     public Member() {
-        this(0, null, null, null, null, null, null, null, null);
+        this(0, null, null, null, null, null, null, null);
     }
 
-    public Member(int personalCode, String firstName, String lastName, String id, String photo, String birthplace, String state,
+    public Member(int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
             String role, Date dateOfBirth) {
         this.personalCode = new SimpleIntegerProperty(personalCode);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.id = new SimpleStringProperty(id);
         this.photo = new SimpleStringProperty(photo);
         this.birthplace = new SimpleStringProperty(birthplace);
         this.state = new SimpleStringProperty(state);
@@ -73,19 +71,6 @@ public class Member {
 
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
-    }
-
-    // Personal Code
-    public String getId() {
-        return id.get();
-    }
-
-    public void setId(String id) {
-        this.id.set(id);
-    }
-
-    public StringProperty idProperty() {
-        return id;
     }
 
     // Photo URL

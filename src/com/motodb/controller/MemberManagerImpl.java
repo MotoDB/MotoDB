@@ -18,14 +18,14 @@ import javafx.collections.ObservableList;
 public class MemberManagerImpl implements MemberManager {
 
     @Override
-    public void addRider(int personalCode, String firstName, String lastName, String id, String photo,
+    public void addRider(int personalCode, String firstName, String lastName, String photo,
             String birthplace, String state, String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth,
             String acronym) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         java.sql.PreparedStatement statement = null;
-        final String insert = "insert into PILOTA(foto, codicePersonale, nomeMembero, cognomeMembero, dataNascita, luogoNascita, nazione, ruolo, altezza, peso, numero, sigla) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        final String insert = "insert into PILOTA(foto, codicePersonale, nomeMembro, cognomeMembro, dataNascita, luogoNascita, nazione, ruolo, altezza, peso, numero, sigla) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, photo);
@@ -60,7 +60,7 @@ public class MemberManagerImpl implements MemberManager {
     }
 
     @Override
-    public void addEngineer(int personalCode, String firstName, String lastName, String id, String photo,
+    public void addEngineer(int personalCode, String firstName, String lastName, String photo,
             String birthplace, String state, String role, java.sql.Date dateOfBirth) {
         
         final DBManager db = DBManager.getDB();
@@ -98,7 +98,7 @@ public class MemberManagerImpl implements MemberManager {
     }
 
     @Override
-    public void addMechanic(int personalCode, String firstName, String lastName, String id, String photo,
+    public void addMechanic(int personalCode, String firstName, String lastName, String photo,
             String birthplace, String state, String role, java.sql.Date dateOfBirth) {
         
         final DBManager db = DBManager.getDB();

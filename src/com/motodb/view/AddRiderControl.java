@@ -1,23 +1,16 @@
 package com.motodb.view;
 
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
-import com.motodb.controller.ChampionshipManager;
-import com.motodb.controller.ChampionshipManagerImpl;
-import com.motodb.controller.SponsorManager;
-import com.motodb.controller.SponsorManagerImpl;
-import com.motodb.controller.TeamManager;
-import com.motodb.controller.TeamManagerImpl;
-import com.motodb.model.Championship;
+import com.motodb.controller.MemberManager;
+import com.motodb.controller.MemberManagerImpl;
 import com.motodb.model.Rider;
-import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,48 +24,55 @@ public class AddRiderControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-/*
+
     // Controller
-    private final TeamManager manager = new TeamManagerImpl();
-    private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-    private final SponsorManager sponsorManager = new SponsorManagerImpl();*/
-    
+    private final MemberManager memberManager = new MemberManagerImpl();
+
 	@FXML
 	private TableView<Rider> ridersTable;
 	@FXML
-	private TableColumn<Rider, String> firstNameColumn, lastNameColumn, idColumn, birthplaceColumn, stateColumn, dateColumn, 
+	private TableColumn<Rider, String> firstNameColumn, lastNameColumn, personalCodeColumn, birthplaceColumn, stateColumn, dateColumn, 
 		roleColumn, weightColumn, heightColumn, numberColumn, acronymColumn;
 	@FXML
-	private TextField firstNameField, lastNameField, idField, birthplaceField, stateField, photoField, roleField,
+	private TextField firstNameField, lastNameField, personalCodeField, birthplaceField, stateField, photoField, 
 		weightField, heightField, numberField, acronymField, searchField;
+	@FXML
+	private ComboBox<Type> roleComboBox;
 	@FXML
 	private DatePicker datePicker = new DatePicker();
 	@FXML
 	private Button delete, addClass, addTeam;
 	@FXML
 	private VBox vBoxFields;
-	    
+
+	private enum Type{
+		OfficialRider,
+		TestRider;
+	}
+	
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
      */
     public void initialize() {
     	
+    	roleComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(Type.values())));
+    	
     	// Initialize the table
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-        idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        personalCodeColumn.setCellValueFactory(cellData -> cellData.getValue().personalCodeProperty().asString());
         birthplaceColumn.setCellValueFactory(cellData -> cellData.getValue().birthplaceProperty());
         stateColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
         roleColumn.setCellValueFactory(cellData -> cellData.getValue().roleProperty());
-        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString()));
+        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
         heightColumn.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asString());
         weightColumn.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asString());
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asString());
         acronymColumn.setCellValueFactory(cellData -> cellData.getValue().acronymProperty());
         
         // Add observable list data to the table
-        //ridersTable.setItems(manager.getTeams());
+        ridersTable.setItems(memberManager.getRiders());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -86,11 +86,17 @@ public class AddRiderControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
+   /* 
+    int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
+    String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym*/
 	@FXML
     private void add() {
         try {
-        	/*manager.addTeam(Integer.parseInt(yearField.getSelectionModel().getSelectedItem()), nameField.getText(), locationField.getText(), logoField.getText(), classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
-        	teamsTable.setItems(manager.getTeams()); // Update table view*/
+        	java.util.Date date= new SimpleDateFormat("yyyy-MM-dd").parse(datePicker.getValue().toString());
+        	memberManager.addRider(Integer.parseInt(personalCodeField.getText()), firstNameField.getText(), 
+        			lastNameField.getText(), photoField.getText(), birthplaceField.getText(), stateField.getText(), roleComboBox.getSelectionModel().getSelectedItem().toString(),
+        				new java.sql.Date(date.getTime()), Integer.parseInt(numberField.getText()), Integer.parseInt(weightField.getText()), Integer.parseInt(heightField.getText()), acronymField.getText());
+        	ridersTable.setItems(memberManager.getRiders()); // Update table view
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);

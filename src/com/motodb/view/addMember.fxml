@@ -11,7 +11,7 @@
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Rider"/>
+					    <Label styleClass="card-title" text="Add Member"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button fx:id="addClass" mnemonicParsing="false" styleClass="button-flat" text="CREATE NEW CLASS" onAction="#switchScreen"/>
                         <Button fx:id="addTeam" mnemonicParsing="false" styleClass="button-flat" text="CREATE TEAM" onAction="#switchScreen"/>
@@ -40,7 +40,7 @@
 				                <Label styleClass="control-label" text="Personal Code" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="personalCodeField"/> 
 				                <Label styleClass="control-label" text="Date of Birth" />
-				                <DatePicker editable="false" prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
+				                <DatePicker prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
 					        	<HBox>
 			                    	<children>
                           				<VBox prefWidth="200.0" >
@@ -58,27 +58,7 @@
                           			</children>
 			                    </HBox>
 					        	<Label styleClass="control-label" text="Role" />
-				                <ComboBox prefHeight="43.0" prefWidth="300.0" fx:id="roleComboBox"/>
-				                <HBox>
-			                    	<children>
-                          				<VBox prefWidth="150.0" >
-			                    			<children>
-                          						<Label styleClass="control-label" text="Weight" />
-				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="weightField"/>
-                          					</children>
-			                    		</VBox>
-			                    		<VBox  prefWidth="150.0">
-			                    			<children>
-                          						<Label styleClass="control-label" text="Height" />
-				                				<TextField prefHeight="43.0" maxWidth="150.0" fx:id="heightField"/>
-                          					</children>
-			                    		</VBox>
-                          			</children>
-			                    </HBox>
-				             	<Label styleClass="control-label" text="Number" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="numberField"/>
-				             	<Label styleClass="control-label" text="Acronym" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="acronymField"/>
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="roleField"/>
 				                <Label styleClass="control-label" text="Photo (URL)" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="photoField"/>
               					<Pane prefHeight="20.0" />
@@ -104,10 +84,6 @@
 			                          	<TableColumn text="Birthplace" fx:id="birthplaceColumn"/>
 			                          	<TableColumn text="State" fx:id="stateColumn"/>
 			                          	<TableColumn text="Role" fx:id="roleColumn"/>
-			                          	<TableColumn text="Weight" fx:id="weightColumn"/>
-			                          	<TableColumn text="Height" fx:id="heightColumn"/>
-			                          	<TableColumn text="Number" fx:id="numberColumn"/>
-			                          	<TableColumn text="Acronym" fx:id="acronymColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

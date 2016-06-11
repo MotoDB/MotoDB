@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
+import com.motodb.model.Circuit;
 import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -50,19 +51,19 @@ public class AddCircuitControl extends ScreenControl {
     public void initialize() {
     	    	
     	// Initialize the table
-    	nameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-    	locationColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-    	stateColumn.setCellValueFactory(cellData -> cellData.getValue().personalCodeProperty().asString());
-    	capacityColumn.setCellValueFactory(cellData -> cellData.getValue().birthplaceProperty());
-    	rightHandersColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
-    	leftHandersColumn.setCellValueFactory(cellData -> cellData.getValue().roleProperty());
-    	lenghtColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
-    	straightColumn.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asString());
-    	dateColumn.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asString());
-    	recordColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asString());
+    	nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+    	locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
+    	stateColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
+    	capacityColumn.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asString());
+    	rightHandersColumn.setCellValueFactory(cellData -> cellData.getValue().rightHandersProperty().asString());
+    	leftHandersColumn.setCellValueFactory(cellData -> cellData.getValue().leftHandersProperty().asString());
+    	lenghtColumn.setCellValueFactory(cellData -> cellData.getValue().lenghtProperty().asString());
+    	straightColumn.setCellValueFactory(cellData -> cellData.getValue().straightProperty().asString());
+    	dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
+    	recordColumn.setCellValueFactory(cellData -> cellData.getValue().recordProperty().asString());
         
         // Add observable list data to the table
-        circuitTable.setItems(circiutManager.getCirciuts());
+        circuitTable.setItems(circuitManager.getCircuits());
         
         // Make the table columns editable by double clicking
         this.edit();

@@ -95,7 +95,7 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="ridersTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="circuitTable">
 									<columns>
 			                          	<TableColumn text="First Name" fx:id="nameColumn"/>
 			                          	<TableColumn text="Last Name" fx:id="locationColumn"/>
@@ -104,7 +104,6 @@
 			                          	<TableColumn text="Birthplace" fx:id="rightHandersColumn"/>
 			                          	<TableColumn text="State" fx:id="leftHandersColumn"/>
 			                          	<TableColumn text="Role" fx:id="lenghtColumn"/>
-			                          	<TableColumn text="Weight" fx:id="weightColumn"/>
 			                          	<TableColumn text="Height" fx:id="straightColumn"/>
 			                          	<TableColumn text="Number" fx:id="dateColumn"/>
 			                          	<TableColumn text="Acronym" fx:id="recordColumn"/>

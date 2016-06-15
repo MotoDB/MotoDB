@@ -1,6 +1,6 @@
 package com.motodb.controller;
 
-import java.sql.Date;
+import java.util.Optional;
 
 import com.motodb.model.Circuit;
 
@@ -8,7 +8,8 @@ import javafx.collections.ObservableList;
 
 public interface CircuitManager {
 
-    void addCircuit(String name, String state, String location, int capacity, int rightHanders, int leftHanders, int lenght, int straight, Date date, String photo, int record);
+    void addCircuit(String name, String state, String location, int rightHanders, int leftHanders, 
+    		int lenght, int straight, String photo, Optional<Integer> record, Optional<Integer> recordRider, Optional<Integer> recordYear);
 
     ObservableList<Circuit> getCircuits();
     

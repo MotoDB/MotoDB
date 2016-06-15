@@ -134,4 +134,9 @@ public class Member {
         return this.dateOfBirth;
     }
 
+	@Override
+	public String toString() {
+		return firstName.get() + " " + lastName.get();
+	}
+
 }

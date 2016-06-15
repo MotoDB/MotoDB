@@ -8,14 +8,11 @@ import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
-import com.motodb.model.Championship;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;

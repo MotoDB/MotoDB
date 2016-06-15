@@ -19,20 +19,20 @@
 					<children>
 						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
 							<children>
+								<Label styleClass="control-label" text="Circuit Name" />
+				                <TextField prefHeight="43.0" maxWidth="300.0" fx:id="nameField"/>
 								<HBox>
 			                    	<children>
-			                    		<Label styleClass="control-label" text="Circuit Name" />
-				                		<TextField prefHeight="43.0" maxWidth="135.0" fx:id="nameField"/>
                           				<VBox prefWidth="150.0" >
 			                    			<children>
                           						<Label styleClass="control-label" text="Location" />
-				                				<TextField prefHeight="43.0" maxWidth="185.0" fx:id="locationField"/> 
+				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="locationField"/> 
                           					</children>
 			                    		</VBox>
 			                    		<VBox  prefWidth="150.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="State" />
-				                				<TextField prefHeight="43.0" maxWidth="100.0" fx:id="stateField"/> 
+				                				<TextField prefHeight="43.0" maxWidth="150.0" fx:id="stateField"/> 
                           					</children>
 			                    		</VBox>
                           			</children>
@@ -41,22 +41,22 @@
 				                <DatePicker editable="false" prefHeight="43.0" prefWidth="300.0" fx:id="datePicker"/>
 					        	<HBox>
 			                    	<children>
-                          				<VBox prefWidth="200.0" >
+                          				<VBox prefWidth="100.0" >
 			                    			<children>
 								                <Label styleClass="control-label" text="Maximum straight" />
-									        	<TextField prefHeight="43.0" maxWidth="200.0" fx:id="straightField"/> 
+									        	<TextField prefHeight="43.0" maxWidth="90.0" fx:id="straightField"/> 
                           					</children>
 			                    		</VBox>
 			                    		<VBox  prefWidth="100.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="Right-handers" />
-				                				<TextField prefHeight="43.0" maxWidth="50.0" fx:id="rightHandersField"/>
+				                				<TextField prefHeight="43.0" maxWidth="90.0" fx:id="rightHandersField"/>
                           					</children>
 			                    		</VBox>
 			                    		<VBox  prefWidth="100.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="Left-handers" />
-				                				<TextField prefHeight="43.0" maxWidth="50.0" fx:id="leftHandersField"/>
+				                				<TextField prefHeight="43.0" maxWidth="100.0" fx:id="leftHandersField"/>
                           					</children>
 			                    		</VBox>
                           			</children>

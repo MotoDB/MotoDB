@@ -43,6 +43,8 @@ public class AddChampionshipControl extends ScreenControl {
     private CheckComboBox<String> classesField, sponsorsField;
     @FXML
     private VBox vBoxFields;
+    @FXML
+    private Button addCircuit;
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 

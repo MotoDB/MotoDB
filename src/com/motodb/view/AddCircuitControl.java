@@ -1,20 +1,16 @@
 package com.motodb.view;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
-import com.motodb.controller.MemberManager;
-import com.motodb.controller.MemberManagerImpl;
+import com.motodb.controller.CircuitManager;
+import com.motodb.controller.CircuitManagerImpl;
 import com.motodb.model.Circuit;
-import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -84,7 +80,7 @@ public class AddCircuitControl extends ScreenControl {
     private void add() {
         try {
         	java.util.Date date= new SimpleDateFormat("yyyy-MM-dd").parse(datePicker.getValue().toString());
-        	circuitManager.addCircuit(Integer.parseInt(nameField.getText()), stateField.getText(), locationField.getText(), 
+        	circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), 
         			Integer.parseInt(capacityField.getText()), Integer.parseInt(rightHandersField.getText()), Integer.parseInt(leftHandersField.getText()), 
         				Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
         					new java.sql.Date(date.getTime()), photoField.getText(), Integer.parseInt(recordField.getText()));

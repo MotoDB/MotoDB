@@ -1,6 +1,7 @@
 package com.motodb.model;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,7 +20,8 @@ public class Circuit{
     private final IntegerProperty straight;
     private Date date;
     private final StringProperty photo;
-    private final IntegerProperty record;
+    private final Optional<IntegerProperty> record;
+    private final Optional<StringProperty> recordRider;
 
     public Circuit() {
         this(null, null, null, 0, 0, 0, 0, 0, null, null, 0);

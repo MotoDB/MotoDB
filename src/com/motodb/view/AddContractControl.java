@@ -1,79 +1,93 @@
 package com.motodb.view;
 
-import org.controlsfx.control.CheckComboBox;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
-import com.motodb.controller.SponsorManager;
-import com.motodb.controller.SponsorManagerImpl;
+import com.motodb.controller.MemberManager;
+import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
+import com.motodb.model.Member;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
+import com.motodb.view.util.AutoCompleteComboBoxListener;
 
-import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class AddTeamControl extends ScreenControl {
+public class AddContractControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
     // Controller
-    private final TeamManager manager = new TeamManagerImpl();
+    private final MemberManager memberManager = new MemberManagerImpl();
+    private final TeamManager teamManager = new TeamManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-    private final SponsorManager sponsorManager = new SponsorManagerImpl();
-    
+   // private final ContractManager contractManager = new ContractManagerImpl();
+
+/*	@FXML
+	private TableView<Contract> contractTable;
 	@FXML
-	private TableView<Team> teamsTable;
+	private TableColumn<Contract, String> yearColumn, memberTypeColumn, memberColumn, teamColumn;*/
 	@FXML
-	private TableColumn<Team, String> nameColumn, yearColumn, locationColumn, logoColumn;
+	private ComboBox<String> yearBox;
 	@FXML
-	private TextField nameField, locationField, logoField;
+	private ComboBox<Type> memberTypeBox;
 	@FXML
-	private CheckComboBox<String> classesField, sponsorsField;
+	private ComboBox<Member> memberBox;
 	@FXML
-	private ComboBox<String> yearField = new ComboBox<String>();
+	private ComboBox<Team> teamBox;
 	@FXML
-	private Button delete, addContract;
+	private TextField searchField;
+	@FXML
+	private Button delete;
 	@FXML
 	private VBox vBoxFields;
-	    
+	
+	@SuppressWarnings("unused")
+	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
+	@SuppressWarnings("unused")
+	private AutoCompleteComboBoxListener<Member> autoCompleteMemberFactory;
+	@SuppressWarnings("unused")
+	private AutoCompleteComboBoxListener<Team> autoCompleteTeamFactory;
+
+	private enum Type{
+		Mechanic,
+		Engineer,
+		Rider;
+	}
+	
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
      */
     public void initialize() {
     	
-    	championshipManager.getChampionships().forEach(l->yearField.getItems().add(Integer.toString(l.getYear())));
+    	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(Type.values())));        
+    	memberBox.setDisable(true);
+    	this.update();
+    /*	// Initialize the table
+    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
+    	memberTypeColumn.setCellValueFactory(cellData -> cellData.getValue().memberTypeProperty());
+    	memberColumn.setCellValueFactory(cellData -> cellData.getValue().memberProperty());
+    	teamColumn.setCellValueFactory(cellData -> cellData.getValue().teamProperty());*/
     	
-    	classesField=new CheckComboBox<String>();
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
-    	classesField.setDisable(true);
-    	classesField.setPrefWidth(300.0);
-    	classesField.setMaxWidth(300.0);
-    	
-    	sponsorsField=new CheckComboBox<String>();
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
-    	sponsorsField.getItems().addAll(sponsorManager.getSponsorsNames());
-    	sponsorsField.setPrefWidth(300.0);
-    	sponsorsField.setMaxWidth(300.0);
- 
-    	// Initialize the table
-        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
-        locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
-        logoColumn.setCellValueFactory(cellData -> cellData.getValue().logoProperty());
+        teamBox.setItems(FXCollections.observableArrayList(teamManager.getTeams()));
+        autoCompleteTeamFactory = new AutoCompleteComboBoxListener<Team>(teamBox);
+        
+        championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(yearBox);
         
         // Add observable list data to the table
-        teamsTable.setItems(manager.getTeams());
+       // contractTable.setItems(contractManager.getContracts());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -87,11 +101,17 @@ public class AddTeamControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
+   /* 
+    int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
+    String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym*/
 	@FXML
     private void add() {
         try {
-        	manager.addTeam(Integer.parseInt(yearField.getSelectionModel().getSelectedItem()), nameField.getText(), locationField.getText(), logoField.getText(), classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
-        	teamsTable.setItems(manager.getTeams()); // Update table view
+        /*	
+    		contractManager.addContract(yearBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+    				teamBox.getSelectionModel().getSelectedItem().getName());
+
+        	weekendTable.setItems(weekendManager.getWeekends()); // Update table view*/
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
@@ -161,18 +181,21 @@ public class AddTeamControl extends ScreenControl {
 	 */
 	private void update(){
 		
-		yearField.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+		memberTypeBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			if(newValue!=null){
-				classesField.getItems().clear();
-				classesField.setDisable(false);
-				classesField.getItems().addAll(championshipManager.getClassesNames(Integer.parseInt(yearField.getSelectionModel().getSelectedItem())));
-			} else{
-				classesField.setDisable(true);
+				memberBox.setDisable(false);
+				if(newValue.equals(Type.Rider)){
+					memberBox.setItems(FXCollections.observableArrayList(memberManager.getRiders()));
+				}else if(newValue.equals(Type.Mechanic)){
+					memberBox.setItems(FXCollections.observableArrayList(memberManager.getMechanics()));
+				}else if(newValue.equals(Type.Engineer)){
+					memberBox.setItems(FXCollections.observableArrayList(memberManager.getEngineers()));
+				}
+		        autoCompleteMemberFactory = new AutoCompleteComboBoxListener<Member>(memberBox);
+			} else {
+				memberBox.setDisable(true);
 			}
-		});
+		}));
 
-		yearField.valueProperty().addListener((ChangeListener<String>) (ov, t, t1) -> {
-			
-		});
 	}
 }

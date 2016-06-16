@@ -19,5 +19,9 @@ public interface MemberManager {
     ObservableList<Rider> getRiders();
         
     ObservableList<Member> getOtherMembers();
+    
+    ObservableList<Member> getMechanics();
+    
+    ObservableList<Member> getEngineers();
 
 }

@@ -175,49 +175,37 @@ public class MemberManagerImpl implements MemberManager {
 
     @Override
     public ObservableList<Member> getOtherMembers() {
+
+        ObservableList<Member> listMember = FXCollections.observableArrayList();
+        listMember.addAll(this.getEngineers());
+        listMember.addAll(this.getMechanics());
+        
+        return listMember;
+    }
+
+    @Override
+    public ObservableList<Member> getMechanics() {
         
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         ObservableList<Member> listMember = FXCollections.observableArrayList();
-        final String retrieve = "select * from INGEGNERE";
-        try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
-            final ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                final Member engineer = new Engineer();
-                engineer.setPhoto(result.getString("foto"));
-                engineer.setPersonalCode(result.getInt("codicePersonale"));
-                engineer.setFirstName(result.getString("nomeMembro"));
-                engineer.setLastName(result.getString("cognomeMembro"));
-                engineer.setDate(result.getDate("dataNascita"));
-                engineer.setBirthplace(result.getString("luogoNascita"));
-                engineer.setState(result.getString("nazione"));
-                engineer.setRole(result.getString("ruolo"));
-                listMember.add(engineer);
-            }
-            result.close();
-            statement.close();
-        } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        }
         
         final String retrieve2 = "select * from MECCANICO";
         try {
             final PreparedStatement statement2 = conn.prepareStatement(retrieve2);
             final ResultSet result = statement2.executeQuery();
             while (result.next()) {
-                final Member mechanic = new Mechanic();
-                mechanic.setPhoto(result.getString("foto"));
-                mechanic.setPersonalCode(result.getInt("codicePersonale"));
-                mechanic.setFirstName(result.getString("nomeMembro"));
-                mechanic.setLastName(result.getString("cognomeMembro"));
-                mechanic.setDate(result.getDate("dataNascita"));
-                mechanic.setBirthplace(result.getString("luogoNascita"));
-                mechanic.setState(result.getString("nazione"));
-                mechanic.setRole(result.getString("ruolo"));
-                listMember.add(mechanic);
+                final Member meccanico = new Mechanic();
+                meccanico.setPhoto(result.getString("foto"));
+                meccanico.setPersonalCode(result.getInt("codicePersonale"));
+                meccanico.setFirstName(result.getString("nomeMembro"));
+                meccanico.setLastName(result.getString("cognomeMembro"));
+                meccanico.setDate(result.getDate("dataNascita"));
+                meccanico.setBirthplace(result.getString("luogoNascita"));
+                meccanico.setState(result.getString("nazione"));
+                meccanico.setRole(result.getString("ruolo"));
+                listMember.add(meccanico);
             }
             result.close();
             statement2.close();
@@ -228,6 +216,38 @@ public class MemberManagerImpl implements MemberManager {
         
         return listMember;
     }
-
     
+    @Override
+    public ObservableList<Member> getEngineers() {
+        
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Member> listMember = FXCollections.observableArrayList();
+        
+        final String retrieve2 = "select * from INGEGNERE";
+        try {
+            final PreparedStatement statement2 = conn.prepareStatement(retrieve2);
+            final ResultSet result = statement2.executeQuery();
+            while (result.next()) {
+                final Member ingegnere = new Mechanic();
+                ingegnere.setPhoto(result.getString("foto"));
+                ingegnere.setPersonalCode(result.getInt("codicePersonale"));
+                ingegnere.setFirstName(result.getString("nomeMembro"));
+                ingegnere.setLastName(result.getString("cognomeMembro"));
+                ingegnere.setDate(result.getDate("dataNascita"));
+                ingegnere.setBirthplace(result.getString("luogoNascita"));
+                ingegnere.setState(result.getString("nazione"));
+                ingegnere.setRole(result.getString("ruolo"));
+                listMember.add(ingegnere);
+            }
+            result.close();
+            statement2.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return listMember;
+    }
 }

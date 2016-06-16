@@ -71,4 +71,9 @@ public class Team {
         return year.get();
     }
 
+	@Override
+	public String toString() {
+		return "Team " + name.get() + " " + year.get();
+	}
+
 }

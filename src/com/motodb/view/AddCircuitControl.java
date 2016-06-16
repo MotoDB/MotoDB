@@ -63,7 +63,7 @@ public class AddCircuitControl extends ScreenControl {
     	leftHandersColumn.setCellValueFactory(cellData -> cellData.getValue().leftHandersProperty().asString());
     	lenghtColumn.setCellValueFactory(cellData -> cellData.getValue().lenghtProperty().asString());
     	straightColumn.setCellValueFactory(cellData -> cellData.getValue().straightProperty().asString());
-    	recordColumn.setCellValueFactory(cellData -> cellData.getValue().recordProperty().asString());
+    	recordColumn.setCellValueFactory(cellData -> cellData.getValue().recordProperty());
     	recordRiderColumn.setCellValueFactory(cellData -> cellData.getValue().recordRiderProperty().asString());
     	recordYearColumn.setCellValueFactory(cellData -> cellData.getValue().recordYearProperty().asString());
         
@@ -92,7 +92,7 @@ public class AddCircuitControl extends ScreenControl {
         	if(recordField.getText()!=null && recordRiderBox.getSelectionModel().getSelectedItem()!=null && recordYearBox.getSelectionModel().getSelectedItem()!=null){
         		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
         		Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
-        		photoField.getText(), Optional.of(Integer.parseInt(recordField.getText())), Optional.of(recordRiderBox.getSelectionModel().getSelectedItem().getPersonalCode()), Optional.of(Integer.parseInt(recordYearBox.getSelectionModel().getSelectedItem())));
+        		photoField.getText(), Optional.of(recordField.getText()), Optional.of(recordRiderBox.getSelectionModel().getSelectedItem().getPersonalCode()), Optional.of(Integer.parseInt(recordYearBox.getSelectionModel().getSelectedItem())));
         	}else if(recordField.getText().isEmpty() && recordRiderBox.getSelectionModel().isEmpty() && recordYearBox.getSelectionModel().isEmpty()){
         		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
             	Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 

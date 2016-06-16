@@ -30,7 +30,7 @@ public class CircuitManagerImpl implements CircuitManager {
             while (result.next()) {
                 circuits.add(new Circuit(result.getString("nomeCircuito"), result.getString("stato"),
                 			result.getString("localita"), result.getInt("curveDestra"), result.getInt("curveSinistra"), result.getInt("lunghezza"), 
-                			result.getInt("rettilineoMax"), result.getString("foto"), result.getInt("record"), result.getInt("pilotaRecord"), result.getInt("annoRecord")));
+                			result.getInt("rettilineoMax"), result.getString("foto"), result.getString("record"), result.getInt("pilotaRecord"), result.getInt("annoRecord")));
             }
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
@@ -65,7 +65,7 @@ public class CircuitManagerImpl implements CircuitManager {
     }
 	
     @Override
-    public void addCircuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght, int straight, String photo, Optional<Integer> record, Optional<Integer> recordRider, Optional<Integer> recordYear) {
+    public void addCircuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght, int straight, String photo, Optional<String> record, Optional<Integer> recordRider, Optional<Integer> recordYear) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
@@ -82,7 +82,7 @@ public class CircuitManagerImpl implements CircuitManager {
             statement.setInt(7, straight);
             statement.setString(8, photo);
             if(record.isPresent() && recordRider.isPresent() && recordYear.isPresent()){
-	            statement.setInt(9, record.get());
+	            statement.setString(9, record.get());
 	            statement.setInt(10, recordRider.get());
 	            statement.setInt(11, recordYear.get());
             }else{

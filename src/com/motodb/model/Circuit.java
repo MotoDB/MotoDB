@@ -15,15 +15,15 @@ public class Circuit{
     private final IntegerProperty lenght;
     private final IntegerProperty straight;
     private final StringProperty photo;
-    private IntegerProperty record;
+    private StringProperty record;
     private IntegerProperty recordRider;
     private IntegerProperty recordYear;
 
     public Circuit() {
-        this(null, null, null, 0, 0, 0, 0, null, 0, 0, 0);
+        this(null, null, null, 0, 0, 0, 0, null, null, 0, 0);
     }
  
-    public Circuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght, int straight, String photo, Integer record, Integer recordRider, Integer recordYear) {
+    public Circuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght, int straight, String photo, String record, Integer recordRider, Integer recordYear) {
 
         this.name = new SimpleStringProperty(name);
         this.state = new SimpleStringProperty(state);
@@ -33,7 +33,7 @@ public class Circuit{
         this.lenght = new SimpleIntegerProperty(lenght);
         this.straight = new SimpleIntegerProperty(straight);
         this.photo = new SimpleStringProperty(photo);
-        this.record = new SimpleIntegerProperty(record);
+        this.record = new SimpleStringProperty(record);
         this.recordRider = new SimpleIntegerProperty(recordRider);
         this.recordYear = new SimpleIntegerProperty(recordYear);
     }
@@ -143,15 +143,15 @@ public class Circuit{
     }
     
     // Record
-    public IntegerProperty recordProperty() {
+    public StringProperty recordProperty() {
         return record;
     }
 
-    public int getRecord() {
+    public String getRecord() {
         return record.get();
     }
 
-    public void setRecord(int record) {
+    public void setRecord(String record) {
         this.record.set(record);
     }
 

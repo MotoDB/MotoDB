@@ -1,5 +1,6 @@
 package com.motodb.view;
 
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 import com.motodb.controller.ChampionshipManager;
@@ -14,37 +15,39 @@ import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.AutoCompleteComboBoxListener;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class AddWeekend extends ScreenControl {
+public class AddWeekendControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
     // Controller
     private final CircuitManager circuitManager = new CircuitManagerImpl();
-    private final MemberManager riderManager = new MemberManagerImpl();
+    //private final WeekendManager weekendManager = new WeekendManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-
+/*
 	@FXML
-	private TableView<Circuit> circuitTable;
+	private TableView<Weekend> weekendTable;
 	@FXML
-	private TableColumn<Circuit, String> nameColumn, locationColumn, stateColumn, rightHandersColumn, leftHandersColumn, 
-		lenghtColumn, straightColumn, recordColumn, recordRiderColumn, recordYearColumn;
+	private TableColumn<Weekend, String> yearColumn, startDateColumn, circuitColumn, endDateColumn;*/
 	@FXML
-	private TextField nameField, locationField, stateField, straightField, rightHandersField, leftHandersField, 
-		lenghtField, capacityField, recordField, photoField, searchField;
+	private DatePicker startDate, endDate;
 	@FXML
-	private ComboBox<String> recordYearBox;
+	private ComboBox<String> yearBox;
 	@FXML
-	private ComboBox<Rider> recordRiderBox;
+	private ComboBox<Circuit> circuitBox;
+	@FXML
+	private TextField searchField;
 	@FXML
 	private Button delete;
 	@FXML
@@ -53,35 +56,29 @@ public class AddWeekend extends ScreenControl {
 	@SuppressWarnings("unused")
 	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<Rider> autoCompleteRiderFactory;
+	private AutoCompleteComboBoxListener<Circuit> autoCompleteCircuitFactory;
 
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
      */
     public void initialize() {
-    	    	
+   /* 	    	
     	// Initialize the table
-    	nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-    	locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
-    	stateColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
-    	rightHandersColumn.setCellValueFactory(cellData -> cellData.getValue().rightHandersProperty().asString());
-    	leftHandersColumn.setCellValueFactory(cellData -> cellData.getValue().leftHandersProperty().asString());
-    	lenghtColumn.setCellValueFactory(cellData -> cellData.getValue().lenghtProperty().asString());
-    	straightColumn.setCellValueFactory(cellData -> cellData.getValue().straightProperty().asString());
-    	recordColumn.setCellValueFactory(cellData -> cellData.getValue().recordProperty().asString());
-    	recordRiderColumn.setCellValueFactory(cellData -> cellData.getValue().recordRiderProperty().asString());
-    	recordYearColumn.setCellValueFactory(cellData -> cellData.getValue().recordYearProperty().asString());
+    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
+    	startDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStartDate().toString()));
+    	endDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getEndDate().toString()));
+    	circuitColumn.setCellValueFactory(cellData -> cellData.getValue().circuitProperty().asString());
         
-    	recordRiderBox.setItems(FXCollections.observableArrayList(riderManager.getRiders()));
-        autoCompleteRiderFactory = new AutoCompleteComboBoxListener<Rider>(recordRiderBox);
+    	circuitBox.setItems(FXCollections.observableArrayList(circuitManager.getCircuits()));
+        autoCompleteRiderFactory = new AutoCompleteComboBoxListener<Rider>(circuitBox);
         
-        championshipManager.getChampionships().forEach(l->recordYearBox.getItems().add(Integer.toString(l.getYear())));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(recordYearBox);
+        championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(yearBox);
         
         // Add observable list data to the table
-        circuitTable.setItems(circuitManager.getCircuits());
-        
+        weekendTable.setItems(weekendManager.getWeekends());
+        */
         // Make the table columns editable by double clicking
         this.edit();
         // Use a 'searchField' to search for books in the tableView
@@ -100,17 +97,13 @@ public class AddWeekend extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	if(recordField.getText()!=null && recordRiderBox.getSelectionModel().getSelectedItem()!=null && recordYearBox.getSelectionModel().getSelectedItem()!=null){
-        		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
-        		Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
-        		photoField.getText(), Optional.ofNullable(Integer.parseInt(recordField.getText())), Optional.ofNullable(recordRiderBox.getSelectionModel().getSelectedItem().getPersonalCode()), Optional.ofNullable(Integer.parseInt(recordYearBox.getSelectionModel().getSelectedItem())) );
-        	}else if(recordField.getText().isEmpty() && recordRiderBox.getSelectionModel().isEmpty() && recordYearBox.getSelectionModel().isEmpty()){
-        		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
-            	Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
-            	photoField.getText(), Optional.empty(), Optional.empty(), Optional.empty());
-        	}else throw new IllegalArgumentException();
+        	java.util.Date sDate= new SimpleDateFormat("yyyy-MM-dd").parse(startDate.getValue().toString());
+        	java.util.Date eDate= new SimpleDateFormat("yyyy-MM-dd").parse(endDate.getValue().toString());
         	
-        	circuitTable.setItems(circuitManager.getCircuits()); // Update table view
+    		weekendManager.addWeekend(yearBox.getSelectionModel().getSelectedItem(), new java.sql.Date(sDate.getTime()), 
+    				new java.sql.Date(eDate.getTime()), circuitBox.getSelectionModel().getSelectedItem());
+
+        	weekendTable.setItems(weekendManager.getWeekends()); // Update table view
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);

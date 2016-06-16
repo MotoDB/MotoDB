@@ -44,7 +44,7 @@ public class AddChampionshipControl extends ScreenControl {
     @FXML
     private VBox vBoxFields;
     @FXML
-    private Button addCircuit;
+    private Button addCircuit, addWeekend;
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 

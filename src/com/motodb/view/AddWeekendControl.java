@@ -12,7 +12,6 @@ import com.motodb.model.Circuit;
 import com.motodb.model.Weekend;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
-import com.motodb.view.util.AutoCompleteComboBoxListener;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -51,11 +50,6 @@ public class AddWeekendControl extends ScreenControl {
 	private Button delete;
 	@FXML
 	private VBox vBoxFields;
-	
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<Circuit> autoCompleteCircuitFactory;
 
     /**
      * Called after the fxml file has been loaded; this method initializes 
@@ -70,10 +64,8 @@ public class AddWeekendControl extends ScreenControl {
     	circuitColumn.setCellValueFactory(cellData -> cellData.getValue().circuitNameProperty());
         
     	circuitBox.setItems(FXCollections.observableArrayList(circuitManager.getCircuits()));
-        autoCompleteCircuitFactory = new AutoCompleteComboBoxListener<Circuit>(circuitBox);
         
         championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(yearBox);
         
         // Add observable list data to the table
         weekendTable.setItems(weekendManager.getWeekends());
@@ -96,12 +88,13 @@ public class AddWeekendControl extends ScreenControl {
         	java.util.Date sDate= new SimpleDateFormat("yyyy-MM-dd").parse(startDate.getValue().toString());
         	java.util.Date eDate= new SimpleDateFormat("yyyy-MM-dd").parse(endDate.getValue().toString());
         	
-    		weekendManager.addWeekend(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), circuitBox.getSelectionModel().getSelectedItem().getName(),
+    		weekendManager.addWeekend(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), circuitBox.getSelectionModel().getSelectedItem().getName().toString(),
     				new java.sql.Date(sDate.getTime()), new java.sql.Date(eDate.getTime()));
 
         	weekendTable.setItems(weekendManager.getWeekends()); // Update table view
         	this.clear();
         } catch (Exception e) {
+        	e.printStackTrace();
             alert.showWarning(e);
         }
     }

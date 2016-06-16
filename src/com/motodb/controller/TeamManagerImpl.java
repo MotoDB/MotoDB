@@ -112,6 +112,39 @@ public class TeamManagerImpl implements TeamManager{
     }
 
     @Override
+    public ObservableList<Team> getTeamsFromYear(int year) {
+        
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Team> listTeam = FXCollections.observableArrayList();
+        final String retrieve = "select * from TEAM where annocampionato = ?";
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setInt(1, year);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	Team team = new Team();
+	            team.setYear(result.getInt("annoCampionato"));
+	            team.setName(result.getString("nomeTeam"));
+	            team.setLocation(result.getString("sede"));
+	            team.setLogo(result.getString("logo"));
+	            listTeam.add(team);
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return listTeam;
+    }
+    
+    @Override
     public ObservableList<String> getTeamsByYearAndClass(int year, String clax) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();

@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.ContractManager;
+import com.motodb.controller.ContractManagerImpl;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
@@ -13,7 +15,6 @@ import com.motodb.model.Contract;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
-import com.motodb.view.util.AutoCompleteComboBoxListener;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class AddContractControl extends ScreenControl {
     private final MemberManager memberManager = new MemberManagerImpl();
     private final TeamManager teamManager = new TeamManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-   // private final ContractManager contractManager = new ContractManagerImpl();
+    private final ContractManager contractManager = new ContractManagerImpl();
 
 	@FXML
 	private TableView<Contract> contractTable;
@@ -53,13 +54,7 @@ public class AddContractControl extends ScreenControl {
 	private Button delete;
 	@FXML
 	private VBox vBoxFields;
-	
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<Member> autoCompleteMemberFactory;
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<Team> autoCompleteTeamFactory;
+
 
 	public enum MemberType{
 		Mechanic,
@@ -75,6 +70,7 @@ public class AddContractControl extends ScreenControl {
     	
     	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(MemberType.values())));        
     	memberBox.setDisable(true);
+    	teamBox.setDisable(true);
     	this.update();
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
@@ -82,14 +78,10 @@ public class AddContractControl extends ScreenControl {
     	memberColumn.setCellValueFactory(cellData -> cellData.getValue().memberProperty().asString());
     	teamColumn.setCellValueFactory(cellData -> cellData.getValue().teamProperty());
     	
-        teamBox.setItems(FXCollections.observableArrayList(teamManager.getTeams()));
-        autoCompleteTeamFactory = new AutoCompleteComboBoxListener<Team>(teamBox);
-        
         championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(yearBox);
         
         // Add observable list data to the table
-       // contractTable.setItems(contractManager.getContracts());
+        contractTable.setItems(contractManager.getContracts());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -107,11 +99,11 @@ public class AddContractControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        /*	
-    		contractManager.addContract(yearBox.getSelectionModel().getSelectedItem(), memberTypeBox.getSelectionModel.getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+        	
+    		contractManager.addContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
     				teamBox.getSelectionModel().getSelectedItem().getName());
 
-        	weekendTable.setItems(weekendManager.getWeekends()); // Update table view*/
+        	contractTable.setItems(contractManager.getContracts()); // Update table view
         	this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
@@ -191,11 +183,18 @@ public class AddContractControl extends ScreenControl {
 				}else if(newValue.equals(MemberType.Engineer)){
 					memberBox.setItems(FXCollections.observableArrayList(memberManager.getEngineers()));
 				}
-		        autoCompleteMemberFactory = new AutoCompleteComboBoxListener<Member>(memberBox);
 			} else {
 				memberBox.setDisable(true);
 			}
 		}));
-
+		
+		yearBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				teamBox.setDisable(false);
+				teamBox.setItems(FXCollections.observableArrayList(teamManager.getTeamsFromYear(Integer.parseInt(newValue))));
+			}else{
+				teamBox.setDisable(true);
+			}
+		}));
 	}
 }

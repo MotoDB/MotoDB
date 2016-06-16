@@ -1,13 +1,11 @@
 package com.motodb.controller;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.motodb.model.Contract;
-import com.motodb.model.Weekend;
 import com.motodb.view.AddContractControl.MemberType;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -15,7 +13,7 @@ import com.motodb.view.alert.AlertTypesImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ContactManagerImpl implements ContractManager{
+public class ContractManagerImpl implements ContractManager{
 	
 	@Override
 	public ObservableList<Contract> getContracts() {
@@ -154,17 +152,26 @@ public class ContactManagerImpl implements ContractManager{
      	
 	    @Override
 	    public void addContract(Integer year, MemberType memberType, Integer member, String team) {
+	    	
 	        final DBManager db = DBManager.getDB();
 	        final Connection conn  = db.getConnection();
-	    /*    
 	        java.sql.PreparedStatement statement = null;
-	        final String insert = "insert into CONTRATTI(annoCampionato, nomeCircuito, dataInizio, dataFine) values (?,?,?,?)";
+	        
+	        final String insert;
+	        
+	        if(memberType.equals(MemberType.Rider)){
+	        	insert = "insert into CONTRATTO_PILOTA(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
+	        }else if(memberType.equals(MemberType.Engineer)){
+	        	insert = "insert into CONTRATTO_INGEGNERE(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
+	        }else{
+	        	insert = "insert into CONTRATTO_MECCANICO(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
+	        }
+	        
 	        try {
 	            statement = conn.prepareStatement(insert);
 	            statement.setInt(1, year);
-	            statement.setString(2, circuit);
-	            statement.setDate(3, startDate);
-	            statement.setDate(4, endDate);
+	            statement.setInt(2, member);
+	            statement.setString(3, team);
 	            statement.executeUpdate();
 	        } catch (SQLException e) {
 	            AlertTypes alert = new AlertTypesImpl();
@@ -179,6 +186,6 @@ public class ContactManagerImpl implements ContractManager{
 	                AlertTypes alert = new AlertTypesImpl();
 	                alert.showError(e);
 	            }
-	        }*/
+	        }
 	    }
 }

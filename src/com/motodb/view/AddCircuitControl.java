@@ -12,7 +12,6 @@ import com.motodb.model.Circuit;
 import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
-import com.motodb.view.util.AutoCompleteComboBoxListener;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -49,11 +48,6 @@ public class AddCircuitControl extends ScreenControl {
 	private Button delete;
 	@FXML
 	private VBox vBoxFields;
-	
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<Rider> autoCompleteRiderFactory;
 
     /**
      * Called after the fxml file has been loaded; this method initializes 
@@ -74,10 +68,8 @@ public class AddCircuitControl extends ScreenControl {
     	recordYearColumn.setCellValueFactory(cellData -> cellData.getValue().recordYearProperty().asString());
         
     	recordRiderBox.setItems(FXCollections.observableArrayList(riderManager.getRiders()));
-        autoCompleteRiderFactory = new AutoCompleteComboBoxListener<Rider>(recordRiderBox);
         
         championshipManager.getChampionships().forEach(l->recordYearBox.getItems().add(Integer.toString(l.getYear())));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(recordYearBox);
         
         // Add observable list data to the table
         circuitTable.setItems(circuitManager.getCircuits());
@@ -100,7 +92,7 @@ public class AddCircuitControl extends ScreenControl {
         	if(recordField.getText()!=null && recordRiderBox.getSelectionModel().getSelectedItem()!=null && recordYearBox.getSelectionModel().getSelectedItem()!=null){
         		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
         		Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
-        		photoField.getText(), Optional.ofNullable(Integer.parseInt(recordField.getText())), Optional.ofNullable(recordRiderBox.getSelectionModel().getSelectedItem().getPersonalCode()), Optional.ofNullable(Integer.parseInt(recordYearBox.getSelectionModel().getSelectedItem())) );
+        		photoField.getText(), Optional.of(Integer.parseInt(recordField.getText())), Optional.of(recordRiderBox.getSelectionModel().getSelectedItem().getPersonalCode()), Optional.of(Integer.parseInt(recordYearBox.getSelectionModel().getSelectedItem())));
         	}else if(recordField.getText().isEmpty() && recordRiderBox.getSelectionModel().isEmpty() && recordYearBox.getSelectionModel().isEmpty()){
         		circuitManager.addCircuit(nameField.getText(), stateField.getText(), locationField.getText(), Integer.parseInt(rightHandersField.getText()), 
             	Integer.parseInt(leftHandersField.getText()), Integer.parseInt(lenghtField.getText()), Integer.parseInt(straightField.getText()), 
@@ -110,6 +102,7 @@ public class AddCircuitControl extends ScreenControl {
         	circuitTable.setItems(circuitManager.getCircuits()); // Update table view
         	this.clear();
         } catch (Exception e) {
+        	e.printStackTrace();
             alert.showWarning(e);
         }
     }

@@ -180,4 +180,11 @@ public class Circuit{
     public void setRecordYear(int recordYear) {
         this.recordYear.set(recordYear);
     }
+
+	@Override
+	public String toString() {
+		return name.get();
+	}
+    
+    
 }

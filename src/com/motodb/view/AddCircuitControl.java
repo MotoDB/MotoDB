@@ -94,9 +94,6 @@ public class AddCircuitControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
-   /* 
-    int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
-    String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym*/
 	@FXML
     private void add() {
         try {

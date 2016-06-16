@@ -39,7 +39,7 @@ public class Weekend {
     }
     
     // Circuit Name
-    public StringProperty circuitName() {
+    public StringProperty circuitNameProperty() {
         return circuitName;
     }
 

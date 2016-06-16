@@ -1,16 +1,15 @@
 package com.motodb.view;
 
 import java.text.SimpleDateFormat;
-import java.util.Optional;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.CircuitManager;
 import com.motodb.controller.CircuitManagerImpl;
-import com.motodb.controller.MemberManager;
-import com.motodb.controller.MemberManagerImpl;
+import com.motodb.controller.WeekendManager;
+import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Circuit;
-import com.motodb.model.Rider;
+import com.motodb.model.Weekend;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.AutoCompleteComboBoxListener;
@@ -33,13 +32,13 @@ public class AddWeekendControl extends ScreenControl {
 
     // Controller
     private final CircuitManager circuitManager = new CircuitManagerImpl();
-    //private final WeekendManager weekendManager = new WeekendManagerImpl();
+    private final WeekendManager weekendManager = new WeekendManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-/*
+
 	@FXML
 	private TableView<Weekend> weekendTable;
 	@FXML
-	private TableColumn<Weekend, String> yearColumn, startDateColumn, circuitColumn, endDateColumn;*/
+	private TableColumn<Weekend, String> yearColumn, startDateColumn, circuitColumn, endDateColumn;
 	@FXML
 	private DatePicker startDate, endDate;
 	@FXML
@@ -63,22 +62,22 @@ public class AddWeekendControl extends ScreenControl {
      * the fxml control class. 
      */
     public void initialize() {
-   /* 	    	
+    	    	
     	// Initialize the table
-    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
+    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().championshipYearProperty().asString());
     	startDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStartDate().toString()));
-    	endDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getEndDate().toString()));
-    	circuitColumn.setCellValueFactory(cellData -> cellData.getValue().circuitProperty().asString());
+    	endDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getFinishDate().toString()));
+    	circuitColumn.setCellValueFactory(cellData -> cellData.getValue().circuitNameProperty());
         
     	circuitBox.setItems(FXCollections.observableArrayList(circuitManager.getCircuits()));
-        autoCompleteRiderFactory = new AutoCompleteComboBoxListener<Rider>(circuitBox);
+        autoCompleteCircuitFactory = new AutoCompleteComboBoxListener<Circuit>(circuitBox);
         
         championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(yearBox);
         
         // Add observable list data to the table
         weekendTable.setItems(weekendManager.getWeekends());
-        */
+        
         // Make the table columns editable by double clicking
         this.edit();
         // Use a 'searchField' to search for books in the tableView
@@ -91,17 +90,14 @@ public class AddWeekendControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
-   /* 
-    int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
-    String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym*/
 	@FXML
     private void add() {
         try {
         	java.util.Date sDate= new SimpleDateFormat("yyyy-MM-dd").parse(startDate.getValue().toString());
         	java.util.Date eDate= new SimpleDateFormat("yyyy-MM-dd").parse(endDate.getValue().toString());
         	
-    		weekendManager.addWeekend(yearBox.getSelectionModel().getSelectedItem(), new java.sql.Date(sDate.getTime()), 
-    				new java.sql.Date(eDate.getTime()), circuitBox.getSelectionModel().getSelectedItem());
+    		weekendManager.addWeekend(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), circuitBox.getSelectionModel().getSelectedItem().getName(),
+    				new java.sql.Date(sDate.getTime()), new java.sql.Date(eDate.getTime()));
 
         	weekendTable.setItems(weekendManager.getWeekends()); // Update table view
         	this.clear();

@@ -47,8 +47,8 @@ public class Circuit{
         return name.get();
     }
 
-    public void setName(String acronym) {
-        this.name.set(acronym);
+    public void setName(String name) {
+        this.name.set(name);
     } 
 
     // State

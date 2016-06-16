@@ -1,6 +1,5 @@
 package com.motodb.view;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.motodb.controller.ChampionshipManager;
@@ -10,6 +9,7 @@ import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Member;
+import com.motodb.model.Contract;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -19,6 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -33,14 +35,14 @@ public class AddContractControl extends ScreenControl {
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
    // private final ContractManager contractManager = new ContractManagerImpl();
 
-/*	@FXML
+	@FXML
 	private TableView<Contract> contractTable;
 	@FXML
-	private TableColumn<Contract, String> yearColumn, memberTypeColumn, memberColumn, teamColumn;*/
+	private TableColumn<Contract, String> yearColumn, memberTypeColumn, memberColumn, teamColumn;
 	@FXML
 	private ComboBox<String> yearBox;
 	@FXML
-	private ComboBox<Type> memberTypeBox;
+	private ComboBox<MemberType> memberTypeBox;
 	@FXML
 	private ComboBox<Member> memberBox;
 	@FXML
@@ -59,7 +61,7 @@ public class AddContractControl extends ScreenControl {
 	@SuppressWarnings("unused")
 	private AutoCompleteComboBoxListener<Team> autoCompleteTeamFactory;
 
-	private enum Type{
+	public enum MemberType{
 		Mechanic,
 		Engineer,
 		Rider;
@@ -71,14 +73,14 @@ public class AddContractControl extends ScreenControl {
      */
     public void initialize() {
     	
-    	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(Type.values())));        
+    	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(MemberType.values())));        
     	memberBox.setDisable(true);
     	this.update();
-    /*	// Initialize the table
-    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
+    	// Initialize the table
+    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
     	memberTypeColumn.setCellValueFactory(cellData -> cellData.getValue().memberTypeProperty());
-    	memberColumn.setCellValueFactory(cellData -> cellData.getValue().memberProperty());
-    	teamColumn.setCellValueFactory(cellData -> cellData.getValue().teamProperty());*/
+    	memberColumn.setCellValueFactory(cellData -> cellData.getValue().memberProperty().asString());
+    	teamColumn.setCellValueFactory(cellData -> cellData.getValue().teamProperty());
     	
         teamBox.setItems(FXCollections.observableArrayList(teamManager.getTeams()));
         autoCompleteTeamFactory = new AutoCompleteComboBoxListener<Team>(teamBox);
@@ -101,14 +103,12 @@ public class AddContractControl extends ScreenControl {
      * Called when the user press the 'add' button; this method adds
      * a new depot to the controller ObservableList of depots
      */
-   /* 
-    int personalCode, String firstName, String lastName, String photo, String birthplace, String state,
-    String role, java.sql.Date dateOfBirth, int number, int weigth, int heigth, String acronym*/
+
 	@FXML
     private void add() {
         try {
         /*	
-    		contractManager.addContract(yearBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+    		contractManager.addContract(yearBox.getSelectionModel().getSelectedItem(), memberTypeBox.getSelectionModel.getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
     				teamBox.getSelectionModel().getSelectedItem().getName());
 
         	weekendTable.setItems(weekendManager.getWeekends()); // Update table view*/
@@ -184,11 +184,11 @@ public class AddContractControl extends ScreenControl {
 		memberTypeBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			if(newValue!=null){
 				memberBox.setDisable(false);
-				if(newValue.equals(Type.Rider)){
+				if(newValue.equals(MemberType.Rider)){
 					memberBox.setItems(FXCollections.observableArrayList(memberManager.getRiders()));
-				}else if(newValue.equals(Type.Mechanic)){
+				}else if(newValue.equals(MemberType.Mechanic)){
 					memberBox.setItems(FXCollections.observableArrayList(memberManager.getMechanics()));
-				}else if(newValue.equals(Type.Engineer)){
+				}else if(newValue.equals(MemberType.Engineer)){
 					memberBox.setItems(FXCollections.observableArrayList(memberManager.getEngineers()));
 				}
 		        autoCompleteMemberFactory = new AutoCompleteComboBoxListener<Member>(memberBox);

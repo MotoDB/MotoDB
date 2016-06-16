@@ -144,7 +144,6 @@ public class TeamControl extends ScreenControl {
                 teams.getChildren().clear();
                 
                 if (!classesButtons.getToggles().isEmpty()) {
-                	classesButtons.getToggles().get(0).setSelected(true);
                 	
                 	// THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                     for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
@@ -158,10 +157,9 @@ public class TeamControl extends ScreenControl {
                         teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
                     }
                     
-                    
-                    	if (!teamsButtons.getToggles().isEmpty()) {
-                        	teamsButtons.getToggles().get(0).setSelected(true);
-                        }
+                	if (!teamsButtons.getToggles().isEmpty()) {
+                    	teamsButtons.getToggles().get(0).setSelected(true);
+                    }
                 }
             }
         });

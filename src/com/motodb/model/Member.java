@@ -43,8 +43,8 @@ public class Member {
         return personalCode.get();
     }
 
-    public void setPersonalCode(int firstName) {
-        this.personalCode.set(firstName);
+    public void setPersonalCode(int personalCode) {
+        this.personalCode.set(personalCode);
     }
 
     // First Name

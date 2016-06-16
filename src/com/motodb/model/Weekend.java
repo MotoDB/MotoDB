@@ -68,5 +68,9 @@ public class Weekend {
     public Date getFinishDate() {
         return this.finishDate;
     }
-
+    
+    @Override
+	public String toString() {
+		return circuitName.get()+ " " +startDate.toString();
+	}
 }

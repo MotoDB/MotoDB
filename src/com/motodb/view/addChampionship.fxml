@@ -17,6 +17,7 @@
                         <Button fx:id="addSponsor" mnemonicParsing="false" styleClass="button-flat" text="CREATE SPONSOR" onAction="#switchScreen"/>
                         <Button fx:id="addCircuit" mnemonicParsing="false" styleClass="button-flat" text="CREATE CIRCUIT" onAction="#switchScreen"/>
                         <Button fx:id="addWeekend" mnemonicParsing="false" styleClass="button-flat" text="CREATE WEEKEND" onAction="#switchScreen"/>
+                        <Button fx:id="addSession" mnemonicParsing="false" styleClass="button-flat" text="CREATE SESSION" onAction="#switchScreen"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">

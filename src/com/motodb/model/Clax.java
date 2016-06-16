@@ -55,5 +55,10 @@ public class Clax {
     public Integer getIndex() {
         return index.get();
     }
+
+	@Override
+	public String toString() {
+		return name.get();
+	}
     
 }

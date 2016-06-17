@@ -11,6 +11,7 @@
 				<Button fx:id="worldStanding" mnemonicParsing="false" styleClass="button-flat" text="WORLD STANDING" onAction="#switchScreen" />
 				<Button fx:id="team" mnemonicParsing="false" styleClass="button-flat" text="TEAM" onAction="#switchScreen" />
 				<Button fx:id="rider" mnemonicParsing="false" styleClass="button-flat" text="RIDER" onAction="#switchScreen" />
+				<Button fx:id="sponsor" mnemonicParsing="false" styleClass="button-flat" text="SPONSOR" onAction="#switchScreen" />
 				
 				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
 				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="120">

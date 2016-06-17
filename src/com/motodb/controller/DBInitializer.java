@@ -43,6 +43,8 @@ public class DBInitializer {
 		sponsor.addSponsor("Abarth", "http://i.imgur.com/Gv0r6Ge.png");
 		sponsor.addSponsor("Magneti Marelli", "http://i.imgur.com/jkRTob3.png");
 		sponsor.addSponsor("Repsol", "http://i.imgur.com/65RlZtH.png");
+		sponsor.addSponsor("Dunlop", "http://i.imgur.com/LlPb4Ss.png");
+		sponsor.addSponsor("Akrapovic", "http://i.imgur.com/6gSPEEz.png");
 	}
 	
 	private static void initChampionships(){
@@ -60,16 +62,29 @@ public class DBInitializer {
 		manufacturer.addManufacturer("Suzuki", "http://i.imgur.com/mvdTzMG.png");
 		manufacturer.addManufacturer("Yamaha", "http://i.imgur.com/dsKjxrP.png");
 		manufacturer.addManufacturer("KTM", "http://i.imgur.com/1pLLecR.png");
-		// TODO moto2
+		manufacturer.addManufacturer("Kalex", "http://i.imgur.com/faPucgQ.png");
 	}
 	
 	private static void initTeams(){
-		team.addTeam(2016, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Movistar", "Monster Energy", "Abarth")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
-		team.addTeam(2016, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "TIM", "Shell")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
+		//2016
+		team.addTeam(2016, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Movistar", "Monster Energy", "Abarth", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
+		team.addTeam(2016, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "TIM", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(2016, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
 		team.addTeam(2016, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Motul")), FXCollections.observableArrayList(Arrays.asList("Suzuki")));
+		team.addTeam(2016, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
 		// TODO team moto2
 		// TODO team moto3
+		//2015
+		team.addTeam(2015, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "TIM", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
+		team.addTeam(2015, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
+		team.addTeam(2015, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Suzuki")));
+		team.addTeam(2015, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Movistar", "Monster Energy", "Abarth", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
+		team.addTeam(2015, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
+		//2014
+		team.addTeam(2014, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "TIM", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
+		team.addTeam(2014, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
+		team.addTeam(2014, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Monster Energy", "Abarth", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
+		team.addTeam(2014, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
 	}
 
 	private static void initCircuits(){
@@ -93,25 +108,45 @@ public class DBInitializer {
 		member.addRider(i++, "Johann", "Zarco", "http://www.motogp.com/en/api/rider/photo/grid/old/7236.jpg", "Cannes, Cote D'Azur", "France", "Official Rider", new Date(648144409000l), 5, 65, 171, "Zar");
 		member.addRider(i++, "Lorenzo", "Baldassarri", "http://www.motogp.com/en/api/rider/photo/grid/old/8030.jpg", "San Severino, Marche", "Italy", "Official Rider", new Date(847296409000l), 7, 68, 183, "Bal");
 		member.addRider(i++, "Danny", "Kent", "http://www.motogp.com/en/api/rider/photo/grid/old/7461.jpg", "Chippenham, Wiltshire", "United Kingdom", "Official Rider", new Date(754243609000l), 52, 65, 172, "Ken");
-		member.addRider(i++, "Hafizh", "Malaysia", "http://www.motogp.com/en/api/rider/photo/grid/old/8132.jpg", "Ampang, Kuala Lumpur", "Malaysia", "Official Rider", new Date(768154009000l), 55, 65, 180, "Sya");
+		member.addRider(i++, "Hafizh", "Syarin", "http://www.motogp.com/en/api/rider/photo/grid/old/8132.jpg", "Ampang, Kuala Lumpur", "Malaysia", "Official Rider", new Date(768154009000l), 55, 65, 180, "Sya");
 		//Moto3
 		member.addRider(i++, "Enea", "Bastianini", "http://www.motogp.com/en/api/rider/photo/grid/old/8295.jpg", "Rimini, Emilia-Romagna", "Italy", "Official Rider", new Date(883496074000l), 33, 60, 169, "Bas");
 		member.addRider(i++, "Brad", "Binder", "http://www.motogp.com/en/api/rider/photo/grid/old/7646.jpg", "Potchefstroom, North-West", "South Africa", "Official Rider", new Date(808155274000l), 41, 61, 170, "BiB");
 		member.addRider(i++, "Nicolo", "Bulega", "http://www.motogp.com/en/api/rider/photo/grid/old/8756.jpg", "Montecchio, Emilia-Romagna", "Italy", "Official Rider", new Date(940089373000l), 8, 63, 180, "Bul");
 		member.addRider(i++, "Francesco", "Bagnaia", "http://www.motogp.com/en/api/rider/photo/grid/old/8273.jpg", "Torino, Piemonte", "Italy", "Official Rider", new Date(940089373000l), 21, 59, 174, "Bag");
 		//Engineers
+		i=500;
 		member.addEngineer(i++, "Cristian", "Gabbarini", "http://media.motoblog.it/8/897/01-Gabbarini-620x413.jpg", "Senigallia, Marche", "Italy", "Chief Engineer", new Date(270045049000l));
 		member.addEngineer(i++, "Luigi", "Dall'Igna", "http://media.motoblog.it/7/770/Dall-Igna_Ducati_Test_Sepang.jpg", "Thiene, Veneto", "Italy", "General Manager", new Date(-109580909000l));
 		// TODO more engineers
 		//Mechanics
+		i=1000;
 		member.addMechanic(i++, "Mark", "Elder", "http://www.cycleworld.com/sites/cycleworld.com/files/styles/large_1x_/public/import/embedded/wp-content/uploads/2014/07/Mark-Elder-590x393.jpg", "Los Angeles, California", "United States", "On Track Mechanic", new Date(142102291000l));
 		// TODO more mechanics
 	}
 	
 	private static void initContracts(){
-		contract.addContract(2016, MemberType.Rider, 1, team);
-		contract.addContract(2015, MemberType.Rider, 1, team);
-		contract.addContract(2014, MemberType.Rider, 1, team);
+		//2016
+		contract.addContract(2016, MemberType.Rider, 1, "Honda Racing Team");
+		contract.addContract(2016, MemberType.Rider, 2, "Yamaha Factory Racing");
+		contract.addContract(2016, MemberType.Rider, 3, "Ducati Team");
+		contract.addContract(2016, MemberType.Rider, 4, "Team Suzuki Racing");
+		contract.addContract(2016, MemberType.Engineer, 501, "Honda Racing Team");
+		contract.addContract(2016, MemberType.Engineer, 1001, "Ducati Team");
+		//2015
+		contract.addContract(2015, MemberType.Rider, 1, "Honda Racing Team");
+		contract.addContract(2015, MemberType.Rider, 2, "Yamaha Factory Racing");
+		contract.addContract(2015, MemberType.Rider, 3, "Ducati Team");
+		contract.addContract(2015, MemberType.Rider, 4, "Team Suzuki Racing");
+		contract.addContract(2015, MemberType.Engineer, 501, "Honda Racing Team");
+		contract.addContract(2015, MemberType.Engineer, 1001, "Ducati Team");
+		//2014
+		contract.addContract(2014, MemberType.Rider, 1, "Honda Racing Team");
+		contract.addContract(2014, MemberType.Rider, 2, "Yamaha Factory Racing");
+		contract.addContract(2014, MemberType.Rider, 3, "Ducati Team");
+		contract.addContract(2014, MemberType.Rider, 4, "Pons HP40");
+		contract.addContract(2014, MemberType.Engineer, 501, "Honda Racing Team");
+		contract.addContract(2016, MemberType.Engineer, 1001, "Ducati Team");
 	}
 	
 	private static void initTyres(){
@@ -153,6 +188,8 @@ public class DBInitializer {
 		initMembers();
 		System.out.println("Members Done");
 		initCircuits();
+		System.out.println("Contracts Done");
+		initContracts();
 		System.out.println("Circuits Done");
 		initTyres();
 		System.out.println("Tyres Done");

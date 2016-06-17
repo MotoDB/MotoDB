@@ -37,10 +37,13 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 if (statement != null) {
                     statement.close();
                 }
-            }
-            catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            } catch (SQLException e) {
+            	try{
+            		AlertTypes alert = new AlertTypesImpl();
+            		alert.showError(e);
+            	} catch (ExceptionInInitializerError ei){
+            		e.printStackTrace();
+            	}
             }
         }
         
@@ -55,8 +58,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
 	                statement2.executeUpdate();
 	                statement2.close();
 	            } catch (SQLException ex) {
-	                AlertTypes alert = new AlertTypesImpl();
-	                alert.showError(ex);
+	            	try{
+		                AlertTypes alert = new AlertTypesImpl();
+		                alert.showError(ex);
+	            	} catch (ExceptionInInitializerError ei){
+	            		ex.printStackTrace();
+	            	}
 	            }
 	        });
 	        
@@ -70,8 +77,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
 	                statement3.executeUpdate();
 	                statement3.close();
 	            } catch (SQLException ex) {
-	                AlertTypes alert = new AlertTypesImpl();
-	                alert.showError(ex);
+	            	try{
+		                AlertTypes alert = new AlertTypesImpl();
+		                alert.showError(ex);
+	            	} catch (ExceptionInInitializerError ei){
+	            		ex.printStackTrace();
+	            	}
 	            } 
 	        });
         }
@@ -99,8 +110,13 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             result.close();
             statement.close();
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+            try{
+            	AlertTypes alert = new AlertTypesImpl();
+            	alert.showError(e);
+            } catch (ExceptionInInitializerError ei){
+        		e.printStackTrace();
+        	}
+            
         }
         
         return listChampionship;
@@ -133,8 +149,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
             statement.close();
             result.close();
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+        		AlertTypes alert = new AlertTypesImpl();
+        		alert.showError(e);
+        	} catch (ExceptionInInitializerError ei){
+        		e.printStackTrace();
+        	}
         } finally {
             try {
                 if (statement != null) {
@@ -145,8 +165,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+	                AlertTypes alert = new AlertTypesImpl();
+	                alert.showError(e);
+            	} catch (ExceptionInInitializerError ei){
+            		e.printStackTrace();
+            	}
             }
         }
         
@@ -191,8 +215,13 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+                try{
+                	AlertTypes alert = new AlertTypesImpl();
+                	alert.showError(e);
+                } catch (ExceptionInInitializerError ei){
+            		e.printStackTrace();
+            	}
+                
             }
         }
         
@@ -227,8 +256,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 listCh.add(view);
             }
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+        		AlertTypes alert = new AlertTypesImpl();
+        		alert.showError(e);
+        	} catch (ExceptionInInitializerError ei){
+        		e.printStackTrace();
+        	}
         } finally {
             try {
                 if (statement != null) {
@@ -239,8 +272,12 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+	                AlertTypes alert = new AlertTypesImpl();
+	                alert.showError(e);
+            	} catch (ExceptionInInitializerError ei){
+            		e.printStackTrace();
+            	}
             }
         }
         return listCh;

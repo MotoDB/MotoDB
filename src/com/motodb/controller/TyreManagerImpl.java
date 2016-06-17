@@ -29,8 +29,12 @@ public class TyreManagerImpl implements TyreManager {
                 tyres.add(new Tyre(result.getString("marca"), result.getString("modello"), result.getString("misura"), result.getString("mescola")));
             }
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+	            AlertTypes alert = new AlertTypesImpl();
+	            alert.showError(e);
+        	} catch(ExceptionInInitializerError ei){
+	        	e.printStackTrace();
+	        }
         }
         finally {
             try {
@@ -42,8 +46,12 @@ public class TyreManagerImpl implements TyreManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+    	            AlertTypes alert = new AlertTypesImpl();
+    	            alert.showError(e);
+            	} catch(ExceptionInInitializerError ei){
+    	        	e.printStackTrace();
+    	        }
             }
         }
         
@@ -56,7 +64,7 @@ public class TyreManagerImpl implements TyreManager {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        final String insert = "insert into PNEUMATICO(marca, modello, misura, mescola) values (?,?,?)";
+        final String insert = "insert into PNEUMATICO(marca, modello, misura, mescola) values (?,?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(insert);
@@ -66,8 +74,12 @@ public class TyreManagerImpl implements TyreManager {
             statement.setString(4, compound);
             statement.executeUpdate();
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+	            AlertTypes alert = new AlertTypesImpl();
+	            alert.showError(e);
+        	} catch(ExceptionInInitializerError ei){
+	        	e.printStackTrace();
+	        }
         } finally {
             try {
                 if (statement != null) {
@@ -75,8 +87,12 @@ public class TyreManagerImpl implements TyreManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+    	            AlertTypes alert = new AlertTypesImpl();
+    	            alert.showError(e);
+            	} catch(ExceptionInInitializerError ei){
+    	        	e.printStackTrace();
+    	        }
             }
         }
     }

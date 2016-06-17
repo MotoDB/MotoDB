@@ -33,8 +33,12 @@ public class CircuitManagerImpl implements CircuitManager {
                 			result.getInt("rettilineoMax"), result.getString("foto"), result.getString("record"), result.getInt("pilotaRecord"), result.getInt("annoRecord")));
             }
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+	            AlertTypes alert = new AlertTypesImpl();
+	            alert.showError(e);
+        	} catch(ExceptionInInitializerError ei){
+	        	e.printStackTrace();
+	        }
         }
         finally {
             try {
@@ -46,8 +50,12 @@ public class CircuitManagerImpl implements CircuitManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+    	            AlertTypes alert = new AlertTypesImpl();
+    	            alert.showError(e);
+            	} catch(ExceptionInInitializerError ei){
+    	        	e.printStackTrace();
+    	        }
             }
         }
         
@@ -92,8 +100,12 @@ public class CircuitManagerImpl implements CircuitManager {
             }
             statement.executeUpdate();
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
+        	try{
+	            AlertTypes alert = new AlertTypesImpl();
+	            alert.showError(e);
+        	} catch(ExceptionInInitializerError ei){
+	        	e.printStackTrace();
+	        }
         } finally {
             try {
                 if (statement != null) {
@@ -101,8 +113,12 @@ public class CircuitManagerImpl implements CircuitManager {
                 }
             }
             catch (SQLException e) {
-                AlertTypes alert = new AlertTypesImpl();
-                alert.showError(e);
+            	try{
+    	            AlertTypes alert = new AlertTypesImpl();
+    	            alert.showError(e);
+            	} catch(ExceptionInInitializerError ei){
+    	        	e.printStackTrace();
+    	        }
             }
         }
     }

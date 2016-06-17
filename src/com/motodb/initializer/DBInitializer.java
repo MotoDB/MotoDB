@@ -10,6 +10,7 @@ import com.motodb.controller.CircuitManager;
 import com.motodb.controller.CircuitManagerImpl;
 import com.motodb.controller.ClaxManager;
 import com.motodb.controller.ClaxManagerImpl;
+import com.motodb.controller.DBManager;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.SponsorManager;
@@ -32,9 +33,9 @@ public class DBInitializer {
 	private static final TyreManager tyre = new TyreManagerImpl();
 	
 	private static void initClasses(){
-		clax.addClass("Moto 3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
-		clax.addClass("Moto 2", "https://it.wikipedia.org/wiki/Moto2#Regolamento_tecnico", 2);
-		clax.addClass("Moto GP", "https://it.wikipedia.org/wiki/MotoGP#Regolamento_tecnico", 1);
+		clax.addClass("Moto3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
+		clax.addClass("Moto2", "https://it.wikipedia.org/wiki/Moto2#Regolamento_tecnico", 2);
+		clax.addClass("MotoGP", "https://it.wikipedia.org/wiki/MotoGP#Regolamento_tecnico", 1);
 		clax.addClass("125", "https://it.wikipedia.org/wiki/Classe_125#Regolamento", 3);
 		clax.addClass("250", "https://it.wikipedia.org/wiki/Classe_125#Regolamento", 2);
 		clax.addClass("500", "https://it.wikipedia.org/wiki/Classe_125#Regolamento", 1);
@@ -47,7 +48,6 @@ public class DBInitializer {
 		sponsor.addSponsor("GoPro", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_09.png");
 		sponsor.addSponsor("Movistar", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_10.png");
 		sponsor.addSponsor("Red Bull", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_02.png");
-		sponsor.addSponsor("Movistar", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_10.png");
 		sponsor.addSponsor("Motul", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_07.png");
 		sponsor.addSponsor("Shell", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_11.png");
 		sponsor.addSponsor("Octo", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_06.png");
@@ -55,7 +55,6 @@ public class DBInitializer {
 		sponsor.addSponsor("Abarth", "http://i.imgur.com/Gv0r6Ge.png");
 		sponsor.addSponsor("Magneti Marelli", "http://i.imgur.com/jkRTob3.png");
 		sponsor.addSponsor("Repsol", "http://i.imgur.com/65RlZtH.png");
-		sponsor.addSponsor("Motul", "http://css.motogp.com/w2015/img/spon_sors/2016/title_sponsor_07.png");
 	}
 	
 	private static void initChampionships(){
@@ -133,13 +132,25 @@ public class DBInitializer {
 	}
 	
 	public static void main(String[] args) {
-		initClasses();
+		final DBManager db = DBManager.getDB();
+        db.createConnection();
+		
+        initClasses();
+        System.out.println("Classes Done");
 		initSponsors();
+		System.out.println("Sponsors Done");
 		initChampionships();
+		System.out.println("Championships Done");
 		initTeams();
+		System.out.println("Teams Done");
 		initMembers();
+		System.out.println("Members Done");
 		initCircuits();
+		System.out.println("Circuits Done");
 		initTyres();
+		System.out.println("Tyres Done");
+		
+		
     }
 	
 }

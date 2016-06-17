@@ -1,12 +1,22 @@
 package com.motodb.view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.MemberManager;
+import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
+import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
+import com.motodb.view.util.MyGridPane;
 import com.motodb.view.util.PersistentButtonToggleGroup;
 
 import javafx.beans.value.ChangeListener;
@@ -16,7 +26,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RiderControl extends ScreenControl {
 
@@ -26,16 +38,20 @@ public class RiderControl extends ScreenControl {
     // Controller
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final TeamManager manager = new TeamManagerImpl();
+    private final MemberManager riderManager = new MemberManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
-    
+    @FXML
+    private VBox mainPane;
     @FXML
     private HBox years,classes,teams;
     @FXML
     private TextField searchField;
+    
+    private List<MyGridPane> list = new ArrayList<>();
 
     public RiderControl() {
         super();
@@ -97,6 +113,28 @@ public class RiderControl extends ScreenControl {
             	teamsButtons.getToggles().get(0).setSelected(true);
             }
         }
+      /*
+        GridPane grid = new GridPane();
+        
+	    for(Rider rider : riderManager.getRiders()){
+	    	MyGridPane riderPane = new MyGridPane(rider);
+	    	list.add(riderPane);
+	    }
+
+    	int i=0;
+    	ListIterator<MyGridPane> it = list.listIterator();
+    	MyGridPane temp =it.next();
+	    while(it.hasNext()){
+	    	int j=0;
+	    	while(j<=3){
+		        grid.add(temp.getPane(), j, i);
+		        temp=it.next();
+		        j++;
+	    	}
+	    	i++;
+	   }
+	    
+        mainPane.getChildren().add(4, grid);*/
     }
 
     /**
@@ -151,5 +189,34 @@ public class RiderControl extends ScreenControl {
             }
         });
         
+        classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+            	list.clear();
+            	
+            	GridPane grid = new GridPane();
+
+         	    for(Rider rider : riderManager.getRiders()){
+         	    	MyGridPane riderPane = new MyGridPane(rider);
+         	    	list.add(riderPane);
+         	    }
+
+             	int i=0;
+             	ListIterator<MyGridPane> it = list.listIterator();
+             	MyGridPane temp =it.next();
+         	    while(it.hasNext()){
+         	    	int j=0;
+         	    	while(j<=3){
+         		        grid.add(temp.getPane(), j, i);
+         		        temp=it.next();
+         		        j++;
+         	    	}
+         	    	i++;
+         	   }
+         	    
+                 mainPane.getChildren().add(4, grid);
+               
+            }
+        });
+     
     }
 }

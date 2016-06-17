@@ -7,7 +7,7 @@
 
 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.RiderControl">
 	<content>
-		<VBox styleClass="card">
+		<VBox styleClass="card" fx:id="mainPane">
 			<children>
 				<HBox>
 	            	<children>
@@ -33,26 +33,7 @@
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>
                 </HBox>
-	            <HBox VBox.vgrow="ALWAYS">
-	               <children>
-	                  <VBox HBox.hgrow="ALWAYS">
-	                     <children>
-	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="teamTable">
-	                          <columns>
-	                          	<TableColumn text="Position" fx:id="positionColumn" />
-	                            <TableColumn text="Rider" fx:id="riderColumn" />
-	                          	<TableColumn text="Bike" fx:id="bikeColumn" />
-	                            <TableColumn text="Nation" fx:id="nationColumn" />
-	                            <TableColumn text="Points" fx:id="pointsColumn" />
-	                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-	                        </TableView>
-	                     </children>
-	                  </VBox>
-	               </children>
-	            </HBox>
+	            
 	            <HBox>
 	            	<children>
 	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   

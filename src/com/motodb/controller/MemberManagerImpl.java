@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.motodb.model.Mechanic;
 import com.motodb.model.Member;
 import com.motodb.model.Rider;
+import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -248,5 +249,46 @@ public class MemberManagerImpl implements MemberManager {
         }
         
         return listMember;
+    }
+    
+    public ObservableList<Rider> getRidersFromTeamYear(int year, String teamName){
+    	final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Rider> list = FXCollections.observableArrayList();
+        final String retrieve = "select p.* from PILOTA p, CONTRATTO_TEAM c, where c.codicePersonale = p.codicePersonale "
+        		+ "and c.annoCampionato = ?";
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setInt(1, year);
+        	//statement.setString(1, teamName);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	Rider rider = new Rider();
+            	rider.setPhoto(result.getString("foto"));
+                rider.setPersonalCode(result.getInt("codicePersonale"));
+                rider.setFirstName(result.getString("nomeMembro"));
+                rider.setLastName(result.getString("cognomeMembro"));
+                rider.setDate(result.getDate("dataNascita"));
+                rider.setBirthplace(result.getString("luogoNascita"));
+                rider.setState(result.getString("nazione"));
+                rider.setRole(result.getString("ruolo"));
+                rider.setHeight(result.getInt("altezza"));
+                rider.setWeight(result.getInt("peso"));
+                rider.setNumber(result.getInt("numero"));
+                rider.setAcronym(result.getString("sigla"));
+                list.add(rider);
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return list;
     }
 }

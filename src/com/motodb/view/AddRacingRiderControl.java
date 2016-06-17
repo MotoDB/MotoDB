@@ -52,7 +52,7 @@ public class AddRacingRiderControl extends ScreenControl {
     private final WeekendManager weekendManager = new WeekendManagerImpl();
     private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-    private final BikeManager bikeManager = new BikeManagerImpl();
+    private final BikeManager bykeManager = new BikeManagerImpl();
 
 	@FXML
 	private TableView<RacingRider> racingRidersTable;
@@ -256,9 +256,9 @@ public class AddRacingRiderControl extends ScreenControl {
 		
 		manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
-				if(!bikeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
+				if(!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
 					bikeModelBox.setDisable(false);
-					bikeModelBox.setItems(bikeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
+					bikeModelBox.setItems(bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
 					
 				}else{
 					bikeModelBox.setDisable(true);

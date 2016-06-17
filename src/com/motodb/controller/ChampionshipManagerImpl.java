@@ -12,90 +12,72 @@ import com.motodb.view.alert.AlertTypesImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ChampionshipManagerImpl implements ChampionshipManager {    
-    
+public class ChampionshipManagerImpl implements ChampionshipManager {
+
     @Override
-    public void addChampionship(final int year, final int edition, final ObservableList<String> classes, final ObservableList<String> sponsors) {
+    public void addChampionship(final int year, final int edition, final ObservableList<String> classes,
+            final ObservableList<String> sponsors) {
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
+        final Connection conn = db.getConnection();
         boolean ok = true;
-        
-        java.sql.PreparedStatement statement = null;
+
         final String insert = "insert into CAMPIONATO(anno, edizione) values (?,?)";
-        try {
-            statement = conn.prepareStatement(insert);
+        try (final PreparedStatement statement = conn.prepareStatement(insert)) {
             statement.setInt(1, year);
             statement.setInt(2, edition);
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
-            ok = false;
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        } finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-            	try{
-            		AlertTypes alert = new AlertTypesImpl();
-            		alert.showError(e);
-            	} catch (ExceptionInInitializerError ei){
-            		e.printStackTrace();
-            	}
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
             }
         }
-        
+
         if (ok) {
-	        final String insert2 = "insert into CLASSE_IN_CAMPIONATO(annoCampionato, nomeClasse) values (?,?)";
-	        classes.forEach(e -> {
-	            java.sql.PreparedStatement statement2 = null;
-	            try {
-	                statement2 = conn.prepareStatement(insert2);
-	                statement2.setInt(1, year);
-	                statement2.setString(2, e);
-	                statement2.executeUpdate();
-	                statement2.close();
-	            } catch (SQLException ex) {
-	            	try{
-		                AlertTypes alert = new AlertTypesImpl();
-		                alert.showError(ex);
-	            	} catch (ExceptionInInitializerError ei){
-	            		ex.printStackTrace();
-	            	}
-	            }
-	        });
-	        
-	        final String insert3 = "insert into SPONSORIZZAZIONE(annoCampionato, nomeSponsor) values (?,?)";
-	        sponsors.forEach(e -> {
-	            java.sql.PreparedStatement statement3;
-	            try {
-	                statement3 = conn.prepareStatement(insert3);
-	                statement3.setInt(1, year);
-	                statement3.setString(2, e);
-	                statement3.executeUpdate();
-	                statement3.close();
-	            } catch (SQLException ex) {
-	            	try{
-		                AlertTypes alert = new AlertTypesImpl();
-		                alert.showError(ex);
-	            	} catch (ExceptionInInitializerError ei){
-	            		ex.printStackTrace();
-	            	}
-	            } 
-	        });
+            final String insert2 = "insert into CLASSE_IN_CAMPIONATO(annoCampionato, nomeClasse) values (?,?)";
+            classes.forEach(e -> {
+                try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {
+                    statement2.setInt(1, year);
+                    statement2.setString(2, e);
+                    statement2.executeUpdate();
+                } catch (SQLException ex) {
+                    try {
+                        AlertTypes alert = new AlertTypesImpl();
+                        alert.showError(ex);
+                    } catch (ExceptionInInitializerError ei) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            final String insert3 = "insert into SPONSORIZZAZIONE(annoCampionato, nomeSponsor) values (?,?)";
+            sponsors.forEach(e -> {
+                try (final PreparedStatement statement3 = conn.prepareStatement(insert3)) {
+                    statement3.setInt(1, year);
+                    statement3.setString(2, e);
+                    statement3.executeUpdate();
+                } catch (SQLException ex) {
+                    try {
+                        AlertTypes alert = new AlertTypesImpl();
+                        alert.showError(ex);
+                    } catch (ExceptionInInitializerError ei) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
         }
-        
 
     }
-  
+
     @Override
     public ObservableList<Championship> getChampionships() {
 
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<Championship> listChampionship = FXCollections.observableArrayList();
         final String retrieve = "select * from CAMPIONATO order by anno";
         try (final PreparedStatement statement = conn.prepareStatement(retrieve);
@@ -116,133 +98,97 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         }
 
         return listChampionship;
-        
+
     }
-    
-    
-    public ObservableList<String> getClassesNames(int year){
+
+    public ObservableList<String> getClassesNames(int year) {
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<String> list = FXCollections.observableArrayList();
-        final String retrieve = "SELECT cla.nomeClasse " +
-                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, CLASSE cla " +
-                                "WHERE c.annoCampionato=? " + 
-                                "AND ca.anno=? " +
-                                "AND cla.nomeClasse = c.nomeClasse " +
-                                "order by indiceImportanza";
-        
-        PreparedStatement statement = null;
-        ResultSet result = null;
-        try {
-            statement = conn.prepareStatement(retrieve);
+        final String retrieve = "SELECT cla.nomeClasse " + "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, CLASSE cla "
+                + "WHERE c.annoCampionato=? " + "AND ca.anno=? " + "AND cla.nomeClasse = c.nomeClasse "
+                + "order by indiceImportanza";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
             statement.setInt(1, year);
             statement.setInt(2, year);
-            result = statement.executeQuery();
-            while (result.next()) {
-                 list.add(result.getString("nomeClasse"));
-            }
-            statement.close();
-            result.close();
-        } catch (SQLException e) {
-        	try{
-        		AlertTypes alert = new AlertTypesImpl();
-        		alert.showError(e);
-        	} catch (ExceptionInInitializerError ei){
-        		e.printStackTrace();
-        	}
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    list.add(result.getString("nomeClasse"));
                 }
-                if (result != null) {
-                    result.close();
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
                 }
             }
-            catch (SQLException e) {
-            	try{
-	                AlertTypes alert = new AlertTypesImpl();
-	                alert.showError(e);
-            	} catch (ExceptionInInitializerError ei){
-            		e.printStackTrace();
-            	}
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
             }
-        }
-        
+
         return list;
 
     }
-    
-    public ObservableList<String> getSponsorsNames(int year){
-    	
+
+    public ObservableList<String> getSponsorsNames(int year) {
+
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        PreparedStatement statement = null;
-        ResultSet result = null;
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<String> listSponsor = FXCollections.observableArrayList();
-        final String retrieve = "SELECT sponsor.nomeSponsor " +
-                                "from SPONSOR sponsor, SPONSORIZZAZIONE s, CAMPIONATO cam " +
-                                "where s.annoCampionato = ? " + 
-                                "AND cam.anno = ? " +
-                                "and s.nomeSponsor = sponsor.nomeSponsor ";
-        
-        try {
-            statement = conn.prepareStatement(retrieve);
+        final String retrieve = "SELECT sponsor.nomeSponsor "
+                + "from SPONSOR sponsor, SPONSORIZZAZIONE s, CAMPIONATO cam " + "where s.annoCampionato = ? "
+                + "AND cam.anno = ? " + "and s.nomeSponsor = sponsor.nomeSponsor ";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
             statement.setInt(1, year);
             statement.setInt(2, year);
-            result = statement.executeQuery();
-            while (result.next()) {
-                listSponsor.add(result.getString("nomeSponsor"));
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    listSponsor.add(result.getString("nomeSponsor"));
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
             }
-            result.close();
-            statement.close();
+
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        } finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (result != null) {
-                    result.close();
-                }
-            }
-            catch (SQLException e) {
-                try{
-                	AlertTypes alert = new AlertTypesImpl();
-                	alert.showError(e);
-                } catch (ExceptionInInitializerError ei){
-            		e.printStackTrace();
-            	}
-                
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
             }
         }
-        
+
         return listSponsor;
     }
-    
-    
+
     public ObservableList<ChampionshipsView> getChampionshipViews() {
-        
+
         ObservableList<ChampionshipsView> listCh = FXCollections.observableArrayList();
-        
+
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
-        final String insert =   "SELECT anno, edizione, group_concat(distinct c.nomeClasse SEPARATOR ', ') as 'classi', group_concat(distinct spo.nomeSponsor SEPARATOR ', ') as 'sponsor' " +
-                                "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, SPONSORIZZAZIONE spo " +
-                                "WHERE c.annoCampionato=ca.anno "+
-                                "AND c.annoCampionato=spo.annoCampionato "+
-                                "group by anno";
-        PreparedStatement statement = null;
-        ResultSet result = null;
-      
-        try {
-            statement = conn.prepareStatement(insert);
-            result = statement.executeQuery();
+        final Connection conn = db.getConnection();
+
+        final String insert = "SELECT anno, edizione, group_concat(distinct c.nomeClasse SEPARATOR ', ') as 'classi', group_concat(distinct spo.nomeSponsor SEPARATOR ', ') as 'sponsor' "
+                + "from CLASSE_IN_CAMPIONATO c, CAMPIONATO ca, SPONSORIZZAZIONE spo "
+                + "WHERE c.annoCampionato=ca.anno " + "AND c.annoCampionato=spo.annoCampionato " + "group by anno";
+
+        try (final PreparedStatement statement = conn.prepareStatement(insert);
+                final ResultSet result = statement.executeQuery()) {
             while (result.next()) {
                 ChampionshipsView view = new ChampionshipsView();
                 view.setYear(result.getInt("anno"));
@@ -252,32 +198,14 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
                 listCh.add(view);
             }
         } catch (SQLException e) {
-        	try{
-        		AlertTypes alert = new AlertTypesImpl();
-        		alert.showError(e);
-        	} catch (ExceptionInInitializerError ei){
-        		e.printStackTrace();
-        	}
-        } finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (result != null) {
-                    result.close();
-                }
-            }
-            catch (SQLException e) {
-            	try{
-	                AlertTypes alert = new AlertTypesImpl();
-	                alert.showError(e);
-            	} catch (ExceptionInInitializerError ei){
-            		e.printStackTrace();
-            	}
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
             }
         }
         return listCh;
     }
-    
-}
 
+}

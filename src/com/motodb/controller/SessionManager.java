@@ -3,6 +3,7 @@ package com.motodb.controller;
 import java.sql.Date;
 
 import com.motodb.model.Session;
+import com.motodb.model.Team;
 
 import javafx.collections.ObservableList;
 
@@ -23,13 +24,12 @@ public interface SessionManager {
 	 * @param type
 	 * @param laps
 	 */
-    void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, 
+    public void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, 
     		int groundTemp, int humidity, Date startDate, Date finishDate, String code, String durationMax, String type, int laps);
 	/**
 	 * 
 	 * @return
 	 */
-    ObservableList<Session> getSessions();
-    
+    public ObservableList<Session> getSessions();
 
 }

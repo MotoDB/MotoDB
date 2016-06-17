@@ -84,4 +84,32 @@ public class WeekendManagerImpl implements WeekendManager{
 	            }
 	        }
 	    }
+	    
+
+	    @Override
+	    public ObservableList<Weekend> getWeekendsFromYear(int year) {
+	        
+	        final DBManager db = DBManager.getDB();
+	        final Connection conn  = db.getConnection();
+	        
+	        ObservableList<Weekend> list = FXCollections.observableArrayList();
+	        final String retrieve = "select * from WEEKEND where annocampionato = ?";
+	        try {
+	            PreparedStatement statement = null;
+	            ResultSet result = null;
+	        	statement = conn.prepareStatement(retrieve);
+	        	statement.setInt(1, year);
+	            result = statement.executeQuery();
+	            while (result.next()) {
+	            	list.add(new Weekend(result.getInt("annoCampionato"), result.getString("nomeCircuito"), result.getDate("dataInizio"), result.getDate("dataFine")));
+	            }
+	            result.close();
+	            statement.close();
+	        } catch (SQLException e) {
+	            AlertTypes alert = new AlertTypesImpl();
+	            alert.showError(e);
+	        }
+	        
+	        return list;
+	    }
 }

@@ -1,6 +1,9 @@
 package com.motodb.view;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
@@ -18,11 +21,13 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 public class AddWeekendControl extends ScreenControl {
 	
@@ -56,7 +61,10 @@ public class AddWeekendControl extends ScreenControl {
      * the fxml control class. 
      */
     public void initialize() {
-    	    	
+    	
+    	startDate.setDisable(true);
+    	endDate.setDisable(true);
+    	
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().championshipYearProperty().asString());
     	startDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStartDate().toString()));
@@ -85,11 +93,8 @@ public class AddWeekendControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	java.util.Date sDate= new SimpleDateFormat("yyyy-MM-dd").parse(startDate.getValue().toString());
-        	java.util.Date eDate= new SimpleDateFormat("yyyy-MM-dd").parse(endDate.getValue().toString());
-        	
     		weekendManager.addWeekend(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), circuitBox.getSelectionModel().getSelectedItem().getName().toString(),
-    				new java.sql.Date(sDate.getTime()), new java.sql.Date(eDate.getTime()));
+    				java.sql.Date.valueOf(startDate.getValue().toString()), java.sql.Date.valueOf(endDate.getValue().toString()));
 
         	weekendTable.setItems(weekendManager.getWeekends()); // Update table view
         	this.clear();
@@ -161,19 +166,46 @@ public class AddWeekendControl extends ScreenControl {
 	 * when the user selects something in the table
 	 */
 	private void update(){
-		/*
-		yearField.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+		
+		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
-				classesField.getItems().clear();
-				classesField.setDisable(false);
-				classesField.getItems().addAll(championshipManager.getClassesNames(Integer.parseInt(yearField.getSelectionModel().getSelectedItem())));
+				this.updatePossibleDates(Integer.parseInt(newValue));
 			} else {
-				classesField.setDisable(true);
+				startDate.setDisable(true);
+				endDate.setDisable(true);
 			}
 		});
 
-		yearField.valueProperty().addListener((ChangeListener<String>) (ov, t, t1) -> {
-			
-		});*/
+	}
+	
+	private void updatePossibleDates(int year){
+		
+		startDate.setDisable(false);
+		endDate.setDisable(false);
+		
+	    final Callback<DatePicker, DateCell> dayCellFactory = 
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                           
+                            try {
+								if (item.isBefore(new SimpleDateFormat("yyyy-MM-dd").parse(year+"-01-01").toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) 
+										|| item.isAfter(new SimpleDateFormat("yyyy-MM-dd").parse(year+"-12-31").toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+								        setDisable(true);
+								        setStyle("-fx-background-color: #ffc0cb;");
+								}
+							} catch (ParseException e) {
+							}   
+                    }
+                };
+            }
+        };
+        
+        startDate.setDayCellFactory(dayCellFactory);
+        endDate.setDayCellFactory(dayCellFactory);
 	}
 }

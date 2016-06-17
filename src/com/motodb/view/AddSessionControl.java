@@ -1,6 +1,6 @@
 package com.motodb.view;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.motodb.controller.ChampionshipManager;
@@ -22,11 +22,13 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 public class AddSessionControl extends ScreenControl {
 	
@@ -46,7 +48,7 @@ public class AddSessionControl extends ScreenControl {
 		endDateColumn, airTempColumn, groundTempColumn, humColumn, conditionsColumn, lapsColumn, durationColumn;
 	@FXML
 	private TextField durationField, lapsField, humidityField, groundTemperatureField, airTemperatureField, codeField, 
-			searchField;
+	conditionsField, searchField;
 	@FXML
 	private ComboBox<SessionType> typeBox;
 	@FXML
@@ -55,8 +57,6 @@ public class AddSessionControl extends ScreenControl {
 	private ComboBox<Weekend> weekendBox;
 	@FXML
 	private ComboBox<Clax> classBox;
-	@FXML
-	private ComboBox<ConditionType> conditionsBox;
 	@FXML
 	private DatePicker startDate, finishDate;
 	
@@ -71,12 +71,6 @@ public class AddSessionControl extends ScreenControl {
 		Gara;
 	}
 	
-	public enum ConditionType{
-		Piovoso,
-		Asciutto,
-		Mite;
-	}
-	
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
@@ -85,9 +79,10 @@ public class AddSessionControl extends ScreenControl {
     	
     	classBox.setItems(classManager.getClasses());
     	typeBox.setItems(FXCollections.observableArrayList(Arrays.asList(SessionType.values())));
-    	conditionsBox.setItems(FXCollections.observableArrayList(Arrays.asList(ConditionType.values())));
     	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
-    	weekendBox.setItems(weekendManager.getWeekends());
+    	weekendBox.setDisable(true);
+    	startDate.setDisable(true);
+    	finishDate.setDisable(true);
     	
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
@@ -121,12 +116,9 @@ public class AddSessionControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	java.util.Date weekDate= new SimpleDateFormat("yyyy-MM-dd").parse(weekendBox.getSelectionModel().getSelectedItem().getStartDate().toString());
-        	java.util.Date startingDate= new SimpleDateFormat("yyyy-MM-dd").parse(startDate.getValue().toString());
-        	java.util.Date endingDate= new SimpleDateFormat("yyyy-MM-dd").parse(finishDate.getValue().toString());
-    		
-        	sessionManager.addSession(classBox.getSelectionModel().getSelectedItem().getName(), Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), new java.sql.Date(weekDate.getTime()) , conditionsBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(airTemperatureField.getText()), 
-    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), new java.sql.Date(startingDate.getTime()), new java.sql.Date(endingDate.getTime()), codeField.getText(), durationField.getText(), typeBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(lapsField.getText()));
+        	
+        	sessionManager.addSession(classBox.getSelectionModel().getSelectedItem().getName(), Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), weekendBox.getValue().getStartDate() , conditionsField.getText(), Integer.parseInt(airTemperatureField.getText()), 
+    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), java.sql.Date.valueOf(startDate.getValue()), java.sql.Date.valueOf(finishDate.getValue()), codeField.getText(), durationField.getText(), typeBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(lapsField.getText()));
         
     		sessionsTable.setItems(sessionManager.getSessions()); // Update table view
         	this.clear();
@@ -198,19 +190,50 @@ public class AddSessionControl extends ScreenControl {
 	 * when the user selects something in the table
 	 */
 	private void update(){
-		/*
-		yearField.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+		
+		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
-				classesField.getItems().clear();
-				classesField.setDisable(false);
-				classesField.getItems().addAll(championshipManager.getClassesNames(Integer.parseInt(yearField.getSelectionModel().getSelectedItem())));
-			} else {
-				classesField.setDisable(true);
+				if(!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()){
+					weekendBox.setDisable(false);
+					weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
+					this.updatePossibleDates();
+				}else{
+					weekendBox.setDisable(true);
+					startDate.setDisable(true);
+					finishDate.setDisable(true);
+				}
 			}
 		});
 
-		yearField.valueProperty().addListener((ChangeListener<String>) (ov, t, t1) -> {
-			
-		});*/
+	}
+	
+	private void updatePossibleDates(){
+		weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				startDate.setDisable(false);
+				finishDate.setDisable(false);
+			    startDate.setValue(newValue.getStartDate().toLocalDate());
+			    finishDate.setValue(newValue.getStartDate().toLocalDate());
+		        final Callback<DatePicker, DateCell> dayCellFactory = 
+		            new Callback<DatePicker, DateCell>() {
+		                @Override
+		                public DateCell call(final DatePicker datePicker) {
+		                    return new DateCell() {
+		                        @Override
+		                        public void updateItem(LocalDate item, boolean empty) {
+		                            super.updateItem(item, empty);
+		                           
+		                            if (item.isBefore(newValue.getStartDate().toLocalDate()) || item.isAfter(newValue.getFinishDate().toLocalDate())) {
+		                                    setDisable(true);
+		                                    setStyle("-fx-background-color: #ffc0cb;");
+		                            }   
+		                    }
+		                };
+		            }
+		        };
+		        startDate.setDayCellFactory(dayCellFactory);
+		        finishDate.setDayCellFactory(dayCellFactory);
+			}
+		});
 	}
 }

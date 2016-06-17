@@ -1,6 +1,5 @@
 package com.motodb.view;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.motodb.controller.MemberManager;
@@ -92,10 +91,9 @@ public class AddRiderControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	java.util.Date date= new SimpleDateFormat("yyyy-MM-dd").parse(datePicker.getValue().toString());
         	memberManager.addRider(Integer.parseInt(personalCodeField.getText()), firstNameField.getText(), 
         			lastNameField.getText(), photoField.getText(), birthplaceField.getText(), stateField.getText(), roleComboBox.getSelectionModel().getSelectedItem().toString(),
-        				new java.sql.Date(date.getTime()), Integer.parseInt(numberField.getText()), Integer.parseInt(weightField.getText()), Integer.parseInt(heightField.getText()), acronymField.getText());
+        				java.sql.Date.valueOf(datePicker.getValue()), Integer.parseInt(numberField.getText()), Integer.parseInt(weightField.getText()), Integer.parseInt(heightField.getText()), acronymField.getText());
         	ridersTable.setItems(memberManager.getRiders()); // Update table view
         	this.clear();
         } catch (Exception e) {

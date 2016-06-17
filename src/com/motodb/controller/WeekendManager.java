@@ -20,4 +20,11 @@ public interface WeekendManager {
 	 * @param endDate
 	 */
 	public void addWeekend(Integer year, String circuit, Date startDate, Date endDate);
+
+    /**
+     * 
+     * @param year
+     * @return
+     */
+    public ObservableList<Weekend> getWeekendsFromYear(int year);
 }

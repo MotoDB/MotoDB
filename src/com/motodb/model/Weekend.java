@@ -1,6 +1,6 @@
 package com.motodb.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

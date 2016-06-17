@@ -54,7 +54,7 @@
                           			</children>
 			                    </HBox>
 			                    <Label styleClass="control-label" text="Circuit Conditions" />
-				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Conditions" fx:id="conditionsBox" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="conditionsField"/>
 				                <HBox>
 			                    	<children>
                           				<VBox prefWidth="100.0" >

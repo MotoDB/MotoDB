@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddTyreControl">
+	<content>
+		<VBox styleClass="card">
+			<children>
+				<HBox>
+					<children>
+					    <Label styleClass="card-title" text="Add Tyre"/>
+                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
+                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
+					</children>
+				</HBox>
+				<HBox VBox.vgrow="ALWAYS">
+					<children>
+						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
+							<children> 
+					        	<Label styleClass="control-label" text="Make" />
+				                <ComboBox prefHeight="43.0" prefWidth="300.0" fx:id="makeField"/>
+				                <Label styleClass="control-label" text="Size" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="sizeField"/>
+				                <Label styleClass="control-label" text="Compound" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="compoundField"/>
+				                <Pane prefHeight="20.0" />
+				                <HBox>
+	                           		<children>
+	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+								        <Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" onAction="#add"/>
+									</children> 
+						   		</HBox>
+							</children>
+		                    <padding>
+		                        <Insets right="20.0" />
+		                    </padding> 
+						</VBox>
+						<VBox HBox.hgrow="ALWAYS">
+							<children>
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="tyresTable">
+									<columns>
+			                          	<TableColumn text="Make" fx:id="makeColumn"/>
+			                          	<TableColumn text="Size" fx:id="sizeColumn"/>
+			                          	<TableColumn text="Compound" fx:id="compoundColumn"/>
+								    </columns>
+							        <columnResizePolicy>
+							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							        </columnResizePolicy>
+								</TableView>
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<HBox>
+	            	<children>
+	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   
+	            		<TextField promptText="Search" fx:id="searchField" />
+	            		<Label styleClass="icon-label" text="" />
+	            	</children>
+                </HBox>
+	        </children>	
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>
+

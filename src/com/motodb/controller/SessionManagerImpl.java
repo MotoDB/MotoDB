@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.motodb.model.Rider;
 import com.motodb.model.Session;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -98,5 +100,38 @@ public class SessionManagerImpl implements SessionManager {
             }
         }
     }
+
+	@Override
+	public ObservableList<Session> getSessionsFromWeekend(Date weekend) {
+
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Session> list = FXCollections.observableArrayList();
+        final String retrieve = "select * from SESSIONE where dataInizioWeekend = ?";
+        
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setDate(1, weekend);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	list.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
+            			result.getDate("dataInizioWeekend"), result.getString("condizioniPista"), result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"), 
+            			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getDate("dataFineSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
+            			result.getString("tipo"), result.getInt("numeroGiri")));
+                
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return list;
+	}
 
 }

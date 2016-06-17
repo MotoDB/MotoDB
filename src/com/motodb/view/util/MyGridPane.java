@@ -36,8 +36,9 @@ public class MyGridPane {
 	    this.info.setText("Weight: " + rider.getWeight()+ "  Height: " + rider.getHeight());
 	    this.number.setText("Number: " + rider.getNumber());
 	    this.role.setText(rider.getRole());
+	    this.getPane().setCache(true);
 	    if(!rider.getPhoto().isEmpty()){
-		    img = new ImageView(new Image(rider.getPhoto()));
+		    img = new ImageView(new Image(rider.getPhoto(), true));
 		    singleRider.add(img, 5, 0);
 	    }
 	    singleRider.add(this.name, 5, 1);

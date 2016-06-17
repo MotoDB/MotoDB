@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import com.motodb.model.Mechanic;
 import com.motodb.model.Member;
 import com.motodb.model.Rider;
-import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -250,25 +249,27 @@ public class MemberManagerImpl implements MemberManager {
         
         return listMember;
     }
-    
-    public ObservableList<Rider> getRidersFromTeamYear(int year, String teamName){
-    	final DBManager db = DBManager.getDB();
+  
+    @Override
+    public ObservableList<Rider> getRidersFromYear(int year){
+
+        final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         ObservableList<Rider> list = FXCollections.observableArrayList();
-        final String retrieve = "select p.* from PILOTA p, CONTRATTO_TEAM c, where c.codicePersonale = p.codicePersonale "
-        		+ "and c.annoCampionato = ?";
+        final String retrieve = "select p.* from PILOTA p, CONTRATTO_PILOTA c where p.codicePersonale = c.codicePersonale && c.annocampionato = ?";
+        
         try {
             PreparedStatement statement = null;
             ResultSet result = null;
         	statement = conn.prepareStatement(retrieve);
         	statement.setInt(1, year);
-        	//statement.setString(1, teamName);
             result = statement.executeQuery();
             
             while (result.next()) {
-            	Rider rider = new Rider();
-            	rider.setPhoto(result.getString("foto"));
+            	
+            	final Rider rider = new Rider();
+                rider.setPhoto(result.getString("foto"));
                 rider.setPersonalCode(result.getInt("codicePersonale"));
                 rider.setFirstName(result.getString("nomeMembro"));
                 rider.setLastName(result.getString("cognomeMembro"));
@@ -281,6 +282,7 @@ public class MemberManagerImpl implements MemberManager {
                 rider.setNumber(result.getInt("numero"));
                 rider.setAcronym(result.getString("sigla"));
                 list.add(rider);
+                
             }
             result.close();
             statement.close();

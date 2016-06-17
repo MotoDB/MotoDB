@@ -1,7 +1,5 @@
 package com.motodb.view;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -22,6 +20,7 @@ import com.motodb.view.util.PersistentButtonToggleGroup;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -46,6 +45,8 @@ public class RiderControl extends ScreenControl {
     private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
     @FXML
     private VBox mainPane;
+    @FXML
+    private Button addRacingRider;
     @FXML
     private HBox years,classes,teams;
     @FXML

@@ -12,4 +12,5 @@ public interface ClaxManager {
 
     void addClass(String name, String rules, Integer index);
 
+    public ObservableList<Clax> getClassesFromYear(int year);
 }

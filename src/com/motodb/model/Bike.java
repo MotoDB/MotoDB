@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Byke {
+public class Bike {
 	
 	private final StringProperty manufacturerName;
 	private final StringProperty model;
@@ -14,11 +14,11 @@ public class Byke {
     private final IntegerProperty championshipYear;
     private final StringProperty teamName;
     
-    public Byke() {
+    public Bike() {
         this(null, null, null, 0, 0, null);
     }
     
-    public Byke(String manufacturerName, String model, String photoUrl, int weight, int championshipYear, String teamName){
+    public Bike(String manufacturerName, String model, String photoUrl, int weight, int championshipYear, String teamName){
     	 this.manufacturerName = new SimpleStringProperty(manufacturerName);
          this.model = new SimpleStringProperty(model);
          this.photoUrl = new SimpleStringProperty(photoUrl);

@@ -19,7 +19,7 @@ public class DBInitializer {
 	private static final MemberManager member = new MemberManagerImpl();
 	private static final ContractManager contract = new ContractManagerImpl();
 	private static final TyreManager tyre = new TyreManagerImpl();
-	private static final BykeManager bike = new BykeManagerImpl();
+	private static final BikeManager bike = new BikeManagerImpl();
 	
 	private static void initClasses(){
 		clax.addClass("Moto3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
@@ -173,11 +173,11 @@ public class DBInitializer {
 	}
 	
 	private static void initBikes(){
-		bike.addByke("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, 2016, "Honda Racing Team");
-		bike.addByke("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, 2016, "Yamaha Factory Racing");
-		bike.addByke("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, 2016, "Ducati Team");
-		bike.addByke("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, 2016, "Team Suzuki Racing");
-		bike.addByke("Kalex", "Pons", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, 2016, "Pons HP40");
+		bike.addBike("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, 2016, "Honda Racing Team");
+		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, 2016, "Yamaha Factory Racing");
+		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, 2016, "Ducati Team");
+		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, 2016, "Team Suzuki Racing");
+		bike.addBike("Kalex", "Pons", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, 2016, "Pons HP40");
 	}
 	
 	public static void main(String[] args) {
@@ -202,6 +202,8 @@ public class DBInitializer {
 		System.out.println("Circuits Done");
 		initTyres();
 		System.out.println("Tyres Done");
+		initBikes();
+		System.out.println("Bikes Done");
     }	
 	
 }

@@ -24,6 +24,9 @@
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD TYRE" onAction="#switchScreen" fx:id="addTyre" />
                     </children>
                 </HBox>
+                <HBox fx:id="mainPane">
+                   		
+                </HBox>
                 <HBox>
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />

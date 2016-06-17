@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public class MyGridPane {
+public class RiderGridPane {
 	
 	GridPane singleRider = new GridPane();
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -25,7 +25,7 @@ public class MyGridPane {
     Label role = new Label();
     ImageView img;
     
-	public MyGridPane(Rider rider){
+	public RiderGridPane(Rider rider){
 		
 		singleRider.setPadding(new Insets(5));
 	    singleRider.setHgap(10);

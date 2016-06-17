@@ -14,7 +14,7 @@ import com.motodb.model.Championship;
 import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
-import com.motodb.view.util.MyGridPane;
+import com.motodb.view.util.RiderGridPane;
 import com.motodb.view.util.PersistentButtonToggleGroup;
 
 import javafx.beans.value.ChangeListener;
@@ -52,7 +52,7 @@ public class RiderControl extends ScreenControl {
     @FXML
     private TextField searchField;
     
-    private List<MyGridPane> list = new ArrayList<>();
+    private List<RiderGridPane> list = new ArrayList<>();
 
     public RiderControl() {
         super();
@@ -197,13 +197,13 @@ public class RiderControl extends ScreenControl {
             	GridPane grid = new GridPane();
 
          	    for(Rider rider : riderManager.getRiders()){
-         	    	MyGridPane riderPane = new MyGridPane(rider);
+         	    	RiderGridPane riderPane = new RiderGridPane(rider);
          	    	list.add(riderPane);
          	    }
 
              	int i=0;
-             	ListIterator<MyGridPane> it = list.listIterator();
-             	MyGridPane temp =it.next();
+             	ListIterator<RiderGridPane> it = list.listIterator();
+             	RiderGridPane temp =it.next();
          	    while(it.hasNext()){
          	    	int j=0;
          	    	while(j<=3){

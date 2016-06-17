@@ -19,6 +19,7 @@ public class DBInitializer {
 	private static final MemberManager member = new MemberManagerImpl();
 	private static final ContractManager contract = new ContractManagerImpl();
 	private static final TyreManager tyre = new TyreManagerImpl();
+	private static final BykeManager bike = new BykeManagerImpl();
 	
 	private static void initClasses(){
 		clax.addClass("Moto3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
@@ -97,13 +98,13 @@ public class DBInitializer {
 	}
 	
 	private static void initMembers(){
-		int i=0;
+		int i=1;
 		//MotoGP
 		member.addRider(i++, "Marc", "Marquez", "http://www.motogp.com/en/api/rider/photo/grid/old/7444.jpg", "Cervera, Catalunya", "Spain", "Official Rider", new Date(729962150000l), 93, 58, 168, "Mar");
 		member.addRider(i++, "Jorge", "Lorenzo", "http://www.motogp.com/en/api/rider/photo/grid/old/6060.jpg", "Palma de Mallorca, Catalunya", "Spain", "Official Rider", new Date(547139750000l), 99, 64, 173, "Lor");
 		member.addRider(i++, "Andrea", "Dovizioso", "http://www.motogp.com/en/api/rider/photo/grid/old/5885.jpg", "Forlimpopoli, Emilia-Romagna", "Italy", "Official Rider", new Date(511974950000l), 4, 67, 167, "Dov");
 		member.addRider(i++, "Maverick", "Vinales", "http://www.motogp.com/en/api/rider/photo/grid/old/7409.jpg", "Figueres, Catalunya", "Spain", "Official Rider", new Date(789923750000l), 25, 64, 171, "Vin");
-		member.addRider(i++, "Michele", "Pirro", "http://i.imgur.com/hbMKy6S.jpg", "San Giovanni Rotondo, Puglia", "Italy", "Test Rider", new Date(520935287000l), 51, 69, 177, "Pir");
+		member.addRider(i++, "Michele", "Pirro", "http://www.motogp.com/en/api/rider/photo/grid/old/6231.jpg", "San Giovanni Rotondo, Puglia", "Italy", "Test Rider", new Date(520935287000l), 51, 69, 177, "Pir");
 		//Moto2
 		member.addRider(i++, "Johann", "Zarco", "http://www.motogp.com/en/api/rider/photo/grid/old/7236.jpg", "Cannes, Cote D'Azur", "France", "Official Rider", new Date(648144409000l), 5, 65, 171, "Zar");
 		member.addRider(i++, "Lorenzo", "Baldassarri", "http://www.motogp.com/en/api/rider/photo/grid/old/8030.jpg", "San Severino, Marche", "Italy", "Official Rider", new Date(847296409000l), 7, 68, 183, "Bal");
@@ -169,6 +170,14 @@ public class DBInitializer {
 		tyre.addTyre("Dunlop", "067", "R17", "Hard 3");
 		tyre.addTyre("Dunlop", "067", "R17", "Special Hard 4");
 		tyre.addTyre("Dunlop", "067", "R17", "Rain");
+	}
+	
+	private static void initBikes(){
+		bike.addByke("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, 2016, "Honda Racing Team");
+		bike.addByke("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, 2016, "Yamaha Factory Racing");
+		bike.addByke("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, 2016, "Ducati Team");
+		bike.addByke("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, 2016, "Team Suzuki Racing");
+		bike.addByke("Kalex", "Pons", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, 2016, "Pons HP40");
 	}
 	
 	public static void main(String[] args) {

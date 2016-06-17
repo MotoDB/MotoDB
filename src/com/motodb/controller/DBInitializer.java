@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.Optional;
 
+import com.motodb.view.AddContractControl.MemberType;
+
 import javafx.collections.FXCollections;
 
 public class DBInitializer {
@@ -15,6 +17,7 @@ public class DBInitializer {
 	private static final TeamManager team = new TeamManagerImpl();
 	private static final CircuitManager circuit = new CircuitManagerImpl();
 	private static final MemberManager member = new MemberManagerImpl();
+	private static final ContractManager contract = new ContractManagerImpl();
 	private static final TyreManager tyre = new TyreManagerImpl();
 	
 	private static void initClasses(){
@@ -75,7 +78,7 @@ public class DBInitializer {
 		circuit.addCircuit("Misano World Circuit", "Italy", "Misano Adriatico, Emilia-Romagna", 10, 6, 4266, 565, "http://css.motogp.com/w2015/img/circuits/circuits_102.svg", Optional.of("1'33.273"), Optional.of(2), Optional.of(2015));
 		circuit.addCircuit("Twin Ring Motegi", "Japan", "Tochigi, Haga", 8, 6, 4801, 762, "http://css.motogp.com/w2015/img/circuits/circuits_76.svg", Optional.of("1'45.350"), Optional.of(2), Optional.of(2014));
 		circuit.addCircuit("Circuit of the Americas", "United States", "Austin, Texas", 9, 11, 5513, 1200, "http://css.motogp.com/w2015/img/circuits/circuits_116.svg", Optional.of("2'03.575"), Optional.of(1), Optional.of(2014));
-		
+		// TODO add more
 	}
 	
 	private static void initMembers(){
@@ -85,7 +88,7 @@ public class DBInitializer {
 		member.addRider(i++, "Jorge", "Lorenzo", "http://www.motogp.com/en/api/rider/photo/grid/old/6060.jpg", "Palma de Mallorca, Catalunya", "Spain", "Official Rider", new Date(547139750000l), 99, 64, 173, "Lor");
 		member.addRider(i++, "Andrea", "Dovizioso", "http://www.motogp.com/en/api/rider/photo/grid/old/5885.jpg", "Forlimpopoli, Emilia-Romagna", "Italy", "Official Rider", new Date(511974950000l), 4, 67, 167, "Dov");
 		member.addRider(i++, "Maverick", "Vinales", "http://www.motogp.com/en/api/rider/photo/grid/old/7409.jpg", "Figueres, Catalunya", "Spain", "Official Rider", new Date(789923750000l), 25, 64, 171, "Vin");
-		member.addRider(i++, "Michele", "Pirro", "", "San Giovanni Rotondo, Puglia", "Italy", "Test Rider", new Date(520935287000l), 51, 69, 177, "Pir");
+		member.addRider(i++, "Michele", "Pirro", "http://i.imgur.com/hbMKy6S.jpg", "San Giovanni Rotondo, Puglia", "Italy", "Test Rider", new Date(520935287000l), 51, 69, 177, "Pir");
 		//Moto2
 		member.addRider(i++, "Johann", "Zarco", "http://www.motogp.com/en/api/rider/photo/grid/old/7236.jpg", "Cannes, Cote D'Azur", "France", "Official Rider", new Date(648144409000l), 5, 65, 171, "Zar");
 		member.addRider(i++, "Lorenzo", "Baldassarri", "http://www.motogp.com/en/api/rider/photo/grid/old/8030.jpg", "San Severino, Marche", "Italy", "Official Rider", new Date(847296409000l), 7, 68, 183, "Bal");
@@ -99,9 +102,16 @@ public class DBInitializer {
 		//Engineers
 		member.addEngineer(i++, "Cristian", "Gabbarini", "http://media.motoblog.it/8/897/01-Gabbarini-620x413.jpg", "Senigallia, Marche", "Italy", "Chief Engineer", new Date(270045049000l));
 		member.addEngineer(i++, "Luigi", "Dall'Igna", "http://media.motoblog.it/7/770/Dall-Igna_Ducati_Test_Sepang.jpg", "Thiene, Veneto", "Italy", "General Manager", new Date(-109580909000l));
+		// TODO more engineers
 		//Mechanics
 		member.addMechanic(i++, "Mark", "Elder", "http://www.cycleworld.com/sites/cycleworld.com/files/styles/large_1x_/public/import/embedded/wp-content/uploads/2014/07/Mark-Elder-590x393.jpg", "Los Angeles, California", "United States", "On Track Mechanic", new Date(142102291000l));
 		// TODO more mechanics
+	}
+	
+	private static void initContracts(){
+		contract.addContract(2016, MemberType.Rider, 1, team);
+		contract.addContract(2015, MemberType.Rider, 1, team);
+		contract.addContract(2014, MemberType.Rider, 1, team);
 	}
 	
 	private static void initTyres(){

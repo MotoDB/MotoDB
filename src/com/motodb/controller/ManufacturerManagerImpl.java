@@ -53,6 +53,15 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
         
     }
 	
+	public ObservableList<String> getManufacturersNames() {
+    	ObservableList<Manufacturer> manufacturers = this.getManufacturers();
+    	ObservableList<String> names = FXCollections.observableArrayList();
+    	for(Manufacturer m : manufacturers){
+    		names.add(m.getManufacturerName());
+    	}
+    	return names;
+    }
+	
     @Override
     public void addManufacturer(String name, String urlLogo) {
         final DBManager db = DBManager.getDB();

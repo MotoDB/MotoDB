@@ -31,8 +31,10 @@
 				                <Label styleClass="control-label" text="Logo (URL)" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="logoField"/>
                            		<Label styleClass="control-label" text="Classes" />
-                           		<!-- CheckComboBox classes (size -3) -->
+                           		<!-- CheckComboBox classes (size -4) -->
                            		<Label styleClass="control-label" text="Sponsors" />
+                           		<!-- CheckComboBox sponsors (size -3) -->
+                           		<Label styleClass="control-label" text="Manufacturers" />
                            		<!-- CheckComboBox sponsors (size -2) -->
                            		<Pane prefHeight="20.0" />
                            		<HBox>

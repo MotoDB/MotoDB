@@ -4,6 +4,8 @@ import org.controlsfx.control.CheckComboBox;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.ManufacturerManager;
+import com.motodb.controller.ManufacturerManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.controller.TeamManager;
@@ -30,6 +32,7 @@ public class AddTeamControl extends ScreenControl {
     private final TeamManager manager = new TeamManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final SponsorManager sponsorManager = new SponsorManagerImpl();
+    private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     
 	@FXML
 	private TableView<Team> teamsTable;
@@ -38,7 +41,7 @@ public class AddTeamControl extends ScreenControl {
 	@FXML
 	private TextField nameField, locationField, logoField;
 	@FXML
-	private CheckComboBox<String> classesField, sponsorsField;
+	private CheckComboBox<String> classesField, sponsorsField, manufacturersField;
 	@FXML
 	private ComboBox<String> yearField = new ComboBox<String>();
 	@FXML
@@ -55,16 +58,22 @@ public class AddTeamControl extends ScreenControl {
     	championshipManager.getChampionships().forEach(l->yearField.getItems().add(Integer.toString(l.getYear())));
     	
     	classesField=new CheckComboBox<String>();
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-4, classesField);
     	classesField.setDisable(true);
     	classesField.setPrefWidth(300.0);
     	classesField.setMaxWidth(300.0);
     	
     	sponsorsField=new CheckComboBox<String>();
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, sponsorsField);
     	sponsorsField.getItems().addAll(sponsorManager.getSponsorsNames());
     	sponsorsField.setPrefWidth(300.0);
     	sponsorsField.setMaxWidth(300.0);
+    	
+    	manufacturersField=new CheckComboBox<String>();
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, manufacturersField);
+    	manufacturersField.getItems().addAll(manufacturerManager.getManufacturersNames());
+    	manufacturersField.setPrefWidth(300.0);
+    	manufacturersField.setMaxWidth(300.0);
  
     	// Initialize the table
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -90,7 +99,7 @@ public class AddTeamControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addTeam(Integer.parseInt(yearField.getSelectionModel().getSelectedItem()), nameField.getText(), locationField.getText(), logoField.getText(), classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
+        	manager.addTeam(Integer.parseInt(yearField.getSelectionModel().getSelectedItem()), nameField.getText(), locationField.getText(), logoField.getText(), classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems(), manufacturersField.getCheckModel().getCheckedItems());
         	teamsTable.setItems(manager.getTeams()); // Update table view
         	this.clear();
         } catch (Exception e) {

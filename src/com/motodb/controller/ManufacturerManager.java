@@ -9,5 +9,7 @@ public interface ManufacturerManager {
     void addManufacturer(String name, String urlLogo);
 
     ObservableList<Manufacturer> getManufacturers();
+    
+    ObservableList<String> getManufacturersNames();
 
 }

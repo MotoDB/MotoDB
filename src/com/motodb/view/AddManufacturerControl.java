@@ -1,8 +1,8 @@
 package com.motodb.view;
 
-import com.motodb.controller.BrandManager;
-import com.motodb.controller.BrandManagerImpl;
-import com.motodb.model.Brand;
+import com.motodb.controller.ManufacturerManager;
+import com.motodb.controller.ManufacturerManagerImpl;
+import com.motodb.model.Manufacturer;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -14,22 +14,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class AddBrandControl extends ScreenControl {
+public class AddManufacturerControl extends ScreenControl {
 	
 	// Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
     // Controller
-    private final BrandManager manager = new BrandManagerImpl();
+    private final ManufacturerManager manager = new ManufacturerManagerImpl();
     
 	@FXML
-	private TableView<Brand> brandsTable;
+	private TableView<Manufacturer> manufacturersTable;
 	@FXML
-	private TableColumn<Brand, String> nameColumn, logoColumn;
+	private TableColumn<Manufacturer, String> nameColumn, logoColumn;
 	@FXML
 	private TextField nameField, logoUrlField, searchField;
 	@FXML
-	private Button delete;
+	private Button addManufacturerContract;
 	    
     /**
      * Called after the fxml file has been loaded; this method initializes 
@@ -37,10 +37,10 @@ public class AddBrandControl extends ScreenControl {
      */
     public void initialize() {
     	// Initialize the table
-        nameColumn.setCellValueFactory(cellData -> cellData.getValue().brandNameProperty());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturerNameProperty());
         logoColumn.setCellValueFactory(cellData -> cellData.getValue().logoProperty());
         // Add observable list data to the table
-        brandsTable.setItems(manager.getBrands());
+        manufacturersTable.setItems(manager.getManufacturers());
         
         // Make the table columns editable by double clicking
         this.edit();
@@ -57,10 +57,10 @@ public class AddBrandControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addBrand(nameField.getText(), logoUrlField.getText());
+        	manager.addManufacturer(nameField.getText(), logoUrlField.getText());
         	this.clear();
         	
-            brandsTable.setItems(manager.getBrands());
+        	manufacturersTable.setItems(manager.getManufacturers());
         } catch (Exception e) {
             alert.showWarning(e);
         }
@@ -92,7 +92,7 @@ public class AddBrandControl extends ScreenControl {
     private void search(){
     	
     	// 1. Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Brand> filteredData = new FilteredList<>(manager.getBrands(), p -> true);
+        FilteredList<Manufacturer> filteredData = new FilteredList<>(manager.getManufacturers(), p -> true);
 
         // 2. Set the filter Predicate whenever the filter changes.
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -105,7 +105,7 @@ public class AddBrandControl extends ScreenControl {
                 // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (e.getBrandName().toLowerCase().contains(lowerCaseFilter)) {
+                if (e.getManufacturerName().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches first name.
                 } else if (e.getLogo().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches last name.
@@ -115,13 +115,13 @@ public class AddBrandControl extends ScreenControl {
         });
 
         // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<Brand> sortedData = new SortedList<>(filteredData);
+        SortedList<Manufacturer> sortedData = new SortedList<>(filteredData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(brandsTable.comparatorProperty());
+        sortedData.comparatorProperty().bind(manufacturersTable.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
-        brandsTable.setItems(sortedData);
+        manufacturersTable.setItems(sortedData);
     }
     
     /**

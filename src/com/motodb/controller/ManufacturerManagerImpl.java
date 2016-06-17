@@ -5,22 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.motodb.model.Brand;
+import com.motodb.model.Manufacturer;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BrandManagerImpl implements BrandManager {
+public class ManufacturerManagerImpl implements ManufacturerManager {
 
 	@Override
-    public ObservableList<Brand> getBrands() {
+    public ObservableList<Manufacturer> getManufacturers() {
 
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        ObservableList<Brand> brands = FXCollections.observableArrayList();
+        ObservableList<Manufacturer> manufacturer = FXCollections.observableArrayList();
         final String retrieve = "select * from MARCA";
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -28,7 +28,7 @@ public class BrandManagerImpl implements BrandManager {
             statement = conn.prepareStatement(retrieve);
             result = statement.executeQuery();
             while (result.next()) {
-            	brands.add(new Brand(result.getString("nome"), result.getString("logo")));
+            	manufacturer.add(new Manufacturer(result.getString("nome"), result.getString("logo")));
             }
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
@@ -49,12 +49,12 @@ public class BrandManagerImpl implements BrandManager {
             }
         }
         
-        return brands;
+        return manufacturer;
         
     }
 	
     @Override
-    public void addBrand(String name, String urlLogo) {
+    public void addManufacturer(String name, String urlLogo) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         

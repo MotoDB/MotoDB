@@ -5,22 +5,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddBrandControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.AddManufacturerControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Brand"/>
+					    <Label styleClass="card-title" text="Add Manufacturer"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
-                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
+                        <Button fx:id="addManufacturerContract" mnemonicParsing="false" styleClass="button-flat" text="ADD MANUFACTURER CONTRACT" onAction="#switchScreen"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
 						<VBox prefWidth="300.0" minWidth="200.0" fx:id="vBoxFields">
 							<children> 
-					        	<Label styleClass="control-label" text="Brand Name" />
+					        	<Label styleClass="control-label" text="Manufacturer Name" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>
 				                <Label styleClass="control-label" text="Logo (url)" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="logoUrlField"/>
@@ -38,9 +38,9 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="brandsTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="manufacturersTable">
 									<columns>
-			                          	<TableColumn text="Brand Name" fx:id="nameColumn"/>
+			                          	<TableColumn text="Manufacturer Name" fx:id="nameColumn"/>
 			                          	<TableColumn text="Logo(URL)" fx:id="logoColumn"/>
 								    </columns>
 							        <columnResizePolicy>

@@ -22,7 +22,7 @@
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD SPONSOR" onAction="#switchScreen" fx:id="addSponsor" />
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD TYRE" onAction="#switchScreen" fx:id="addTyre" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD BRAND" onAction="#switchScreen" fx:id="addBrand" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD MANUFACTURER" onAction="#switchScreen" fx:id="addManufacturer" />
                     </children>
                 </HBox>
                 <HBox>

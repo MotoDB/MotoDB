@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import com.motodb.model.Bike;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -83,4 +84,32 @@ public class BikeManagerImpl implements BikeManager {
         }
     }
 
+    public ObservableList<Bike> getBikesFromManufacturer(String manufacturer){
+
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Bike> list = FXCollections.observableArrayList();
+        final String retrieve = "select * from MOTO where nomeMarca = ?";
+        
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setString(1, manufacturer);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	list.add(new Bike(result.getString("nomeMarca"), result.getString("modello"), result.getString("foto"), result.getInt("peso"), result.getInt("annoCampionato"), result.getString("nomeTeam")));
+                
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return list;
+    }
 }

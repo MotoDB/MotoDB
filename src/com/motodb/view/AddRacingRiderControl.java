@@ -2,8 +2,8 @@ package com.motodb.view;
 
 import java.util.Arrays;
 
-import com.motodb.controller.BykeManager;
-import com.motodb.controller.BykeManagerImpl;
+import com.motodb.controller.BikeManager;
+import com.motodb.controller.BikeManagerImpl;
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClaxManager;
@@ -18,7 +18,7 @@ import com.motodb.controller.SessionManager;
 import com.motodb.controller.SessionManagerImpl;
 import com.motodb.controller.WeekendManager;
 import com.motodb.controller.WeekendManagerImpl;
-import com.motodb.model.Byke;
+import com.motodb.model.Bike;
 import com.motodb.model.Clax;
 import com.motodb.model.Manufacturer;
 import com.motodb.model.RacingRider;
@@ -52,7 +52,7 @@ public class AddRacingRiderControl extends ScreenControl {
     private final WeekendManager weekendManager = new WeekendManagerImpl();
     private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-    private final BykeManager bykeManager = new BykeManagerImpl();
+    private final BikeManager bikeManager = new BikeManagerImpl();
 
 	@FXML
 	private TableView<RacingRider> racingRidersTable;
@@ -77,7 +77,7 @@ public class AddRacingRiderControl extends ScreenControl {
 	@FXML
 	private ComboBox<Manufacturer> manufacturerBox;
 	@FXML
-	private ComboBox<Byke> bikeModelBox;
+	private ComboBox<Bike> bikeModelBox;
 	
 	private final ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1));
 	
@@ -256,9 +256,9 @@ public class AddRacingRiderControl extends ScreenControl {
 		
 		manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
-				if(!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
+				if(!bikeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
 					bikeModelBox.setDisable(false);
-					bikeModelBox.setItems(bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
+					bikeModelBox.setItems(bikeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
 					
 				}else{
 					bikeModelBox.setDisable(true);

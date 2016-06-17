@@ -98,27 +98,23 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
         
         ObservableList<Championship> listChampionship = FXCollections.observableArrayList();
         final String retrieve = "select * from CAMPIONATO order by anno";
-        try {
-            final PreparedStatement statement = conn.prepareStatement(retrieve);
-            final ResultSet result = statement.executeQuery();
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {
             while (result.next()) {
                 Championship championship = new Championship();
                 championship.setYear(result.getInt("anno"));
                 championship.setEdition(result.getInt("edizione"));
                 listChampionship.add(championship);
             }
-            result.close();
-            statement.close();
         } catch (SQLException e) {
-            try{
-            	AlertTypes alert = new AlertTypesImpl();
-            	alert.showError(e);
-            } catch (ExceptionInInitializerError ei){
-        		e.printStackTrace();
-        	}
-            
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
         }
-        
+
         return listChampionship;
         
     }

@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 
 public class ManufacturerManagerImpl implements ManufacturerManager {
 
-	@Override
+    @Override
     public ObservableList<Manufacturer> getManufacturers() {
 
         final DBManager db = DBManager.getDB();
@@ -22,30 +22,18 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
         
         ObservableList<Manufacturer> manufacturer = FXCollections.observableArrayList();
         final String retrieve = "select * from MARCA";
-        PreparedStatement statement = null;
-        ResultSet result = null;
-        try {
-            statement = conn.prepareStatement(retrieve);
-            result = statement.executeQuery();
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {    
             while (result.next()) {
             	manufacturer.add(new Manufacturer(result.getString("nome"), result.getString("logo")));
             }
         } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        }
-        finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (result != null) { 
-                    result.close();
-                }
-            }
-            catch (SQLException e) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
             }
         }
         

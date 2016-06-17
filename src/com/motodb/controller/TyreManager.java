@@ -8,6 +8,6 @@ public interface TyreManager {
     
     ObservableList<Tyre> getTyres();
 
-    void addTyre(String tyre, String size, String compound);
+    void addTyre(String tyre, String model, String size, String compound);
 
 }

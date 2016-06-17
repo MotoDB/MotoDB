@@ -1,7 +1,6 @@
 package com.motodb.initializer;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -11,13 +10,14 @@ import com.motodb.controller.CircuitManager;
 import com.motodb.controller.CircuitManagerImpl;
 import com.motodb.controller.ClaxManager;
 import com.motodb.controller.ClaxManagerImpl;
-import com.motodb.controller.Main;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
+import com.motodb.controller.TyreManager;
+import com.motodb.controller.TyreManagerImpl;
 
 import javafx.collections.FXCollections;
 
@@ -29,6 +29,7 @@ public class DBInitializer {
 	private static final TeamManager team = new TeamManagerImpl();
 	private static final CircuitManager circuit = new CircuitManagerImpl();
 	private static final MemberManager member = new MemberManagerImpl();
+	private static final TyreManager tyre = new TyreManagerImpl();
 	
 	private static void initClasses(){
 		clax.addClass("Moto 3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
@@ -85,38 +86,60 @@ public class DBInitializer {
 	}
 	
 	private static void initMembers(){
-
 		int i=0;
 		//MotoGP
 		member.addRider(i++, "Marc", "Marquez", "http://www.motogp.com/en/api/rider/photo/grid/old/7444.jpg", "Cervera, Catalunya", "Spain", "Official Rider", new Date(729962150000l), 93, 58, 168, "Mar");
 		member.addRider(i++, "Jorge", "Lorenzo", "http://www.motogp.com/en/api/rider/photo/grid/old/6060.jpg", "Palma de Mallorca, Catalunya", "Spain", "Official Rider", new Date(547139750000l), 99, 64, 173, "Lor");
 		member.addRider(i++, "Andrea", "Dovizioso", "http://www.motogp.com/en/api/rider/photo/grid/old/5885.jpg", "Forlimpopoli, Emilia-Romagna", "Italy", "Official Rider", new Date(511974950000l), 4, 67, 167, "Dov");
 		member.addRider(i++, "Maverick", "Vinales", "http://www.motogp.com/en/api/rider/photo/grid/old/7409.jpg", "Figueres, Catalunya", "Spain", "Official Rider", new Date(789923750000l), 25, 64, 171, "Vin");
-		//add collaudatore
+		member.addRider(i++, "Michele", "Pirro", "", "San Giovanni Rotondo, Puglia", "Italy", "Test Rider", new Date(520935287000l), 51, 69, 177, "Pir");
 		//Moto2
 		member.addRider(i++, "Johann", "Zarco", "http://www.motogp.com/en/api/rider/photo/grid/old/7236.jpg", "Cannes, Cote D'Azur", "France", "Official Rider", new Date(648144409000l), 5, 65, 171, "Zar");
 		member.addRider(i++, "Lorenzo", "Baldassarri", "http://www.motogp.com/en/api/rider/photo/grid/old/8030.jpg", "San Severino, Marche", "Italy", "Official Rider", new Date(847296409000l), 7, 68, 183, "Bal");
 		member.addRider(i++, "Danny", "Kent", "http://www.motogp.com/en/api/rider/photo/grid/old/7461.jpg", "Chippenham, Wiltshire", "United Kingdom", "Official Rider", new Date(754243609000l), 52, 65, 172, "Ken");
 		member.addRider(i++, "Hafizh", "Malaysia", "http://www.motogp.com/en/api/rider/photo/grid/old/8132.jpg", "Ampang, Kuala Lumpur", "Malaysia", "Official Rider", new Date(768154009000l), 55, 65, 180, "Sya");
 		//Moto3
-		member.addRider(i++, "Enea", "Bastianini", "http://image2.redbull.com/rbcom/010/2015-03-19/1331712249920_2/0010/1/320/213/2/enea-bastianini-potrait.jpg", "Rimini, Emilia-Romagna", "Italy", "Official Rider", new Date(883496074000l), 33, 60, 169, "Bas");
-		member.addRider(i++, "Brad", "Binder", "http://image1.redbull.com/rbcom/010/2016-03-03/1331780276319_4/0012/0/913/0/3211/3455/320/4/brad-binder-il-ritratto-del-pilota-sudafricano.jpg", "Potchefstroom, North-West", "South Africa", "Official Rider", new Date(808155274000l), 41, 61, 170, "BiB");
-		member.addRider(i++, "Nicolo", "Bulega", "http://futbolatin.com/wp-content/uploads/2016/03/Nicol%C3%B2-Bulega-moto3.jpg", "Montecchio, Emilia-Romagna", "Italy", "Official Rider", new Date(940089373000l), 8, 63, 180, "Bul");
-		member.addRider(i++, "Francesco", "Bagnaia", "http://www.pianetariders.it/wp-content/uploads/2013/11/francesco_bagnaia.jpg", "Torino, Piemonte", "Italy", "Official Rider", new Date(940089373000l), 21, 59, 174, "Bag");
+		member.addRider(i++, "Enea", "Bastianini", "http://www.motogp.com/en/api/rider/photo/grid/old/8295.jpg", "Rimini, Emilia-Romagna", "Italy", "Official Rider", new Date(883496074000l), 33, 60, 169, "Bas");
+		member.addRider(i++, "Brad", "Binder", "http://www.motogp.com/en/api/rider/photo/grid/old/7646.jpg", "Potchefstroom, North-West", "South Africa", "Official Rider", new Date(808155274000l), 41, 61, 170, "BiB");
+		member.addRider(i++, "Nicolo", "Bulega", "http://www.motogp.com/en/api/rider/photo/grid/old/8756.jpg", "Montecchio, Emilia-Romagna", "Italy", "Official Rider", new Date(940089373000l), 8, 63, 180, "Bul");
+		member.addRider(i++, "Francesco", "Bagnaia", "http://www.motogp.com/en/api/rider/photo/grid/old/8273.jpg", "Torino, Piemonte", "Italy", "Official Rider", new Date(940089373000l), 21, 59, 174, "Bag");
 		//Engineers
 		member.addEngineer(i++, "Cristian", "Gabbarini", "http://media.motoblog.it/8/897/01-Gabbarini-620x413.jpg", "Senigallia, Marche", "Italy", "Chief Engineer", new Date(270045049000l));
 		member.addEngineer(i++, "Luigi", "Dall'Igna", "http://media.motoblog.it/7/770/Dall-Igna_Ducati_Test_Sepang.jpg", "Thiene, Veneto", "Italy", "General Manager", new Date(-109580909000l));
 		//Mechanics
 		member.addMechanic(i++, "Mark", "Elder", "http://www.cycleworld.com/sites/cycleworld.com/files/styles/large_1x_/public/import/embedded/wp-content/uploads/2014/07/Mark-Elder-590x393.jpg", "Los Angeles, California", "United States", "On Track Mechanic", new Date(142102291000l));
-
+	}
+	
+	private static void initTyres(){
+		tyre.addTyre("Michelin", "Power Slick", "R17", "Hard");
+		tyre.addTyre("Michelin", "Power Slick", "R17", "Medium");
+		tyre.addTyre("Michelin", "Power Slick", "R17", "Soft");
+		tyre.addTyre("Michelin", "Power Inter", "R17", "Intermediate");
+		tyre.addTyre("Michelin", "Power Rain", "R17", "Soft");
+		tyre.addTyre("Michelin", "Power Rain", "R17", "Hard");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Extra-Hard");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Hard");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Medium");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Soft");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Extra-Soft");
+		tyre.addTyre("Bridgestone", "Battlax Slick", "R16.5", "Asymmetric");
+		tyre.addTyre("Bridgestone", "Battlax Rain", "R16.5", "Soft");
+		tyre.addTyre("Bridgestone", "Battlax Rain", "R16.5", "Hard");
+		tyre.addTyre("Dunlop", "067", "R17", "Soft 1");
+		tyre.addTyre("Dunlop", "067", "R17", "Medium 2");
+		tyre.addTyre("Dunlop", "067", "R17", "Hard 3");
+		tyre.addTyre("Dunlop", "067", "R17", "Special Hard 4");
+		tyre.addTyre("Dunlop", "067", "R17", "Rain");
 	}
 	
 	public static void main(String[] args) {
 		initClasses();
 		initSponsors();
 		initChampionships();
+		initTeams();
 		initMembers();
 		initCircuits();
+		initTyres();
     }
 	
 }

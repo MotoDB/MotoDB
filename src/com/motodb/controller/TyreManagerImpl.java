@@ -26,7 +26,7 @@ public class TyreManagerImpl implements TyreManager {
             statement = conn.prepareStatement(retrieve);
             result = statement.executeQuery();
             while (result.next()) {
-                tyres.add(new Tyre(result.getString("marca"), result.getString("misura"), result.getString("mescola")));
+                tyres.add(new Tyre(result.getString("marca"), result.getString("modello"), result.getString("misura"), result.getString("mescola")));
             }
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
@@ -52,17 +52,18 @@ public class TyreManagerImpl implements TyreManager {
     }
     
     @Override
-    public void addTyre(final String make, final String size, final String compound) {
+    public void addTyre(final String make, final String model, final String size, final String compound) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
-        final String insert = "insert into PNEUMATICO(marca, misura, mescola) values (?,?,?)";
+        final String insert = "insert into PNEUMATICO(marca, modello, misura, mescola) values (?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, make);
-            statement.setString(2, size);
-            statement.setString(3, compound);
+            statement.setString(2, model);
+            statement.setString(3, size);
+            statement.setString(4, compound);
             statement.executeUpdate();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();

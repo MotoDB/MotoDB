@@ -22,6 +22,8 @@
 							<children> 
 					        	<Label styleClass="control-label" text="Make" />
 				                <ComboBox prefHeight="43.0" prefWidth="300.0" fx:id="makeField"/>
+				                <Label styleClass="control-label" text="Model" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="modelField"/>
 				                <Label styleClass="control-label" text="Size" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="sizeField"/>
 				                <Label styleClass="control-label" text="Compound" />
@@ -43,6 +45,7 @@
 								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="tyresTable">
 									<columns>
 			                          	<TableColumn text="Make" fx:id="makeColumn"/>
+			                          	<TableColumn text="Make" fx:id="modelColumn"/>
 			                          	<TableColumn text="Size" fx:id="sizeColumn"/>
 			                          	<TableColumn text="Compound" fx:id="compoundColumn"/>
 								    </columns>

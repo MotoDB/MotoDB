@@ -27,11 +27,11 @@ public class AddTyreControl extends ScreenControl {
 	@FXML
 	private TableView<Tyre> tyresTable;
 	@FXML
-	private TableColumn<Tyre, String> makeColumn, sizeColumn, compoundColumn;
+	private TableColumn<Tyre, String> makeColumn, modelColumn, sizeColumn, compoundColumn;
     @FXML
     private ComboBox<String> makeField;
 	@FXML
-	private TextField sizeField, compoundField;
+	private TextField modelField, sizeField, compoundField;
 	@FXML
 	private Button delete;
 	    
@@ -42,6 +42,7 @@ public class AddTyreControl extends ScreenControl {
     public void initialize() {
     	// Initialize the table
         makeColumn.setCellValueFactory(cellData -> cellData.getValue().makeProperty());
+        modelColumn.setCellValueFactory(cellData -> cellData.getValue().modelProperty());
         sizeColumn.setCellValueFactory(cellData -> cellData.getValue().sizeProperty());
         compoundColumn.setCellValueFactory(cellData -> cellData.getValue().compoundProperty());
         // Add observable list data to the table
@@ -64,7 +65,7 @@ public class AddTyreControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	manager.addTyre(makeField.getSelectionModel().getSelectedItem(), sizeField.getText(), compoundField.getText());
+        	manager.addTyre(makeField.getSelectionModel().getSelectedItem(),  modelField.getText(), sizeField.getText(), compoundField.getText());
         	tyresTable.setItems(manager.getTyres());
         	this.clear();
         } catch (Exception e) {

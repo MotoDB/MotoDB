@@ -2,7 +2,7 @@ package com.motodb.controller;
 
 import java.sql.Date;
 
-import com.motodb.model.Rider;
+import com.motodb.model.RacingRider;
 
 import javafx.collections.ObservableList;
 

@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.motodb.model.Mechanic;
-import com.motodb.model.Member;
-import com.motodb.model.Rider;
+import com.motodb.model.RacingRider;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 

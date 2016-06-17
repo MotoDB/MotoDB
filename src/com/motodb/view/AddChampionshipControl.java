@@ -85,7 +85,7 @@ public class AddChampionshipControl extends ScreenControl {
         @FXML
     private void add() {
         try {
-                manager.insertChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
+                manager.addChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
                                 classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
                 championshipTable.setItems(manager.getChampionshipViews()); // Update table view
                 this.clear();

@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 public class TeamManagerImpl implements TeamManager{
 
     @Override
-    public void addTeam(int year, String name, String location, String logo, ObservableList<String> classes, ObservableList<String> sponsors) {
+    public void addTeam(int year, String name, String location, String logo, ObservableList<String> classes, ObservableList<String> sponsors, ObservableList<String> manufacturers) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         boolean ok = true;
@@ -78,8 +78,22 @@ public class TeamManagerImpl implements TeamManager{
                         alert.showError(ex);
                     } 
                 });
+                
+                final String insert4 = "insert into CONTRATTO_MARCA(nomeMarca, annoCampionato, nomeTeam) values (?,?,?)";
+                manufacturers.forEach(e->{
+                	java.sql.PreparedStatement statement4;
+                	try {
+	    	            statement4 = conn.prepareStatement(insert4);
+	    	            statement4.setString(1, e);
+	    	            statement4.setInt(2, year);
+	    	            statement4.setString(3, name);
+	    	            statement4.executeUpdate();
+	    	        } catch (SQLException ex) {
+	    	            AlertTypes alert = new AlertTypesImpl();
+	    	            alert.showError(ex);
+	    	        }
+                });
         }
-        
     }
 
     @Override

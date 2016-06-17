@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 public interface ChampionshipManager {
 
-    void insertChampionship(int year, int edition, ObservableList<String> classes, final ObservableList<String> sponsors);
+    void addChampionship(int year, int edition, ObservableList<String> classes, final ObservableList<String> sponsors);
 
     ObservableList<Championship>getChampionships();
     

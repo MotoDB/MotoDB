@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 public interface TeamManager {
 
-    public void addTeam(int year, String name, String location, String logo, ObservableList<String> classes, ObservableList<String> sponsors);
+    public void addTeam(int year, String name, String location, String logo, ObservableList<String> classes, ObservableList<String> sponsors, ObservableList<String> manufacturers);
     
     public ObservableList<Team> getTeams();
     

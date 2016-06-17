@@ -1,24 +1,8 @@
-package com.motodb.initializer;
+package com.motodb.controller;
 
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Optional;
-
-import com.motodb.controller.ChampionshipManager;
-import com.motodb.controller.ChampionshipManagerImpl;
-import com.motodb.controller.CircuitManager;
-import com.motodb.controller.CircuitManagerImpl;
-import com.motodb.controller.ClaxManager;
-import com.motodb.controller.ClaxManagerImpl;
-import com.motodb.controller.DBManager;
-import com.motodb.controller.MemberManager;
-import com.motodb.controller.MemberManagerImpl;
-import com.motodb.controller.SponsorManager;
-import com.motodb.controller.SponsorManagerImpl;
-import com.motodb.controller.TeamManager;
-import com.motodb.controller.TeamManagerImpl;
-import com.motodb.controller.TyreManager;
-import com.motodb.controller.TyreManagerImpl;
 
 import javafx.collections.FXCollections;
 
@@ -27,6 +11,7 @@ public class DBInitializer {
 	private static final ClaxManager clax = new ClaxManagerImpl();
 	private static final SponsorManager sponsor = new SponsorManagerImpl();
 	private static final ChampionshipManager championship = new ChampionshipManagerImpl();
+	private static final ManufacturerManager manufacturer = new ManufacturerManagerImpl();
 	private static final TeamManager team = new TeamManagerImpl();
 	private static final CircuitManager circuit = new CircuitManagerImpl();
 	private static final MemberManager member = new MemberManagerImpl();
@@ -58,21 +43,30 @@ public class DBInitializer {
 	}
 	
 	private static void initChampionships(){
-		championship.insertChampionship(2016, 68, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
-		championship.insertChampionship(2015, 67, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
-		championship.insertChampionship(2014, 66, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
-		championship.insertChampionship(2013, 65, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
-		championship.insertChampionship(2001, 53, FXCollections.observableArrayList(Arrays.asList("500", "250", "125")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
-		championship.insertChampionship(2002, 54, FXCollections.observableArrayList(Arrays.asList("MotoGP", "250", "125")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
+		championship.addChampionship(2016, 68, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
+		championship.addChampionship(2015, 67, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
+		championship.addChampionship(2014, 66, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
+		championship.addChampionship(2013, 65, FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Bridgestone")));
+		championship.addChampionship(2001, 53, FXCollections.observableArrayList(Arrays.asList("500", "250", "125")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
+		championship.addChampionship(2002, 54, FXCollections.observableArrayList(Arrays.asList("MotoGP", "250", "125")), FXCollections.observableArrayList(Arrays.asList("Michelin")));
+	}
+	
+	private static void initManufacturers() {
+		manufacturer.addManufacturer("Ducati", "http://i.imgur.com/3IEWTDv.png");
+		manufacturer.addManufacturer("Honda", "http://i.imgur.com/gpgmssX.png");
+		manufacturer.addManufacturer("Suzuki", "http://i.imgur.com/mvdTzMG.png");
+		manufacturer.addManufacturer("Yamaha", "http://i.imgur.com/dsKjxrP.png");
+		manufacturer.addManufacturer("KTM", "http://i.imgur.com/1pLLecR.png");
+		// TODO moto2
 	}
 	
 	private static void initTeams(){
-		team.addTeam(2016, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Movistar", "Monster Energy", "Abarth")));
-		team.addTeam(2016, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "TIM", "Shell")));
-		team.addTeam(2016, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Repsol", "Red Bull")));
-		team.addTeam(2016, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Motul")));
-		//team moto2
-		//team moto3
+		team.addTeam(2016, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Movistar", "Monster Energy", "Abarth")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
+		team.addTeam(2016, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "TIM", "Shell")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
+		team.addTeam(2016, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
+		team.addTeam(2016, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Motul")), FXCollections.observableArrayList(Arrays.asList("Suzuki")));
+		// TODO team moto2
+		// TODO team moto3
 	}
 
 	private static void initCircuits(){
@@ -107,6 +101,7 @@ public class DBInitializer {
 		member.addEngineer(i++, "Luigi", "Dall'Igna", "http://media.motoblog.it/7/770/Dall-Igna_Ducati_Test_Sepang.jpg", "Thiene, Veneto", "Italy", "General Manager", new Date(-109580909000l));
 		//Mechanics
 		member.addMechanic(i++, "Mark", "Elder", "http://www.cycleworld.com/sites/cycleworld.com/files/styles/large_1x_/public/import/embedded/wp-content/uploads/2014/07/Mark-Elder-590x393.jpg", "Los Angeles, California", "United States", "On Track Mechanic", new Date(142102291000l));
+		// TODO more mechanics
 	}
 	
 	private static void initTyres(){
@@ -141,6 +136,8 @@ public class DBInitializer {
 		System.out.println("Sponsors Done");
 		initChampionships();
 		System.out.println("Championships Done");
+		initManufacturers();
+		System.out.println("Manufacturers Done");
 		initTeams();
 		System.out.println("Teams Done");
 		initMembers();
@@ -149,8 +146,6 @@ public class DBInitializer {
 		System.out.println("Circuits Done");
 		initTyres();
 		System.out.println("Tyres Done");
-		
-		
-    }
+    }	
 	
 }

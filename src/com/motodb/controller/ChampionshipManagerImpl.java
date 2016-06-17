@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 public class ChampionshipManagerImpl implements ChampionshipManager {    
     
     @Override
-    public void insertChampionship(final int year, final int edition, final ObservableList<String> classes, final ObservableList<String> sponsors) {
+    public void addChampionship(final int year, final int edition, final ObservableList<String> classes, final ObservableList<String> sponsors) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         boolean ok = true;

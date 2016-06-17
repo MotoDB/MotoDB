@@ -23,6 +23,8 @@
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Year" fx:id="yearBox" />
 				                <Label styleClass="control-label" text="Rider" />
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Rider" fx:id="riderBox" />
+				                <Label styleClass="control-label" text="Class" />
+				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Class" fx:id="classBox" />
 				                 <HBox>
 			                    	<children>
                           				<VBox prefWidth="150.0" >
@@ -34,7 +36,7 @@
 			                    		<VBox  prefWidth="150.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="Session Code" />
-				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Weekend" fx:id="sessionCodeBox" />
+				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="SessionCode" fx:id="sessionCodeBox" />
                           					</children>
 			                    		</VBox>
                           			</children>
@@ -50,7 +52,7 @@
 			                    		<VBox  prefWidth="150.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="Avarage Speed" />
-				                				<TextField prefHeight="43.0" maxWidth="85.0" fx:id="speedField"/> 
+				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="speedField"/> 
                           					</children>
 			                    		</VBox>
                           			</children>
@@ -68,27 +70,13 @@
 			                    		<VBox  prefWidth="150.0">
 			                    			<children>
                           						<Label styleClass="control-label" text="Bike Model" />
-				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Weekend" fx:id="bikeModelBox" />
+				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="BikeModel" fx:id="bikeModelBox" />
                           					</children>
 			                    		</VBox>
                           			</children>
 			                    </HBox>
-			                    <HBox>
-			                    	<children>
-                          				<VBox prefWidth="150.0" >
-			                    			<children>
-                          						<Label styleClass="control-label" text="Position" />
-				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Position" fx:id="positionBox" />
-                          					</children>
-			                    		</VBox>
-			                    		<VBox  prefWidth="150.0">
-			                    			<children>
-                          						<Label styleClass="control-label" text="Points" />
-				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Weekend" fx:id="pointsBox" />
-                          					</children>
-			                    		</VBox>
-                          			</children>
-			                    </HBox>
+                      			<Label styleClass="control-label" text="Position" />
+                				<TextField prefHeight="43.0" prefWidth="300.0" fx:id="positionField"/> 
               					<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>

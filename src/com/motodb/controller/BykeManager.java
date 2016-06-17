@@ -10,4 +10,5 @@ public interface BykeManager {
 
     void addByke(String manufacturerName, String model, String photoUrl, int weight, int championshipYear, String teamName);
 
+    public ObservableList<Byke> getBikesFromManufacturer(String manufacturer);
 }

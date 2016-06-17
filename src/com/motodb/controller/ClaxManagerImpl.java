@@ -90,4 +90,34 @@ public class ClaxManagerImpl implements ClaxManager {
         }
     }
 
+    @Override
+	public ObservableList<Clax> getClassesFromYear(int year) {
+
+        final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<Clax> list = FXCollections.observableArrayList();
+        final String retrieve = "select c.* from CLASSE c, CLASSE_IN_CAMPIONATO i where c.nomeClasse = i.nomeClasse AND i.annoCampionato = ?";
+        
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setInt(1, year);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	list.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento"), result.getInt("indiceImportanza")));
+                
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return list;
+	}
+
 }

@@ -1,13 +1,17 @@
 package com.motodb.view;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Arrays;
 
+import com.motodb.controller.BykeManager;
+import com.motodb.controller.BykeManagerImpl;
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClaxManager;
 import com.motodb.controller.ClaxManagerImpl;
+import com.motodb.controller.ManufacturerManager;
+import com.motodb.controller.ManufacturerManagerImpl;
+import com.motodb.controller.MemberManager;
+import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.RacingRiderManager;
 import com.motodb.controller.RacingRiderManagerImpl;
 import com.motodb.controller.SessionManager;
@@ -25,6 +29,8 @@ import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -42,8 +48,11 @@ public class AddRacingRiderControl extends ScreenControl {
     private final SessionManager sessionManager = new SessionManagerImpl();
     private final ClaxManager classManager = new ClaxManagerImpl();
     private final RacingRiderManager racingRiderManager = new RacingRiderManagerImpl();
+    private final MemberManager riderManager = new MemberManagerImpl();
     private final WeekendManager weekendManager = new WeekendManagerImpl();
+    private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
+    private final BykeManager bykeManager = new BykeManagerImpl();
 
 	@FXML
 	private TableView<RacingRider> racingRidersTable;
@@ -51,8 +60,7 @@ public class AddRacingRiderControl extends ScreenControl {
 	private TableColumn<RacingRider, String> yearColumn, weekendColumn, riderColumn, classColumn, sessionColumn, 
 	timeColumn, finishedColumn, positionColumn, pointsColumn, speedColumn, manufacturerColumn, modelColumn;
 	@FXML
-	private TextField timeField, speedField, humidityField, groundTemperatureField, airTemperatureField, codeField, 
-	conditionsField, searchField;
+	private TextField timeField, speedField, positionField, searchField;
 	
 	@FXML
 	private ComboBox<Session> sessionCodeBox;
@@ -69,12 +77,10 @@ public class AddRacingRiderControl extends ScreenControl {
 	@FXML
 	private ComboBox<Manufacturer> manufacturerBox;
 	@FXML
-	private ComboBox<Integer> positionBox;
-	@FXML
-	private ComboBox<Integer> pointsBox;
-	@FXML
 	private ComboBox<Byke> bikeModelBox;
-		
+	
+	private final ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1));
+	
 	@FXML
 	private Button delete;
 	@FXML
@@ -85,10 +91,16 @@ public class AddRacingRiderControl extends ScreenControl {
      * the fxml control class. 
      */
     public void initialize() {
-    	
-    	classBox.setItems(classManager.getClasses());
-    	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+    	manufacturerBox.setItems(manufacturerManager.getManufacturers());
+    	bikeModelBox.setDisable(true);
+    	classBox.setDisable(true);
+    	riderBox.setDisable(true);
     	weekendBox.setDisable(true);
+    	sessionCodeBox.setDisable(true);
+    	finishedBox.setItems(FXCollections.observableArrayList(Arrays.asList(true,false)));
+    	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+
+    	this.update();
     	
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().championshipYearProperty().asString());
@@ -111,8 +123,6 @@ public class AddRacingRiderControl extends ScreenControl {
         this.edit();
         // Use a 'searchField' to search for books in the tableView
         this.search();
-        // Listen for selection changes and enable delete button
-        this.update();
     }
     
     /**
@@ -122,10 +132,15 @@ public class AddRacingRiderControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	
-        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), weekendBox.getValue().getStartDate(), classBox.getValue().getName(), sessionCodeBox.getValue().getCode(),
-                    timeField.getText(), positionBox.getValue(), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
-                    pointsBox.getValue());
+        	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15){
+        		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), classBox.getValue().getName(), sessionCodeBox.getValue().getCode(),
+                        timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
+                        0);
+        	}else{
+	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), classBox.getValue().getName(), sessionCodeBox.getValue().getCode(),
+	                    timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
+	                    points.get(Integer.parseInt(positionField.getText())-1));
+        	}
         
         	racingRidersTable.setItems(racingRiderManager.getRacingRiders()); // Update table view
         	this.clear();
@@ -197,50 +212,60 @@ public class AddRacingRiderControl extends ScreenControl {
 	 * when the user selects something in the table
 	 */
 	private void update(){
-		/*
+		
 		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
 				if(!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()){
 					weekendBox.setDisable(false);
 					weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
-					this.updatePossibleDates();
+					
 				}else{
 					weekendBox.setDisable(true);
-					startDate.setDisable(true);
-					finishDate.setDisable(true);
+				}
+				
+				if(!riderManager.getRidersFromYear(Integer.parseInt(newValue)).isEmpty()){
+					riderBox.setDisable(false);
+					riderBox.setItems(riderManager.getRidersFromYear(Integer.parseInt(newValue)));
+					
+				}else{
+					riderBox.setDisable(true);
+				}
+				
+				if(!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()){
+					classBox.setDisable(false);
+					classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
+					
+				}else{
+					riderBox.setDisable(true);
 				}
 			}
-		});*/
-
+		});
+		
+		
+		weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				if(!sessionManager.getSessionsFromWeekend(weekendBox.getValue().getStartDate()).isEmpty()){
+					sessionCodeBox.setDisable(false);
+					sessionCodeBox.setItems(sessionManager.getSessionsFromWeekend(weekendBox.getValue().getStartDate()));
+					
+				}else{
+					sessionCodeBox.setDisable(true);
+				}
+			}
+		});
+		
+		manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				if(!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
+					bikeModelBox.setDisable(false);
+					bikeModelBox.setItems(bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
+					
+				}else{
+					bikeModelBox.setDisable(true);
+				}
+			}
+		});
+		
 	}
 	
-	private void updatePossibleDates(){
-		/*weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				startDate.setDisable(false);
-				finishDate.setDisable(false);
-			    startDate.setValue(newValue.getStartDate().toLocalDate());
-			    finishDate.setValue(newValue.getStartDate().toLocalDate());
-		        final Callback<DatePicker, DateCell> dayCellFactory = 
-		            new Callback<DatePicker, DateCell>() {
-		                @Override
-		                public DateCell call(final DatePicker datePicker) {
-		                    return new DateCell() {
-		                        @Override
-		                        public void updateItem(LocalDate item, boolean empty) {
-		                            super.updateItem(item, empty);
-		                           
-		                            if (item.isBefore(newValue.getStartDate().toLocalDate()) || item.isAfter(newValue.getFinishDate().toLocalDate())) {
-		                                    setDisable(true);
-		                                    setStyle("-fx-background-color: #ffc0cb;");
-		                            }   
-		                    }
-		                };
-		            }
-		        };
-		        startDate.setDayCellFactory(dayCellFactory);
-		        finishDate.setDayCellFactory(dayCellFactory);
-			}
-		});*/
-	}
 }

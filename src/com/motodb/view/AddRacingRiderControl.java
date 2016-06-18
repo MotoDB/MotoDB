@@ -2,6 +2,8 @@ package com.motodb.view;
 
 import java.util.Arrays;
 
+import org.controlsfx.control.CheckComboBox;
+
 import com.motodb.controller.BikeManager;
 import com.motodb.controller.BikeManagerImpl;
 import com.motodb.controller.ChampionshipManager;
@@ -18,6 +20,8 @@ import com.motodb.controller.RacingRiderManager;
 import com.motodb.controller.RacingRiderManagerImpl;
 import com.motodb.controller.SessionManager;
 import com.motodb.controller.SessionManagerImpl;
+import com.motodb.controller.TyreManager;
+import com.motodb.controller.TyreManagerImpl;
 import com.motodb.controller.WeekendManager;
 import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Bike;
@@ -26,6 +30,7 @@ import com.motodb.model.Manufacturer;
 import com.motodb.model.RacingRider;
 import com.motodb.model.Rider;
 import com.motodb.model.Session;
+import com.motodb.model.Tyre;
 import com.motodb.model.Weekend;
 import com.motodb.view.AddSessionControl.SessionType;
 import com.motodb.view.alert.AlertTypes;
@@ -56,6 +61,7 @@ public class AddRacingRiderControl extends ScreenControl {
     private final WeekendManager weekendManager = new WeekendManagerImpl();
     private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
+    private final TyreManager tyreManager = new TyreManagerImpl();
     private final BikeManager bykeManager = new BikeManagerImpl();
 
 	@FXML
@@ -82,6 +88,8 @@ public class AddRacingRiderControl extends ScreenControl {
 	private ComboBox<Manufacturer> manufacturerBox;
 	@FXML
 	private ComboBox<Bike> bikeModelBox;
+	@FXML
+	private CheckComboBox<Tyre> tyreBox;
 	
 	private final ObservableList<Integer> points = new com.motodb.controller.DBInitializer().getPoints();
 	
@@ -105,6 +113,13 @@ public class AddRacingRiderControl extends ScreenControl {
     	manufacturerBox.setDisable(true);
     	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
 
+    	
+    	tyreBox=new CheckComboBox<Tyre>();
+    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, tyreBox);
+    	tyreBox.getItems().addAll(tyreManager.getTyres());
+    	tyreBox.setPrefWidth(300.0);
+    	tyreBox.setMaxWidth(300.0);
+    	
     	this.update();
     	
     	// Initialize the table
@@ -139,11 +154,11 @@ public class AddRacingRiderControl extends ScreenControl {
         	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15 || !sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString())){
         		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
                         timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
-                        0);
+                        0, tyreBox.getCheckModel().getCheckedItems());
         	}else{
 	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
 	                    timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
-	                    points.get(Integer.parseInt(positionField.getText())-1));
+	                    points.get(Integer.parseInt(positionField.getText())-1), tyreBox.getCheckModel().getCheckedItems());
         	}
         
         	racingRidersTable.setItems(racingRiderManager.getRacingRiders()); // Update table view

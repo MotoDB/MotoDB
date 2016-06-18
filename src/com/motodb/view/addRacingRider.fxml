@@ -41,10 +41,22 @@
 			                    		</VBox>
                           			</children>
 			                    </HBox>
-                     			<Label styleClass="control-label" text="Fastest Time" />
-        					 	<TextField prefHeight="43.0" prefWidth="300.0" fx:id="timeField"/> 
-			                    <Label styleClass="control-label" text="Finished" />
-				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Finished" fx:id="finishedBox" />
+			                    <HBox>
+			                    	<children>
+                          				<VBox prefWidth="150.0" >
+			                    			<children>
+                          						<Label styleClass="control-label" text="Fastest Time" />
+        					 					<TextField prefHeight="42.0" maxWidth="135.0" fx:id="timeField"/> 
+                          					</children>
+			                    		</VBox>
+			                    		<VBox  prefWidth="150.0">
+			                    			<children>
+                          						<Label styleClass="control-label" text="Finished" />
+				                				<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="135.0" promptText="Finished" fx:id="finishedBox" />
+                          					</children>
+			                    		</VBox>
+                          			</children>
+			                    </HBox>
 			                    <HBox>
 			                    	<children>
                           				<VBox prefWidth="150.0" >
@@ -63,7 +75,9 @@
 			                    </HBox>
                       			<Label styleClass="control-label" text="Position" />
                 				<TextField prefHeight="43.0" prefWidth="300.0" fx:id="positionField"/> 
-              					<Pane prefHeight="20.0" />
+				                <Label styleClass="control-label" text="Tyres" />
+                           		<!-- CheckComboBox sponsors (size -2) -->
+                           		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />

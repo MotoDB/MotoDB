@@ -32,4 +32,6 @@ public interface SessionManager {
     public ObservableList<Session> getSessions();
 
     public ObservableList<Session> getSessionsFromWeekend(Date weekend);
+    
+    ObservableList<Session> getSessionByWeekendAndClass(String className, Date startDate);
 }

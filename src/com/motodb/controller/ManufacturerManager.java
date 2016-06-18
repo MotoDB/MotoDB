@@ -12,4 +12,6 @@ public interface ManufacturerManager {
     
     ObservableList<String> getManufacturersNames();
 
+    ObservableList<Manufacturer> getManufacturersByRiderAndYear(int rider, int year);
+    
 }

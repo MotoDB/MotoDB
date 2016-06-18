@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.motodb.model.Contract;
 import com.motodb.model.Mechanic;
 import com.motodb.model.Member;
 import com.motodb.model.Rider;

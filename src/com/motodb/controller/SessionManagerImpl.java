@@ -100,6 +100,43 @@ public class SessionManagerImpl implements SessionManager {
     }
 
 	@Override
+	public ObservableList<Session> getSessionByWeekendAndClass(String className, Date startDate) {
+		final DBManager db = DBManager.getDB();
+		final Connection conn = db.getConnection();
+
+		ObservableList<Session> sessions= FXCollections.observableArrayList();
+		final String retrieve = "select s.codiceSessione from SESSIONE s, WEEKEND w where w.dataInizio = ? && s.dataInizioWeekend = ? && s.nomeClasse = ?";
+
+		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+			statement.setDate(1, startDate);
+			statement.setDate(2, startDate);
+			statement.setString(3, className);
+			try (final ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					Session session = new Session();
+					session.setCode(result.getString(1));
+					sessions.add(session);
+				}
+			} catch (SQLException e) {
+				try {
+					AlertTypes alert = new AlertTypesImpl();
+					alert.showError(e);
+				} catch (ExceptionInInitializerError ei) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			try {
+				AlertTypes alert = new AlertTypesImpl();
+				alert.showError(e);
+			} catch (ExceptionInInitializerError ei) {
+				e.printStackTrace();
+			}
+		}
+		return sessions;
+	}
+	
+	@Override
 	public ObservableList<Session> getSessionsFromWeekend(Date weekend) {
 
         final DBManager db = DBManager.getDB();

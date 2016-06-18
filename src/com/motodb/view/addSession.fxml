@@ -25,8 +25,8 @@
 			                    	<children>
                           				<VBox prefWidth="150.0" >
 			                    			<children>
-                          						 <Label styleClass="control-label" text="Session Code" />
-				                				 <TextField prefHeight="43.0" maxWidth="135.0" fx:id="codeField"/>
+                          						 <Label styleClass="control-label" text="Session Type" />
+				                				 <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Type" fx:id="typeBox" />
                           					</children>
 			                    		</VBox>
 			                    		<VBox  prefWidth="150.0">
@@ -41,8 +41,8 @@
 			                    	<children>
                           				<VBox prefWidth="150.0" >
 			                    			<children>
-                          						 <Label styleClass="control-label" text="Type" />
-					        					 <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Type" fx:id="typeBox" />
+                          						 <Label styleClass="control-label" text="Session Code" />
+					        					 <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="135.0" promptText="Code" fx:id="codeBox" />
                           					</children>
 			                    		</VBox>
 			                    		<VBox  prefWidth="150.0">

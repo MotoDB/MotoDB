@@ -2,23 +2,27 @@ package com.motodb.view;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.MemberManager;
+import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
-import com.motodb.model.Team;
+import com.motodb.model.Member;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.PersistentButtonToggleGroup;
+import com.motodb.view.util.TeamGridPane;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -30,11 +34,18 @@ public class TeamControl extends ScreenControl {
     // Controller
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final TeamManager manager = new TeamManagerImpl();
+    private final MemberManager memberManager = new MemberManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
+    
+    @FXML
+	private TableView<Member> membersTable;
+	@FXML
+	private TableColumn<Member, String> firstNameColumn, lastNameColumn, personalCodeColumn, 
+		birthplaceColumn, stateColumn, dateColumn, roleColumn;
     
     @FXML
     private HBox years,classes,teams;
@@ -44,7 +55,6 @@ public class TeamControl extends ScreenControl {
     private TextField searchField;
 
     public TeamControl() {
-    	
     	
         for (Championship c : championshipManager.getChampionships()) {
         	ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
@@ -81,7 +91,16 @@ public class TeamControl extends ScreenControl {
      * fxml control class.
      */
     public void initialize() {
-
+    	
+    	// Initialize the table
+        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        personalCodeColumn.setCellValueFactory(cellData -> cellData.getValue().personalCodeProperty().asString());
+        birthplaceColumn.setCellValueFactory(cellData -> cellData.getValue().birthplaceProperty());
+        stateColumn.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
+        roleColumn.setCellValueFactory(cellData -> cellData.getValue().roleProperty());
+        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
+        
         // Adding the buttons created in the constructor to the hBox, before the button
         for (Toggle button : yearsButtons.getToggles()) {
             years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton)button);
@@ -168,9 +187,9 @@ public class TeamControl extends ScreenControl {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
             	vBoxTeam.getChildren().clear();
             	if(newValue!=null){
-	            	Team team = manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString());
-	            	ImageView img = new ImageView(new Image(team.getLogo()));
-	            	vBoxTeam.getChildren().add(img);
+            		TeamGridPane grid = new TeamGridPane(manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString()));
+	            	membersTable.setItems(memberManager.getMembersFromTeam(teamsButtons.getSelectedToggle().getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())) ));
+	            	vBoxTeam.getChildren().add(grid.getPane());
             	}
             }
         });

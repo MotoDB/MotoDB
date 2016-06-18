@@ -7,8 +7,6 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
-import com.motodb.controller.TeamManager;
-import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.model.Rider;
 import com.motodb.view.alert.AlertTypes;
@@ -20,13 +18,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 
 public class RiderControl extends ScreenControl {
 
@@ -47,8 +43,6 @@ public class RiderControl extends ScreenControl {
     private Button addRacingRider;
     @FXML
     private HBox years,classes,teams;
-    @FXML
-    private TextField searchField;
     
     private List<RiderGridPane> list = new ArrayList<>();
 

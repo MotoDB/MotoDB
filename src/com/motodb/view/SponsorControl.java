@@ -10,14 +10,11 @@ import com.motodb.view.util.SponsorGridPane;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class SponsorControl extends ScreenControl{
 
-    @FXML
-    private TextField searchField;
     @FXML 
     private Button addTyre, addBrand, addSponsor;
 

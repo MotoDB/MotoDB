@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.motodb.model.Contract;
 import com.motodb.model.Mechanic;
 import com.motodb.model.Member;
 import com.motodb.model.Rider;
@@ -337,5 +338,71 @@ public class MemberManagerImpl implements MemberManager {
         }
         
         return list;
+    }
+    
+    public ObservableList<Member> getMembersFromTeam(String team, int year){
+    	final DBManager db = DBManager.getDB();
+	    final Connection conn  = db.getConnection();
+	    
+	    ObservableList<Member> list = FXCollections.observableArrayList();
+	    
+	    final String retrieve = "select m.* from MECCANICO m, CONTRATTO_MECCANICO c where m.codicePersonale=c.codicePersonale && c.annoCampionato = ? && c.nomeTeam = ?";
+	    
+	    try {
+	        PreparedStatement statement = null;
+	        ResultSet result = null;
+	    	statement = conn.prepareStatement(retrieve);
+	    	statement.setInt(1, year);
+	    	statement.setString(2, team);
+	        result = statement.executeQuery();
+	        
+	        while (result.next()) {
+	        	final Member member = new Mechanic();
+	        	member.setPhoto(result.getString("foto"));
+	        	member.setPersonalCode(result.getInt("codicePersonale"));
+	        	member.setFirstName(result.getString("nomeMembro"));
+	        	member.setLastName(result.getString("cognomeMembro"));
+	        	member.setDate(result.getDate("dataNascita"));
+	        	member.setBirthplace(result.getString("luogoNascita"));
+	        	member.setState(result.getString("nazione"));
+	        	member.setRole(result.getString("ruolo"));
+                list.add(member);
+	        }
+	        result.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        AlertTypes alert = new AlertTypesImpl();
+	        alert.showError(e);
+	    }
+	    
+	    final String ret = "select m.* from INGEGNERE m, CONTRATTO_INGEGNERE c where m.codicePersonale=c.codicePersonale && c.annoCampionato = ? && c.nomeTeam = ?";
+	    
+	    try {
+	        PreparedStatement statement = null;
+	        ResultSet result = null;
+	    	statement = conn.prepareStatement(ret);
+	    	statement.setInt(1, year);
+	    	statement.setString(2, team);
+	        result = statement.executeQuery();
+	        
+	        while (result.next()) {
+	        	final Member member = new Mechanic();
+	        	member.setPhoto(result.getString("foto"));
+	        	member.setPersonalCode(result.getInt("codicePersonale"));
+	        	member.setFirstName(result.getString("nomeMembro"));
+	        	member.setLastName(result.getString("cognomeMembro"));
+	        	member.setDate(result.getDate("dataNascita"));
+	        	member.setBirthplace(result.getString("luogoNascita"));
+	        	member.setState(result.getString("nazione"));
+	        	member.setRole(result.getString("ruolo"));
+                list.add(member);
+	        }
+	        result.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        AlertTypes alert = new AlertTypesImpl();
+	        alert.showError(e);
+	    }
+	    return list;
     }
 }

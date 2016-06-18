@@ -19,6 +19,7 @@ import com.motodb.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -50,9 +51,7 @@ public class AddSessionControl extends ScreenControl {
 	private TextField durationField, lapsField, humidityField, groundTemperatureField, airTemperatureField, codeField, 
 	conditionsField, searchField;
 	@FXML
-	private ComboBox<SessionType> typeBox;
-	@FXML
-	private ComboBox<String> yearBox;
+	private ComboBox<String> typeBox, yearBox, codeBox;
 	@FXML
 	private ComboBox<Weekend> weekendBox;
 	@FXML
@@ -66,11 +65,27 @@ public class AddSessionControl extends ScreenControl {
 	private VBox vBoxFields;
 
 	public enum SessionType{
-		ProvaLibera,
-		Qualifica,
-		Gara;
+		WUP("Warm Up", FXCollections.observableArrayList(Arrays.asList("WP"))),
+		FP("Free Practice", FXCollections.observableArrayList(Arrays.asList("FP1","FP2", "FP3", "FP4"))),
+		Q("Qualification", FXCollections.observableArrayList(Arrays.asList("Q1","Q2"))),
+		Gara("Race", FXCollections.observableArrayList(Arrays.asList("RACE")));
+		
+		private String type;
+		private ObservableList<String> codes;
+		private SessionType(String type, ObservableList<String> codes){
+			this.type=type;
+			this.codes=codes;
+		}
+		
+		public String getType(){
+			return type;
+		}
+		
+		public ObservableList<String> getCodes(){
+			return codes;
+		}
 	}
-	
+
     /**
      * Called after the fxml file has been loaded; this method initializes 
      * the fxml control class. 
@@ -78,8 +93,16 @@ public class AddSessionControl extends ScreenControl {
     public void initialize() {
     	
     	classBox.setItems(classManager.getClasses());
-    	typeBox.setItems(FXCollections.observableArrayList(Arrays.asList(SessionType.values())));
+    	
     	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+    	
+    	ObservableList<String> o = FXCollections.observableArrayList();
+    	for(SessionType type : SessionType.values()){
+    		o.add(type.getType());
+    	}
+    	typeBox.setItems(o);
+    	classBox.setDisable(true);
+    	codeBox.setDisable(true);
     	weekendBox.setDisable(true);
     	startDate.setDisable(true);
     	
@@ -105,6 +128,7 @@ public class AddSessionControl extends ScreenControl {
         this.search();
         // Listen for selection changes and enable delete button
         this.update();
+    	
     }
     
     /**
@@ -116,7 +140,7 @@ public class AddSessionControl extends ScreenControl {
         try {
         	
         	sessionManager.addSession(classBox.getSelectionModel().getSelectedItem().getName(), Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), weekendBox.getValue().getStartDate() , conditionsField.getText(), Integer.parseInt(airTemperatureField.getText()), 
-    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), java.sql.Date.valueOf(startDate.getValue()), codeField.getText(), durationField.getText(), typeBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(lapsField.getText()));
+    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), java.sql.Date.valueOf(startDate.getValue()), codeBox.getValue(), durationField.getText(), typeBox.getValue(), Integer.parseInt(lapsField.getText()));
         
     		sessionsTable.setItems(sessionManager.getSessions()); // Update table view
         	this.clear();
@@ -192,12 +216,27 @@ public class AddSessionControl extends ScreenControl {
 		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
 				if(!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()){
+					classBox.setDisable(false);
+					classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
 					weekendBox.setDisable(false);
 					weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
 					this.updatePossibleDates();
 				}else{
 					weekendBox.setDisable(true);
 					startDate.setDisable(true);
+				}
+			}
+		});
+		
+		typeBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				
+				codeBox.setDisable(false);
+				
+				for(SessionType type : SessionType.values()){
+					if(typeBox.getSelectionModel().getSelectedItem().equals(type.getType())){
+						codeBox.setItems(type.getCodes());
+					}
 				}
 			}
 		});

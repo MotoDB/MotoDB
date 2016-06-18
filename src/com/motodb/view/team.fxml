@@ -45,11 +45,15 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="teamTable">
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="membersTable">
 									<columns>
-			                          	<TableColumn text="Name" fx:id="nameColumn"/>
-			                          	<TableColumn text="Rules" fx:id="rulesColumn"/>
-			                          	<TableColumn text="Importance Index" fx:id="indexColumn"/>
+			                          	<TableColumn text="First Name" fx:id="firstNameColumn"/>
+			                          	<TableColumn text="Last Name" fx:id="lastNameColumn"/>
+			                          	<TableColumn text="Personal Code" fx:id="personalCodeColumn"/>
+			                          	<TableColumn text="Date Of Birth" fx:id="dateColumn"/>
+			                          	<TableColumn text="Birthplace" fx:id="birthplaceColumn"/>
+			                          	<TableColumn text="State" fx:id="stateColumn"/>
+			                          	<TableColumn text="Role" fx:id="roleColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

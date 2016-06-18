@@ -25,7 +25,7 @@ public class DBInitializer {
 	private static final TyreManager tyre = new TyreManagerImpl();
 	private static final BikeManager bike = new BikeManagerImpl();
 	
-	private final static ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1));
+	private final static ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1,0));
 	
 	public ObservableList<Integer> getPoints() {
 		return FXCollections.observableArrayList(points);

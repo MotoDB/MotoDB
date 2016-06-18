@@ -21,10 +21,10 @@
 							<children>
 								<Label styleClass="control-label" text="Year" />
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Year" fx:id="yearBox" />
-				                <Label styleClass="control-label" text="Rider" />
-				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Rider" fx:id="riderBox" />
 				                <Label styleClass="control-label" text="Class" />
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Class" fx:id="classBox" />
+				                <Label styleClass="control-label" text="Rider" />
+				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Rider" fx:id="riderBox" />
 				                 <HBox>
 			                    	<children>
                           				<VBox prefWidth="150.0" >
@@ -88,7 +88,6 @@
 			                          	<TableColumn text="Finished" fx:id="finishedColumn"/>
 			                          	<TableColumn text="Position" fx:id="positionColumn"/>
 			                          	<TableColumn text="Points" fx:id="pointsColumn"/>
-			                          	<TableColumn text="Average Speed" fx:id="speedColumn"/>
 			                          	<TableColumn text="Bike Manufacturer" fx:id="manufacturerColumn"/>
 			                          	<TableColumn text="Bike Model" fx:id="modelColumn"/>
 								    </columns>

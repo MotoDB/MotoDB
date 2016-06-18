@@ -135,7 +135,8 @@ public class AddRacingRiderControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15 || !sessionCodeBox.getValue().getType().equals(SessionType.Gara)){
+        	//System.out.println(sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString()));
+        	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15 || !sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString())){
         		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
                         timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
                         0);
@@ -218,6 +219,14 @@ public class AddRacingRiderControl extends ScreenControl {
 		
 		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
+				
+				if(!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()){
+					classBox.setDisable(false);
+					classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
+				}else{
+					classBox.setDisable(true);
+				}
+					
 				if(!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()){
 					weekendBox.setDisable(false);
 					weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
@@ -225,14 +234,14 @@ public class AddRacingRiderControl extends ScreenControl {
 				}else{
 					weekendBox.setDisable(true);
 				}
-				
+				/*
 				if(!riderManager.getRidersFromYear(Integer.parseInt(newValue)).isEmpty()){
 					riderBox.setDisable(false);
 					riderBox.setItems(riderManager.getRidersFromYear(Integer.parseInt(newValue)));
 					
 				}else{
 					riderBox.setDisable(true);
-				}
+				}*/
 				
 				if(!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()){
 					classBox.setDisable(false);
@@ -265,6 +274,18 @@ public class AddRacingRiderControl extends ScreenControl {
 					
 				}else{
 					bikeModelBox.setDisable(true);
+				}
+			}
+		});
+		
+		classBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue!=null){
+				if(!riderManager.getRidersFromClassAndYear(newValue.getName(), Integer.parseInt(yearBox.getValue())).isEmpty()){
+					riderBox.setDisable(false);
+					riderBox.setItems(riderManager.getRidersFromClassAndYear(newValue.getName(), Integer.parseInt(yearBox.getValue())));
+					
+				}else{
+					riderBox.setDisable(true);
 				}
 			}
 		});

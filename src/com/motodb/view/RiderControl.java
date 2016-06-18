@@ -2,7 +2,6 @@ package com.motodb.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
@@ -27,7 +26,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class RiderControl extends ScreenControl {
 
@@ -36,15 +34,14 @@ public class RiderControl extends ScreenControl {
     
     // Controller
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
-    private final TeamManager manager = new TeamManagerImpl();
     private final MemberManager riderManager = new MemberManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
-    private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
+    
     @FXML
-    private VBox mainPane;
+    private HBox mainPane;
     @FXML
     private Button addRacingRider;
     @FXML
@@ -53,6 +50,9 @@ public class RiderControl extends ScreenControl {
     private TextField searchField;
     
     private List<RiderGridPane> list = new ArrayList<>();
+
+
+	GridPane grid = new GridPane();
 
     public RiderControl() {
         super();
@@ -75,13 +75,6 @@ public class RiderControl extends ScreenControl {
             
             if (!classesButtons.getToggles().isEmpty()) {
             	classesButtons.getToggles().get(0).setSelected(true);
-            	
-            	// Creating a button for each team of that year, and adding such button to the group
-            	for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
-                    ToggleButton button = new ToggleButton(s);
-                    button.setToggleGroup(teamsButtons);
-                    button.setUserData(s);
-                }
             }
         }
     }
@@ -100,42 +93,15 @@ public class RiderControl extends ScreenControl {
             button.setToggleGroup(classesButtons);
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
-        for (Toggle button : teamsButtons.getToggles()) {
-            button.setToggleGroup(teamsButtons);
-            teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
-        }
-
+       
         // Method which handles the selection of a year
         this.filter();
 
         if (!classesButtons.getToggles().isEmpty()) {
         	classesButtons.getToggles().get(0).setSelected(true);
-        	if (!teamsButtons.getToggles().isEmpty()) {
-            	teamsButtons.getToggles().get(0).setSelected(true);
-            }
+        	
         }
-      /*
-        GridPane grid = new GridPane();
-        
-	    for(Rider rider : riderManager.getRiders()){
-	    	MyGridPane riderPane = new MyGridPane(rider);
-	    	list.add(riderPane);
-	    }
-
-    	int i=0;
-    	ListIterator<MyGridPane> it = list.listIterator();
-    	MyGridPane temp =it.next();
-	    while(it.hasNext()){
-	    	int j=0;
-	    	while(j<=3){
-		        grid.add(temp.getPane(), j, i);
-		        temp=it.next();
-		        j++;
-	    	}
-	    	i++;
-	   }
-	    
-        mainPane.getChildren().add(4, grid);*/
+             
     }
 
     /**
@@ -146,6 +112,10 @@ public class RiderControl extends ScreenControl {
     	
         yearsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+
+            	if(!riderManager.getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(), (Integer.parseInt(newValue.getUserData().toString()))).isEmpty()){
+            		mainPane.getChildren().clear();
+            	}
             	
                 classesButtons.getToggles().clear();
                 classes.getChildren().clear();
@@ -161,63 +131,50 @@ public class RiderControl extends ScreenControl {
                     button.setToggleGroup(classesButtons);
                     classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
                 }
-            }
-        });
-        
-        classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-            	
-                teamsButtons.getToggles().clear();
-                teams.getChildren().clear();
 
-                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (String s : manager.getTeamsByYearAndClass((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), classesButtons.getSelectedToggle().getUserData().toString())) {
-                    ToggleButton button = new ToggleButton(s);
-                    button.setToggleGroup(teamsButtons);
-                    button.setUserData(s);
-                }
-                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (Toggle button : teamsButtons.getToggles()) {
-                    button.setToggleGroup(teamsButtons);
-                    teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton)button);
-                }
                 
-                if (!classesButtons.getToggles().isEmpty()) {
-                	if (!teamsButtons.getToggles().isEmpty()) {
-                    	teamsButtons.getToggles().get(0).setSelected(true);
-                    }
-                }
+                classesButtons.getToggles().get(0).setSelected(true);
+                    
+                
             }
+
         });
         
         classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
             	list.clear();
+	            
+            	if(!riderManager.getRidersFromClassAndYear(newValue.getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))).isEmpty()){
+	        		
+            		for(Rider rider : riderManager.getRidersFromClassAndYear(newValue.getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))){
+		     	    	RiderGridPane riderPane = new RiderGridPane(rider);
+		     	    	list.add(riderPane);
+	            		
+		     	    }
+		
+		         	int i=0;
+		         	int riders=0;
+		         	
+		     	    while(i<((list.size())/4)){
+		     	    	int j=0;
+		     	    	while(j<=3){
+		     		        grid.add(list.get(riders).getPane(), j, i);
+		     		        j++;
+		     		        riders++;
+		     	    	}
+		     	    	i++;
+		     	   }
+		            mainPane.getChildren().add(grid);    
+		            	
+	            	
+	            }else{
+	            	mainPane.getChildren().clear();
+	            }
             	
-            	GridPane grid = new GridPane();
-
-         	    for(Rider rider : riderManager.getRiders()){
-         	    	RiderGridPane riderPane = new RiderGridPane(rider);
-         	    	list.add(riderPane);
-         	    }
-
-             	int i=0;
-             	ListIterator<RiderGridPane> it = list.listIterator();
-             	RiderGridPane temp =it.next();
-         	    while(it.hasNext()){
-         	    	int j=0;
-         	    	while(j<=3){
-         		        grid.add(temp.getPane(), j, i);
-         		        temp=it.next();
-         		        j++;
-         	    	}
-         	    	i++;
-         	   }
-         	    
-                 mainPane.getChildren().add(4, grid);
-               
             }
         });
      
     }
+    	 
+       
 }

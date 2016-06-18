@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.ClaxManager;
+import com.motodb.controller.ClaxManagerImpl;
 import com.motodb.controller.ContractManager;
 import com.motodb.controller.ContractManagerImpl;
 import com.motodb.controller.MemberManager;
@@ -11,6 +13,7 @@ import com.motodb.controller.MemberManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Member;
+import com.motodb.model.Clax;
 import com.motodb.model.Contract;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
@@ -35,6 +38,7 @@ public class AddContractControl extends ScreenControl {
     private final TeamManager teamManager = new TeamManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final ContractManager contractManager = new ContractManagerImpl();
+    private final ClaxManager classManager = new ClaxManagerImpl();
 
 	@FXML
 	private TableView<Contract> contractTable;
@@ -48,6 +52,8 @@ public class AddContractControl extends ScreenControl {
 	private ComboBox<Member> memberBox;
 	@FXML
 	private ComboBox<Team> teamBox;
+	@FXML
+	private ComboBox<Clax> classBox;
 	@FXML
 	private TextField searchField;
 	@FXML
@@ -68,7 +74,8 @@ public class AddContractControl extends ScreenControl {
      */
     public void initialize() {
     	
-    	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(MemberType.values())));        
+    	memberTypeBox.setItems(FXCollections.observableArrayList(Arrays.asList(MemberType.values())));    
+    	classBox.setDisable(true);
     	memberBox.setDisable(true);
     	teamBox.setDisable(true);
     	this.update();
@@ -99,13 +106,22 @@ public class AddContractControl extends ScreenControl {
 	@FXML
     private void add() {
         try {
-        	
-    		contractManager.addContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
-    				teamBox.getSelectionModel().getSelectedItem().getName(), null);
+        	if(memberTypeBox.getValue().equals(MemberType.Rider) && classBox.getSelectionModel().getSelectedItem()!=null){
+        		contractManager.addRiderContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+    				teamBox.getSelectionModel().getSelectedItem().getName(), classBox.getSelectionModel().getSelectedItem().getName());
+        	}
+        	else if(memberTypeBox.getValue().equals(MemberType.Engineer) || memberTypeBox.getValue().equals(MemberType.Mechanic)){
+        		contractManager.addContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+        				teamBox.getSelectionModel().getSelectedItem().getName());
+        	}else{
+        		System.out.println(memberTypeBox.getValue().equals(MemberType.Rider));
+        		throw new IllegalArgumentException();
+        	}
 
         	contractTable.setItems(contractManager.getContracts()); // Update table view
         	this.clear();
         } catch (Exception e) {
+        	e.printStackTrace();
             alert.showWarning(e);
         }
     }
@@ -191,9 +207,12 @@ public class AddContractControl extends ScreenControl {
 		yearBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			if(newValue!=null){
 				teamBox.setDisable(false);
+				classBox.setDisable(false);
+				classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
 				teamBox.setItems(FXCollections.observableArrayList(teamManager.getTeamsFromYear(Integer.parseInt(newValue))));
 			}else{
 				teamBox.setDisable(true);
+				classBox.setDisable(true);
 			}
 		}));
 	}

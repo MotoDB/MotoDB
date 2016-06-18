@@ -11,7 +11,6 @@ public class RiderContract extends Contract {
 		this(0, null, 0, null, null);
 	}
 	
-	
 	public RiderContract(int int1, String string, int int2, String string2, String className) {
 		super();
 		this.className = new SimpleStringProperty(className);

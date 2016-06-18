@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.motodb.model.Contract;
-import com.motodb.model.RiderContract;
 import com.motodb.view.AddContractControl.MemberType;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -41,9 +40,8 @@ public class ContractManagerImpl implements ContractManager {
 		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
 				final ResultSet result = statement.executeQuery()) {
 			while (result.next()) {
-				contracts.add(new RiderContract(result.getInt("annoCampionato"), MemberType.Rider.toString(),
-						result.getInt("codicePersonale"), result.getString("nomeTeam"),
-						result.getString("nomeClasse")));
+				contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Rider.toString(),
+						result.getInt("codicePersonale"), result.getString("nomeTeam")));
 			}
 		} catch (SQLException e) {
 			try {
@@ -117,7 +115,7 @@ public class ContractManagerImpl implements ContractManager {
 	}
 
 	@Override
-	public void addContract(Integer year, MemberType memberType, Integer member, String team, String className) {
+	public void addRiderContract(Integer year, MemberType memberType, Integer member, String team, String className) {
 
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();
@@ -170,5 +168,7 @@ public class ContractManagerImpl implements ContractManager {
 			}
 		}
 	}
+	
+	
 }
 

@@ -23,6 +23,8 @@
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Year" fx:id="yearBox" />
 					        	<Label styleClass="control-label" text="Member Type" />
 					        	<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Member Type" fx:id="memberTypeBox" />
+					        	<Label styleClass="control-label" text="Class" />
+					        	<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Class" fx:id="classBox" />
 					        	<Label styleClass="control-label" text="Member" />
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Member" fx:id="memberBox" />
 			                    <Label styleClass="control-label" text="Team" />
@@ -43,10 +45,10 @@
 							<children>
 								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="contractTable">
 									<columns>
-			                          	<TableColumn text="First Name" fx:id="yearColumn"/>
-			                          	<TableColumn text="Last Name" fx:id="memberTypeColumn"/>
-			                          	<TableColumn text="Personal Code" fx:id="memberColumn"/>
-			                          	<TableColumn text="Birthplace" fx:id="teamColumn"/>
+			                          	<TableColumn text="Year" fx:id="yearColumn"/>
+			                          	<TableColumn text="Member Type" fx:id="memberTypeColumn"/>
+			                          	<TableColumn text="Member" fx:id="memberColumn"/>
+			                          	<TableColumn text="Team" fx:id="teamColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

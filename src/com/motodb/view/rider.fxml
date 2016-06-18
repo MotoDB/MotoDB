@@ -7,7 +7,7 @@
 
 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.RiderControl">
 	<content>
-		<VBox styleClass="card" fx:id="mainPane">
+		<VBox styleClass="card">
 			<children>
 				<HBox>
 	            	<children>
@@ -34,7 +34,11 @@
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>
                 </HBox>
-	            
+	            <HBox fx:id="mainPane">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
 	            <HBox>
 	            	<children>
 	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   

@@ -7,10 +7,10 @@ import javafx.beans.property.StringProperty;
 
 public class Contract {
 	
-	private final IntegerProperty year;
-    private final StringProperty memberType;
-    private final IntegerProperty member;
-    private final StringProperty team;
+	protected final IntegerProperty year;
+	protected final StringProperty memberType;
+	protected final IntegerProperty member;
+	protected final StringProperty team;
 
     public Contract() {
         this(0, null, 0, null);

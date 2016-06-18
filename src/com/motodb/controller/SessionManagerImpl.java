@@ -97,6 +97,8 @@ public class SessionManagerImpl implements SessionManager {
                 alert.showError(e);
             }
         }
+               
+        
     }
 
 	@Override

@@ -18,7 +18,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
 	@Override
 	public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points) {
+			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points, String nameTyre, String nameModelTyre, String typeTyre) {
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();
 
@@ -36,6 +36,26 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 			statement.setString(10, bikeModel);
 			statement.setInt(11, points);
 			statement.executeUpdate();
+		} catch (SQLException e) {
+			try {
+				AlertTypes alert = new AlertTypesImpl();
+				alert.showError(e);
+			} catch (ExceptionInInitializerError ei) {
+				e.printStackTrace();
+			}
+		}
+		
+		final String insert2 = "insert into UTILIZZO_PNEUMATICO(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, indicePosizione, marca, modello, mescola) values (?,?,?,?,?,?,?,?)";
+		try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {
+			statement2.setInt(1, year);
+            statement2.setDate(2, weekendDate);
+            statement2.setString(3, className);
+            statement2.setString(4, sessionCode);
+            statement2.setInt(5, position);
+            statement2.setString(6, nameTyre);
+            statement2.setString(7, nameModelTyre);
+            statement2.setString(8, typeTyre);
+			statement2.executeUpdate();
 		} catch (SQLException e) {
 			try {
 				AlertTypes alert = new AlertTypesImpl();

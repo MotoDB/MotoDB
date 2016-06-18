@@ -27,7 +27,7 @@ public interface ContractManager {
 	 * @param team
 	 * @param className
 	 */
-	public void addRiderContract(Integer year, MemberType memberType, Integer member, String team, String className);
+	public void addContract(Integer year, MemberType memberType, Integer member, String team, String className);
 	/**
 	 * 
 	 * @return

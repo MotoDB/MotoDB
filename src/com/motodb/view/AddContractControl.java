@@ -107,7 +107,7 @@ public class AddContractControl extends ScreenControl {
     private void add() {
         try {
         	if(memberTypeBox.getValue().equals(MemberType.Rider) && classBox.getSelectionModel().getSelectedItem()!=null){
-        		contractManager.addRiderContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
+        		contractManager.addContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
     				teamBox.getSelectionModel().getSelectedItem().getName(), classBox.getSelectionModel().getSelectedItem().getName());
         	}
         	else if(memberTypeBox.getValue().equals(MemberType.Engineer) || memberTypeBox.getValue().equals(MemberType.Mechanic)){

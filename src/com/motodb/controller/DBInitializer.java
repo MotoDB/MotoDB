@@ -204,6 +204,8 @@ public class DBInitializer {
 		System.out.println("Tyres Done");
 		initBikes();
 		System.out.println("Bikes Done");
+		
+		System.out.println("DATABASE INIT DONE");
     }	
 	
 }

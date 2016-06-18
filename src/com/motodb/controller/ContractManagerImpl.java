@@ -115,7 +115,7 @@ public class ContractManagerImpl implements ContractManager {
 	}
 
 	@Override
-	public void addRiderContract(Integer year, MemberType memberType, Integer member, String team, String className) {
+	public void addContract(Integer year, MemberType memberType, Integer member, String team, String className) {
 
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();

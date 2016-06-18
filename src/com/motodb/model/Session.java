@@ -17,17 +17,16 @@ public class Session{
     private final IntegerProperty groundTemp;
     private final IntegerProperty humidity;
     private Date startDate;
-    private Date finishDate;
     private final StringProperty code;
     private final StringProperty durationMax;
     private final StringProperty type;
     private final IntegerProperty laps;
 
     public Session() {
-        this(null, 0, null, null, 0, 0, 0, null, null, null, null, null, 0);
+        this(null, 0, null, null, 0, 0, 0, null, null, null, null, 0);
     }
  
-    public Session(String className, int year, Date weekendDate, String conditions, int airTemp, int groundTemp, int humidity, Date startDate, Date finishDate, String code, String durationMax, String type, Integer laps) {
+    public Session(String className, int year, Date weekendDate, String conditions, int airTemp, int groundTemp, int humidity, Date startDate, String code, String durationMax, String type, Integer laps) {
 
         this.className = new SimpleStringProperty(className);
         this.year = new SimpleIntegerProperty(year);
@@ -37,7 +36,6 @@ public class Session{
         this.groundTemp = new SimpleIntegerProperty(groundTemp);
         this.humidity = new SimpleIntegerProperty(humidity);
         this.startDate = startDate;
-        this.finishDate = finishDate;
         this.code = new SimpleStringProperty(code);
         this.durationMax = new SimpleStringProperty(durationMax);
         this.type = new SimpleStringProperty(type);
@@ -138,15 +136,6 @@ public class Session{
 
     public void setStartDate(Date startDate) {
        this.startDate=startDate;
-    }
-    
-    // FinishDate
-    public Date getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Date finishDate) {
-       this.finishDate=finishDate;
     }
 
     // Code

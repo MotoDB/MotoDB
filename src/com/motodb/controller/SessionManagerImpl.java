@@ -31,7 +31,7 @@ public class SessionManagerImpl implements SessionManager {
             while (result.next()) {
             	sessions.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
                 			result.getDate("dataInizioWeekend"), result.getString("condizioniPista"), result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"), 
-                			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getDate("dataFineSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
+                			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
                 			result.getString("tipo"), result.getInt("numeroGiri")));
             }
         } catch (SQLException e) {
@@ -60,12 +60,12 @@ public class SessionManagerImpl implements SessionManager {
   
     @Override
     public void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, 
-    		int groundTemp, int humidity, Date startDate, Date finishDate, String code, String durationMax, String type, int laps) {
+    		int groundTemp, int humidity, Date startDate, String code, String durationMax, String type, int laps) {
         final DBManager db = DBManager.getDB();
         final Connection conn  = db.getConnection();
         
         java.sql.PreparedStatement statement = null;
-        final String insert = "insert into SESSIONE(nomeClasse, annoCampionato, dataInizioWeekend, condizioniPista, temperaturaEsterna, temperaturaAsfalto, percentualeUmidita, dataInizioSessione, dataFineSessione, codiceSessione, durataMax, tipo, numeroGiri) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        final String insert = "insert into SESSIONE(nomeClasse, annoCampionato, dataInizioWeekend, condizioniPista, temperaturaEsterna, temperaturaAsfalto, percentualeUmidita, dataInizioSessione, codiceSessione, durataMax, tipo, numeroGiri) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, className);
@@ -76,11 +76,10 @@ public class SessionManagerImpl implements SessionManager {
             statement.setInt(6, groundTemp);
             statement.setInt(7, humidity);
             statement.setDate(8, startDate);
-            statement.setDate(9, finishDate);
-            statement.setString(10, code);
-            statement.setString(11, durationMax);
-            statement.setString(12, type);
-            statement.setInt(13, laps);
+            statement.setString(9, code);
+            statement.setString(10, durationMax);
+            statement.setString(11, type);
+            statement.setInt(12, laps);
             
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -119,7 +118,7 @@ public class SessionManagerImpl implements SessionManager {
             while (result.next()) {
             	list.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
             			result.getDate("dataInizioWeekend"), result.getString("condizioniPista"), result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"), 
-            			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getDate("dataFineSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
+            			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
             			result.getString("tipo"), result.getInt("numeroGiri")));
                 
             }

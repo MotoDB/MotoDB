@@ -17,7 +17,6 @@ public class RacingRider {
     private final StringProperty sessionCode;
     private final StringProperty fastestTime;
     private final IntegerProperty position;
-    private final IntegerProperty averageSpeed;
     private final BooleanProperty finished;
     private final IntegerProperty personalCode;
     private final StringProperty manufacturerName;
@@ -26,12 +25,11 @@ public class RacingRider {
     
     
     public RacingRider() {
-        this(0, null, null, null, null, 0, 0, null, 0, null, null, 0);
+        this(0, null, null, null, null, 0, null, 0, null, null, 0);
     }
 
     public RacingRider(int championshipYear, Date weekendStartingDate, String className,
-			String sessionCode, String fastestTime, int position,
-			int averageSpeed, Boolean finished, int personalCode,
+			String sessionCode, String fastestTime, int position, Boolean finished, int personalCode,
 			String manufacturerName, String bikeModel, int points) {
 		this.championshipYear = new SimpleIntegerProperty(championshipYear);
 		this.weekendStartingDate = weekendStartingDate;
@@ -39,7 +37,6 @@ public class RacingRider {
 		this.sessionCode = new SimpleStringProperty(sessionCode);
 		this.fastestTime = new SimpleStringProperty(fastestTime);
 		this.position = new SimpleIntegerProperty(position);
-		this.averageSpeed = new SimpleIntegerProperty(averageSpeed);
 		this.finished = new SimpleBooleanProperty(finished);
 		this.personalCode = new SimpleIntegerProperty(personalCode);
 		this.manufacturerName = new SimpleStringProperty(manufacturerName);
@@ -120,19 +117,6 @@ public class RacingRider {
 
     public void setPosition(int position) {
         this.position.set(position);
-    }
-
-    // Average Speed
-    public IntegerProperty averageSpeedProperty() {
-        return averageSpeed;
-    }
-
-    public int getAverageSpeed() {
-        return averageSpeed.get();
-    }
-
-    public void setAverageSpeed(int averageSpeed) {
-        this.averageSpeed.set(averageSpeed);
     }
 
     // Finished Boolean

@@ -24,7 +24,7 @@ public interface SessionManager {
 	 * @param laps
 	 */
     public void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, 
-    		int groundTemp, int humidity, Date startDate, Date finishDate, String code, String durationMax, String type, int laps);
+    		int groundTemp, int humidity, Date startDate, String code, String durationMax, String type, int laps);
 	/**
 	 * 
 	 * @return

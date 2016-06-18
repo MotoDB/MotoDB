@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.motodb.model.RacingRider;
 import com.motodb.model.Team;
+import com.motodb.model.Tyre;
 
 import javafx.collections.ObservableList;
 
@@ -24,7 +25,7 @@ public interface RacingRiderManager {
 	 * @param points
 	 */
 	public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points, String nameTyre, String nameModelTyre, String typeTyre);
+			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points, ObservableList<Tyre> tyres);
 	/**
 	 * 
 	 * @return

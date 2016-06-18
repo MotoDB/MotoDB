@@ -95,7 +95,7 @@ public class WorldStandingControl extends ScreenControl {
             button.setToggleGroup(classesButtons);
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
-        this.filter();
+        
         if (!classesButtons.getToggles().isEmpty()) {
         	classesButtons.getToggles().get(0).setSelected(true);
         }

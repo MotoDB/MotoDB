@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import com.motodb.model.RacingRider;
 import com.motodb.model.Team;
+import com.motodb.model.Tyre;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -18,7 +19,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
 	@Override
 	public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points, String nameTyre, String nameModelTyre, String typeTyre) {
+			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points, ObservableList<Tyre> tyres) {
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();
 
@@ -46,24 +47,28 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 		}
 		
 		final String insert2 = "insert into UTILIZZO_PNEUMATICO(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, indicePosizione, marca, modello, mescola) values (?,?,?,?,?,?,?,?)";
-		try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {
-			statement2.setInt(1, year);
-            statement2.setDate(2, weekendDate);
-            statement2.setString(3, className);
-            statement2.setString(4, sessionCode);
-            statement2.setInt(5, position);
-            statement2.setString(6, nameTyre);
-            statement2.setString(7, nameModelTyre);
-            statement2.setString(8, typeTyre);
-			statement2.executeUpdate();
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
+		
+		tyres.forEach(e -> {
+			try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {
+				statement2.setInt(1, year);
+	            statement2.setDate(2, weekendDate);
+	            statement2.setString(3, className);
+	            statement2.setString(4, sessionCode);
+	            statement2.setInt(5, position);
+	            statement2.setString(6, e.getMake());
+	            statement2.setString(7, e.getModel());
+	            statement2.setString(8, e.getCompound());
+				statement2.executeUpdate();
+			} catch (SQLException ex) {
+				try {
+					AlertTypes alert = new AlertTypesImpl();
+					alert.showError(ex);
+				} catch (ExceptionInInitializerError ei) {
+					ex.printStackTrace();
+				}
 			}
-		}
+		});
+		
 
 	}
 

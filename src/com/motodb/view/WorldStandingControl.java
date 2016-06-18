@@ -152,11 +152,11 @@ public class WorldStandingControl extends ScreenControl {
     public void updateClassesButtons(){
     	if (!classesButtons.getToggles().isEmpty()) {
         	classesButtons.getToggles().get(0).setSelected(true);
-        	if(!rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
+        	/*if(!rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
         			classesButtons.getSelectedToggle().getUserData().toString()).isEmpty()){
         		rankingTable.setItems(rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
         		classesButtons.getSelectedToggle().getUserData().toString()));  	
-        	}
+        	}*/
         }
     }
 }

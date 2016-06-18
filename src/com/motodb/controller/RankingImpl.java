@@ -26,7 +26,7 @@ public class RankingImpl implements Ranking {
 				+ "on ps.codicePersonalePilota = p.codicePersonale "
 				+ "inner join CONTRATTO_MARCA c on c.nomeMarca = ps.nomeMarcaMoto "
 				+ "where ps.codiceSessione = ? && ps.annoCampionato = ? "
-				+ "&& ps.nomeClasse = ? && c.annoCampionato = ? group by p.codicePersonale ";
+				+ "&& ps.nomeClasse = ? && c.annoCampionato = ? group by p.codicePersonale order by punteggio desc";
 
 		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
 			statement.setString(1, "RACE");

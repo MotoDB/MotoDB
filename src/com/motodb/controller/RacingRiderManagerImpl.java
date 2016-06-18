@@ -77,5 +77,42 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
 		return list;
 	}
+	
+	@Override
+	public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session){
+		final DBManager db = DBManager.getDB();
+        final Connection conn  = db.getConnection();
+        
+        ObservableList<RacingRider> list = FXCollections.observableArrayList();
+        final String retrieve = "select * from PILOTA_IN_SESSIONE where annoCampionato = ? && dataInizioWeekend = ? && codiceSessione = ?";
+        
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+        	statement = conn.prepareStatement(retrieve);
+        	statement.setInt(1, year);
+        	statement.setDate(2, weekend);
+        	statement.setString(3, session);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+            	
+            	list.add(new RacingRider(result.getInt("annoCampionato"), result.getDate("dataInizioWeekend"),
+						result.getString("nomeClasse"), result.getString("codiceSessione"),
+						result.getString("tempoVeloce"), result.getInt("indicePosizione"),
+						result.getInt("velocitaMedia"), result.getBoolean("posizionato"),
+						result.getInt("codicePersonalePilota"), result.getString("nomeMarcaMoto"),
+						result.getString("modelloMoto"), result.getInt("valorePunteggio")));
+                
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        
+        return list;
+	}
 
 }

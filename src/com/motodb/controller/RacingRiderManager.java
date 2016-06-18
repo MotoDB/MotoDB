@@ -30,4 +30,6 @@ public interface RacingRiderManager {
 	 * @return
 	 */
 	public ObservableList<RacingRider> getRacingRiders();
+	
+	public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session);
 }

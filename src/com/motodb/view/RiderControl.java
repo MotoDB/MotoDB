@@ -68,9 +68,11 @@ public class RiderControl extends ScreenControl {
                 button.setUserData(s);
             }
             
-            if (!classesButtons.getToggles().isEmpty()) {
-            	classesButtons.getToggles().get(0).setSelected(true);
-            }
+            
+        }
+        
+        if (!classesButtons.getToggles().isEmpty()) {
+        	classesButtons.getToggles().get(0).setSelected(true);
         }
     }
 
@@ -168,5 +170,6 @@ public class RiderControl extends ScreenControl {
             	
             }
         });
+        
     }     
 }

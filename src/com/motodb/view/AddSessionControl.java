@@ -65,6 +65,7 @@ public class AddSessionControl extends ScreenControl {
 	private VBox vBoxFields;
 
 	public enum SessionType{
+		
 		WUP("Warm Up", FXCollections.observableArrayList(Arrays.asList("WP"))),
 		FP("Free Practice", FXCollections.observableArrayList(Arrays.asList("FP1","FP2", "FP3", "FP4"))),
 		Q("Qualification", FXCollections.observableArrayList(Arrays.asList("Q1","Q2"))),

@@ -4,17 +4,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import com.motodb.model.Team;
+import com.motodb.view.ScreenControl;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class TeamGridPane {
+public class TeamGridPane extends ScreenControl{
 	
 	HBox externHBox = new HBox();
 	VBox internalVBox = new VBox();
@@ -27,11 +27,10 @@ public class TeamGridPane {
     Label name = new Label();
     Label year = new Label();
     Label location = new Label();
-    Button addMember = new Button("ADD MEMBER");
     ImageView img;
     
 	public TeamGridPane(Team team){
-				
+		super();
 		externHBox.setPadding(new Insets(20));
 		externHBox.setMaxWidth(700);
 
@@ -62,7 +61,6 @@ public class TeamGridPane {
 	    singleLabels.getChildren().add(name);
 	    singleLabels.getChildren().add(year);
 	    singleLabels.getChildren().add(location);
-	    singleLabels.getChildren().add(addMember);
 
 	    externHBox.getChildren().add(internalVBox);
 	}

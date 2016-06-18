@@ -67,7 +67,9 @@ public class WorldStandingControl extends ScreenControl {
             }
         }
         
-        this.updateClassesButtons();
+        if (!classesButtons.getToggles().isEmpty()) {
+        	classesButtons.getToggles().get(0).setSelected(true);
+        }
         
     }
 
@@ -94,8 +96,15 @@ public class WorldStandingControl extends ScreenControl {
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
 
+        if (!classesButtons.getToggles().isEmpty()) {
+        	classesButtons.getToggles().get(0).setSelected(true);
+        }
+        
         // Method which handles the selection of a year
         this.filter();
+        
+        rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
+    			classesButtons.getSelectedToggle().getUserData().toString());
 
     }
 
@@ -132,7 +141,7 @@ public class WorldStandingControl extends ScreenControl {
         classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
             	
-	        	if(newValue!=null){
+	        	if(!classesButtons.getToggles().isEmpty()){
 	            	if(!rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
 			            			classesButtons.getSelectedToggle().getUserData().toString()).isEmpty()){
 	            		rankingTable.setItems(rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
@@ -146,17 +155,5 @@ public class WorldStandingControl extends ScreenControl {
 	        	}
         	}
         });
-    }
-    
-    
-    public void updateClassesButtons(){
-    	if (!classesButtons.getToggles().isEmpty()) {
-        	classesButtons.getToggles().get(0).setSelected(true);
-        	/*if(!rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
-        			classesButtons.getSelectedToggle().getUserData().toString()).isEmpty()){
-        		rankingTable.setItems(rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
-        		classesButtons.getSelectedToggle().getUserData().toString()));  	
-        	}*/
-        }
     }
 }

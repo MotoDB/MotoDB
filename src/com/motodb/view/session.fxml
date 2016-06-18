@@ -21,6 +21,7 @@
 	            	<children>
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD SESSION" onAction="#switchScreen" fx:id="addSession" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD SESSION DATA" onAction="#switchScreen" fx:id="addRacingRider" />
                     </children>
                 </HBox>
                 <HBox fx:id="weekend">

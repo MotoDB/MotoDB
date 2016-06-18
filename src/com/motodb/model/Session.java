@@ -192,7 +192,7 @@ public class Session{
     
 	@Override
 	public String toString() {
-		return code.get() + " " + className.get();
+		return code.get();
 	}
     
     

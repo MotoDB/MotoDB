@@ -22,7 +22,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();
 
-		final String insert = "insert into PILOTA_IN_SESSIONE(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, tempoVeloce, indicePosizione, posizionato, codicePersonalePilota, nomeMarcaMoto, modelloMoto, valorePunteggio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+		final String insert = "insert into PILOTA_IN_SESSIONE(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, tempoVeloce, indicePosizione, posizionato, codicePersonalePilota, nomeMarcaMoto, modelloMoto, valorePunteggio) values (?,?,?,?,?,?,?,?,?,?,?)";
 		try (final PreparedStatement statement = conn.prepareStatement(insert)) {
 			statement.setInt(1, year);
 			statement.setDate(2, weekendDate);

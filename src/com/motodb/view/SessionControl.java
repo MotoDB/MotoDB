@@ -200,11 +200,19 @@ public class SessionControl extends ScreenControl {
         
         sessionsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-        	if (!weeksButtons.getProperties().isEmpty() && !sessionTable.getProperties().isEmpty() && !sessionsButtons.getProperties().isEmpty())
-	            	System.out.println(Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()).toString());
-	            	sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSess(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
-	            			Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()), sessionsButtons.getSelectedToggle().getUserData().toString()));
-            }
+	        	if(newValue!=null){
+	            	if(!racingRiderManager.getRidersFromYearWeekSess(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
+			            			Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()), sessionsButtons.getSelectedToggle().getUserData().toString()).isEmpty()){
+			            	sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSess(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
+			            			Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()), sessionsButtons.getSelectedToggle().getUserData().toString()));
+		        	}
+		        	else{
+		        		sessionTable.setItems(null);
+		        	}
+	        	}else{
+	        		sessionTable.setItems(null);
+	        	}
+        	}
         });
             	
     }

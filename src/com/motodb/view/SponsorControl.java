@@ -47,20 +47,19 @@ public class SponsorControl extends ScreenControl{
  	    	list.add(sponsorPane);
  	    }
 
-     	int i=0;
-     	ListIterator<SponsorGridPane> it = list.listIterator();
-     	SponsorGridPane temp =it.next();
- 	    while(it.hasNext()){
- 	    	int j=0;
- 	    	while(j<=3){
- 		        grid.add(temp.getPane(), j, i);
- 		        temp=it.next();
- 		        j++;
- 	    	}
- 	    	i++;
- 	   }
- 	    
-         mainPane.getChildren().add(0, grid);
+ 	   int i=0;
+    	int riders=0;
+    	
+	    while(i<((list.size())/4)){
+	    	int j=0;
+	    	while(j<=3){
+		        grid.add(list.get(riders).getPane(), j, i);
+		        j++;
+		        riders++;
+	    	}
+	    	i++;
+	   }
+       mainPane.getChildren().add(grid);    
  
     }
     

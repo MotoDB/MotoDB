@@ -82,7 +82,7 @@ public class AddRacingRiderControl extends ScreenControl {
 	@FXML
 	private ComboBox<Bike> bikeModelBox;
 	
-	private final ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1));
+	private final ObservableList<Integer> points = new com.motodb.controller.DBInitializer().getPoints();
 	
 	@FXML
 	private Button delete;

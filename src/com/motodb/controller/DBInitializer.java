@@ -1,12 +1,16 @@
 package com.motodb.controller;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 
 import com.motodb.view.AddContractControl.MemberType;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DBInitializer {
 
@@ -21,6 +25,12 @@ public class DBInitializer {
 	private static final TyreManager tyre = new TyreManagerImpl();
 	private static final BikeManager bike = new BikeManagerImpl();
 	
+	private final static ObservableList<Integer> points = FXCollections.observableArrayList(Arrays.asList(25,20,16,13,11,10,9,8,7,6,5,4,3,2,1,0));
+	
+	public ObservableList<Integer> getPoints() {
+		return FXCollections.observableArrayList(points);
+	}
+
 	private static void initClasses(){
 		clax.addClass("Moto3", "https://it.wikipedia.org/wiki/Moto3#Regolamento_tecnico", 3);
 		clax.addClass("Moto2", "https://it.wikipedia.org/wiki/Moto2#Regolamento_tecnico", 2);
@@ -180,6 +190,24 @@ public class DBInitializer {
 		bike.addBike("Kalex", "Pons", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, 2016, "Pons HP40");
 	}
 	
+	private static void initPoints(){
+		
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+        
+        for(Integer i:points){
+	        final String insert = "insert into PUNTEGGIO(valore) values (?)";
+	        
+	        try (final PreparedStatement statement = conn.prepareStatement(insert)) {
+	            statement.setInt(1, i);
+	            statement.executeUpdate();
+	        } catch (SQLException e) {
+	                e.printStackTrace();
+            }
+        }
+	    
+	}
+	
 	public static void main(String[] args) {
 		final DBManager db = DBManager.getDB();
         db.createConnection();
@@ -204,6 +232,8 @@ public class DBInitializer {
 		System.out.println("Tyres Done");
 		initBikes();
 		System.out.println("Bikes Done");
+		initPoints();
+		System.out.println("Points Done");
 		
 		System.out.println("DATABASE INIT DONE");
     }	

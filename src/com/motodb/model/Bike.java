@@ -97,4 +97,11 @@ public class Bike {
     public String getTeamName() {
         return teamName.get();
     }
+
+	@Override
+	public String toString() {
+		return model.get();
+	}
+    
+    
 }

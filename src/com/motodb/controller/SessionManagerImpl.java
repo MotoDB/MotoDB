@@ -65,7 +65,7 @@ public class SessionManagerImpl implements SessionManager {
         final Connection conn  = db.getConnection();
         
         java.sql.PreparedStatement statement = null;
-        final String insert = "insert into SESSIONE(nomeClasse, annoCampionato, dataInizioWeekend, condizioniPista, temperaturaEsterna, temperaturaAsfalto, percentualeUmidita, dataInizioSessione, codiceSessione, durataMax, tipo, numeroGiri) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        final String insert = "insert into SESSIONE(nomeClasse, annoCampionato, dataInizioWeekend, condizioniPista, temperaturaEsterna, temperaturaAsfalto, percentualeUmidita, dataInizioSessione, codiceSessione, durataMax, tipo, numeroGiri) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             statement = conn.prepareStatement(insert);
             statement.setString(1, className);

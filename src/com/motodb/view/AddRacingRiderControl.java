@@ -63,7 +63,7 @@ public class AddRacingRiderControl extends ScreenControl {
 	private TableColumn<RacingRider, String> yearColumn, weekendColumn, riderColumn, classColumn, sessionColumn, 
 	timeColumn, finishedColumn, positionColumn, pointsColumn, manufacturerColumn, modelColumn;
 	@FXML
-	private TextField timeField, speedField, positionField, searchField;
+	private TextField timeField, positionField, searchField;
 	
 	@FXML
 	private ComboBox<Session> sessionCodeBox;
@@ -116,7 +116,6 @@ public class AddRacingRiderControl extends ScreenControl {
     	finishedColumn.setCellValueFactory(cellData -> cellData.getValue().finishedProperty().asString());
     	positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty().asString());
     	pointsColumn.setCellValueFactory(cellData -> cellData.getValue().pointsProperty().asString());
-    	speedColumn.setCellValueFactory(cellData -> cellData.getValue().averageSpeedProperty().asString());
     	manufacturerColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturerNameProperty());
     	          
         // Add observable list data to the table
@@ -137,11 +136,11 @@ public class AddRacingRiderControl extends ScreenControl {
         try {
         	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15){
         		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
-                        timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
+                        timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
                         0);
         	}else{
 	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
-	                    timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
+	                    timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
 	                    points.get(Integer.parseInt(positionField.getText())-1));
         	}
         

@@ -41,22 +41,8 @@
 			                    		</VBox>
                           			</children>
 			                    </HBox>
-			                    <HBox>
-			                    	<children>
-                          				<VBox prefWidth="150.0" >
-			                    			<children>
-                          						 <Label styleClass="control-label" text="Fastest Time" />
-					        					 <TextField prefHeight="43.0" maxWidth="135.0" fx:id="timeField"/> 
-                          					</children>
-			                    		</VBox>
-			                    		<VBox  prefWidth="150.0">
-			                    			<children>
-                          						<Label styleClass="control-label" text="Avarage Speed" />
-				                				<TextField prefHeight="43.0" maxWidth="135.0" fx:id="speedField"/> 
-                          					</children>
-			                    		</VBox>
-                          			</children>
-			                    </HBox>
+                     			<Label styleClass="control-label" text="Fastest Time" />
+        					 	<TextField prefHeight="43.0" prefWidth="300.0" fx:id="timeField"/> 
 			                    <Label styleClass="control-label" text="Finished" />
 				                <ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Finished" fx:id="finishedBox" />
 			                    <HBox>

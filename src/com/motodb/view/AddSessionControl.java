@@ -44,8 +44,8 @@ public class AddSessionControl extends ScreenControl {
 	@FXML
 	private TableView<Session> sessionsTable;
 	@FXML
-	private TableColumn<Session, String> yearColumn, codeColumn, typeColumn, classColumn, startDateColumn, 
-		endDateColumn, airTempColumn, groundTempColumn, humColumn, conditionsColumn, lapsColumn, durationColumn;
+	private TableColumn<Session, String> yearColumn, codeColumn, typeColumn, classColumn, startDateColumn, airTempColumn,
+				groundTempColumn, humColumn, conditionsColumn, lapsColumn, durationColumn;
 	@FXML
 	private TextField durationField, lapsField, humidityField, groundTemperatureField, airTemperatureField, codeField, 
 	conditionsField, searchField;
@@ -58,7 +58,7 @@ public class AddSessionControl extends ScreenControl {
 	@FXML
 	private ComboBox<Clax> classBox;
 	@FXML
-	private DatePicker startDate, finishDate;
+	private DatePicker startDate;
 	
 	@FXML
 	private Button delete;
@@ -82,7 +82,6 @@ public class AddSessionControl extends ScreenControl {
     	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
     	weekendBox.setDisable(true);
     	startDate.setDisable(true);
-    	finishDate.setDisable(true);
     	
     	// Initialize the table
     	yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
@@ -90,7 +89,6 @@ public class AddSessionControl extends ScreenControl {
     	typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
     	classColumn.setCellValueFactory(cellData -> cellData.getValue().classNameProperty());
     	startDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStartDate().toString()));
-    	endDateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getFinishDate().toString()));
     	airTempColumn.setCellValueFactory(cellData -> cellData.getValue().airTempProperty().asString());
     	groundTempColumn.setCellValueFactory(cellData -> cellData.getValue().groundTempProperty().asString());
     	humColumn.setCellValueFactory(cellData -> cellData.getValue().humidityProperty().asString());
@@ -118,7 +116,7 @@ public class AddSessionControl extends ScreenControl {
         try {
         	
         	sessionManager.addSession(classBox.getSelectionModel().getSelectedItem().getName(), Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), weekendBox.getValue().getStartDate() , conditionsField.getText(), Integer.parseInt(airTemperatureField.getText()), 
-    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), java.sql.Date.valueOf(startDate.getValue()), java.sql.Date.valueOf(finishDate.getValue()), codeField.getText(), durationField.getText(), typeBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(lapsField.getText()));
+    				Integer.parseInt(groundTemperatureField.getText()), Integer.parseInt(humidityField.getText()), java.sql.Date.valueOf(startDate.getValue()), codeField.getText(), durationField.getText(), typeBox.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(lapsField.getText()));
         
     		sessionsTable.setItems(sessionManager.getSessions()); // Update table view
         	this.clear();
@@ -200,7 +198,6 @@ public class AddSessionControl extends ScreenControl {
 				}else{
 					weekendBox.setDisable(true);
 					startDate.setDisable(true);
-					finishDate.setDisable(true);
 				}
 			}
 		});
@@ -211,9 +208,7 @@ public class AddSessionControl extends ScreenControl {
 		weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue!=null){
 				startDate.setDisable(false);
-				finishDate.setDisable(false);
 			    startDate.setValue(newValue.getStartDate().toLocalDate());
-			    finishDate.setValue(newValue.getStartDate().toLocalDate());
 		        final Callback<DatePicker, DateCell> dayCellFactory = 
 		            new Callback<DatePicker, DateCell>() {
 		                @Override
@@ -232,7 +227,6 @@ public class AddSessionControl extends ScreenControl {
 		            }
 		        };
 		        startDate.setDayCellFactory(dayCellFactory);
-		        finishDate.setDayCellFactory(dayCellFactory);
 			}
 		});
 	}

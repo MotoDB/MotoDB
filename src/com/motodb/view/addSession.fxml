@@ -95,8 +95,6 @@
 			                    </HBox>
 				                <Label styleClass="control-label" text="Start Date" />
 				                <DatePicker prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Start Date" fx:id="startDate" />
-				                <Label styleClass="control-label" text="Finish Date" />
-				                <DatePicker prefHeight="42.0" HBox.hgrow="ALWAYS" prefWidth="300.0" promptText="Finish Date" fx:id="finishDate" />
               					<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>

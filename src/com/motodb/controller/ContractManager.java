@@ -21,6 +21,15 @@ public interface ContractManager {
 	public void addContract(Integer year, MemberType memberType, Integer member, String team);
 	/**
 	 * 
+	 * @param year
+	 * @param memberType
+	 * @param member
+	 * @param team
+	 * @param className
+	 */
+	public void addContract(Integer year, MemberType memberType, Integer member, String team, String className);
+	/**
+	 * 
 	 * @return
 	 */
 	public ObservableList<Contract> getRiderContracts();

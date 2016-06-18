@@ -188,7 +188,7 @@ public class TeamManagerImpl implements TeamManager {
 					e.printStackTrace();
 				}
 			}
-				
+
 		} catch (SQLException e) {
 			try {
 				AlertTypes alert = new AlertTypesImpl();

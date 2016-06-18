@@ -101,7 +101,7 @@ public class AddContractControl extends ScreenControl {
         try {
         	
     		contractManager.addContract(Integer.parseInt(yearBox.getSelectionModel().getSelectedItem()), memberTypeBox.getSelectionModel().getSelectedItem(), memberBox.getSelectionModel().getSelectedItem().getPersonalCode(), 
-    				teamBox.getSelectionModel().getSelectedItem().getName());
+    				teamBox.getSelectionModel().getSelectedItem().getName(), null);
 
         	contractTable.setItems(contractManager.getContracts()); // Update table view
         	this.clear();

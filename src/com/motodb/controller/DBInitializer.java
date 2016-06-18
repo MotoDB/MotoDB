@@ -116,38 +116,38 @@ public class DBInitializer {
 		member.addRider(i++, "Nicolo", "Bulega", "http://www.motogp.com/en/api/rider/photo/grid/old/8756.jpg", "Montecchio, Emilia-Romagna", "Italy", "Official Rider", new Date(940089373000l), 8, 63, 180, "Bul");
 		member.addRider(i++, "Francesco", "Bagnaia", "http://www.motogp.com/en/api/rider/photo/grid/old/8273.jpg", "Torino, Piemonte", "Italy", "Official Rider", new Date(940089373000l), 21, 59, 174, "Bag");
 		//Engineers
-		i=500;
+		i=501;
 		member.addEngineer(i++, "Cristian", "Gabbarini", "http://media.motoblog.it/8/897/01-Gabbarini-620x413.jpg", "Senigallia, Marche", "Italy", "Chief Engineer", new Date(270045049000l));
 		member.addEngineer(i++, "Luigi", "Dall'Igna", "http://media.motoblog.it/7/770/Dall-Igna_Ducati_Test_Sepang.jpg", "Thiene, Veneto", "Italy", "General Manager", new Date(-109580909000l));
 		// TODO more engineers
 		//Mechanics
-		i=1000;
+		i=1001;
 		member.addMechanic(i++, "Mark", "Elder", "http://www.cycleworld.com/sites/cycleworld.com/files/styles/large_1x_/public/import/embedded/wp-content/uploads/2014/07/Mark-Elder-590x393.jpg", "Los Angeles, California", "United States", "On Track Mechanic", new Date(142102291000l));
 		// TODO more mechanics
 	}
 	
 	private static void initContracts(){
 		//2016
-		contract.addContract(2016, MemberType.Rider, 1, "Honda Racing Team");
-		contract.addContract(2016, MemberType.Rider, 2, "Yamaha Factory Racing");
-		contract.addContract(2016, MemberType.Rider, 3, "Ducati Team");
-		contract.addContract(2016, MemberType.Rider, 4, "Team Suzuki Racing");
+		contract.addContract(2016, MemberType.Rider, 1, "Honda Racing Team", "MotoGP");
+		contract.addContract(2016, MemberType.Rider, 2, "Yamaha Factory Racing", "MotoGP");
+		contract.addContract(2016, MemberType.Rider, 3, "Ducati Team", "MotoGP");
+		contract.addContract(2016, MemberType.Rider, 4, "Team Suzuki Racing", "MotoGP");
 		contract.addContract(2016, MemberType.Engineer, 501, "Honda Racing Team");
-		contract.addContract(2016, MemberType.Engineer, 1001, "Ducati Team");
+		contract.addContract(2016, MemberType.Mechanic, 1001, "Ducati Team");
 		//2015
-		contract.addContract(2015, MemberType.Rider, 1, "Honda Racing Team");
-		contract.addContract(2015, MemberType.Rider, 2, "Yamaha Factory Racing");
-		contract.addContract(2015, MemberType.Rider, 3, "Ducati Team");
-		contract.addContract(2015, MemberType.Rider, 4, "Team Suzuki Racing");
+		contract.addContract(2015, MemberType.Rider, 1, "Honda Racing Team", "MotoGP");
+		contract.addContract(2015, MemberType.Rider, 2, "Yamaha Factory Racing", "MotoGP");
+		contract.addContract(2015, MemberType.Rider, 3, "Ducati Team", "MotoGP");
+		contract.addContract(2015, MemberType.Rider, 4, "Team Suzuki Racing", "MotoGP");
 		contract.addContract(2015, MemberType.Engineer, 501, "Honda Racing Team");
-		contract.addContract(2015, MemberType.Engineer, 1001, "Ducati Team");
+		contract.addContract(2015, MemberType.Mechanic, 1001, "Ducati Team");
 		//2014
-		contract.addContract(2014, MemberType.Rider, 1, "Honda Racing Team");
-		contract.addContract(2014, MemberType.Rider, 2, "Yamaha Factory Racing");
-		contract.addContract(2014, MemberType.Rider, 3, "Ducati Team");
-		contract.addContract(2014, MemberType.Rider, 4, "Pons HP40");
+		contract.addContract(2014, MemberType.Rider, 1, "Honda Racing Team", "MotoGP");
+		contract.addContract(2014, MemberType.Rider, 2, "Yamaha Factory Racing", "MotoGP");
+		contract.addContract(2014, MemberType.Rider, 3, "Ducati Team", "MotoGP");
+		contract.addContract(2014, MemberType.Rider, 4, "Pons HP40", "Moto2");
 		contract.addContract(2014, MemberType.Engineer, 501, "Honda Racing Team");
-		contract.addContract(2016, MemberType.Engineer, 1001, "Ducati Team");
+		contract.addContract(2014, MemberType.Mechanic, 1001, "Ducati Team");
 	}
 	
 	private static void initTyres(){

@@ -72,20 +72,21 @@ public class ClaxManagerImpl implements ClaxManager {
     }
 
     @Override
-	public ObservableList<Clax> getClassesFromYear(int year) {
+    public ObservableList<Clax> getClassesFromYear(int year) {
 
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<Clax> list = FXCollections.observableArrayList();
         final String retrieve = "select c.* from CLASSE c, CLASSE_IN_CAMPIONATO i where c.nomeClasse = i.nomeClasse AND i.annoCampionato = ?";
-        
+
         try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
             statement.setInt(1, year);
             try (final ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                	list.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento"), result.getInt("indiceImportanza")));
-                } 
+                    list.add(new Clax(result.getString("nomeClasse"), result.getString("regolamento"),
+                            result.getInt("indiceImportanza")));
+                }
             } catch (SQLException e) {
                 try {
                     AlertTypes alert = new AlertTypesImpl();
@@ -94,16 +95,16 @@ public class ClaxManagerImpl implements ClaxManager {
                     e.printStackTrace();
                 }
             }
-            } catch (SQLException e) {
-                try {
-                    AlertTypes alert = new AlertTypesImpl();
-                    alert.showError(e);
-                } catch (ExceptionInInitializerError ei) {
-                    e.printStackTrace();
-                }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
             }
-        
+        }
+
         return list;
-	}
+    }
 
 }

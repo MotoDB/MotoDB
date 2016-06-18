@@ -79,7 +79,7 @@ public class ChampionshipManagerImpl implements ChampionshipManager {
 		final Connection conn = db.getConnection();
 
 		ObservableList<Championship> listChampionship = FXCollections.observableArrayList();
-		final String retrieve = "select * from CAMPIONATO order by anno";
+		final String retrieve = "select * from CAMPIONATO order by anno desc ";
 		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
 				final ResultSet result = statement.executeQuery()) {
 			while (result.next()) {

@@ -150,4 +150,37 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 		return team;
 	}
 
+	@Override
+	public String getRiderNameByCode(int code) {
+		final DBManager db = DBManager.getDB();
+		final Connection conn = db.getConnection();
+
+		String name = null;
+		final String retrieve = "select p.sigla from PILOTA p where p.codicePersonale = ?";
+		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+			statement.setInt(1, code);
+			try (final ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					name = result.getString(1);
+				}
+			} catch (SQLException e) {
+				try {
+					AlertTypes alert = new AlertTypesImpl();
+					alert.showError(e);
+				} catch (ExceptionInInitializerError ei) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			try {
+				AlertTypes alert = new AlertTypesImpl();
+				alert.showError(e);
+			} catch (ExceptionInInitializerError ei) {
+				e.printStackTrace();
+			}
+		}
+		
+		return name;
+	}
+
 }

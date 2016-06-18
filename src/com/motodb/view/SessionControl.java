@@ -13,13 +13,11 @@ import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.model.RacingRider;
 import com.motodb.model.Session;
-import com.motodb.model.Team;
 import com.motodb.model.Weekend;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.PersistentButtonToggleGroup;
 
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -29,8 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class SessionControl extends ScreenControl {

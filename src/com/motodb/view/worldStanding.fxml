@@ -32,12 +32,14 @@
 	               <children>
 	                  <VBox HBox.hgrow="ALWAYS">
 	                     <children>
-	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="worldStandingTable">
+	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="rankingTable">
 	                          <columns>
-	                          	<TableColumn text="Position" fx:id="positionColumn" />
-	                            <TableColumn text="Rider" fx:id="riderColumn" />
-	                          	<TableColumn text="Bike" fx:id="bikeColumn" />
-	                            <TableColumn text="Nation" fx:id="nationColumn" />
+	                          	<TableColumn text="Name" fx:id="nameColumn" />
+	                            <TableColumn text="Surname" fx:id="surnameColumn" />
+	                          	<TableColumn text="Number" fx:id="numberColumn" />
+	                          	<TableColumn text="Nation" fx:id="nationColumn" />
+	                          	<TableColumn text="Team" fx:id="teamColumn" />
+	                            <TableColumn text="Manufacturer" fx:id="manufacturerColumn" />
 	                            <TableColumn text="Points" fx:id="pointsColumn" />
 	                          </columns>
                            <columnResizePolicy>

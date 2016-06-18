@@ -26,6 +26,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 
 public class RiderControl extends ScreenControl {
 
@@ -94,14 +95,10 @@ public class RiderControl extends ScreenControl {
             classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
         }
        
+        
         // Method which handles the selection of a year
         this.filter();
-
-        if (!classesButtons.getToggles().isEmpty()) {
-        	classesButtons.getToggles().get(0).setSelected(true);
-        	
-        }
-             
+        
     }
 
     /**
@@ -112,10 +109,9 @@ public class RiderControl extends ScreenControl {
     	
         yearsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-
-            	if(!riderManager.getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(), (Integer.parseInt(newValue.getUserData().toString()))).isEmpty()){
-            		mainPane.getChildren().clear();
-            	}
+            	
+            	list.clear();
+            	mainPane.getChildren().clear();
             	
                 classesButtons.getToggles().clear();
                 classes.getChildren().clear();
@@ -126,15 +122,16 @@ public class RiderControl extends ScreenControl {
                     button.setToggleGroup(classesButtons);
                     button.setUserData(s);
                 }
+                
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                 for (Toggle button : classesButtons.getToggles()) {
                     button.setToggleGroup(classesButtons);
                     classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
                 }
-
                 
-                classesButtons.getToggles().get(0).setSelected(true);
-                    
+                if (!classesButtons.getToggles().isEmpty()) {
+                	classesButtons.getToggles().get(0).setSelected(true);
+                }
                 
             }
 
@@ -142,39 +139,40 @@ public class RiderControl extends ScreenControl {
         
         classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-            	list.clear();
-	            
-            	if(!riderManager.getRidersFromClassAndYear(newValue.getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))).isEmpty()){
-	        		
-            		for(Rider rider : riderManager.getRidersFromClassAndYear(newValue.getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))){
-		     	    	RiderGridPane riderPane = new RiderGridPane(rider);
-		     	    	list.add(riderPane);
-	            		
-		     	    }
-		
-		         	int i=0;
-		         	int riders=0;
-		         	
-		     	    while(i<((list.size())/4)){
-		     	    	int j=0;
-		     	    	while(j<=3){
-		     		        grid.add(list.get(riders).getPane(), j, i);
-		     		        j++;
-		     		        riders++;
-		     	    	}
-		     	    	i++;
-		     	   }
-		            mainPane.getChildren().add(grid);    
-		            	
-	            	
-	            }else{
-	            	mainPane.getChildren().clear();
-	            }
+
+            	mainPane.getChildren().clear();
+
+            	if(newValue!=null){
+	            	if(!riderManager.getRidersFromClassAndYear(
+	            			classesButtons.getSelectedToggle().getUserData().toString(), 
+	            			(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))).isEmpty()
+	            		){
+	            		list.clear();
+	            		for(Rider rider : riderManager.getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))){
+			     	    	RiderGridPane riderPane = new RiderGridPane(rider);
+			     	    	list.add(riderPane);
+			     	    }
+	                	
+	            		grid = new GridPane();
+	                	
+			         	int i=0, riders=0;
+			         	
+			     	    while(i<(int)Math.ceil(list.size()/(4.0)) || riders<list.size()){
+			     	    	int j=0;
+			     	    	while(j<4 && riders<list.size()){
+			     		        grid.add(list.get(riders).getPane(), j, i);
+			     		        riders++;
+			     		        j++;
+			     	    	}
+			     	    	i++;
+			     	   }
+			           mainPane.getChildren().add(grid);  
+		            }else{
+		            	mainPane.getChildren().clear();
+		            }
+            	}
             	
             }
         });
-     
-    }
-    	 
-       
+    }     
 }

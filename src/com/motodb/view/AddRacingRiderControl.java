@@ -8,6 +8,8 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.ClaxManager;
 import com.motodb.controller.ClaxManagerImpl;
+import com.motodb.controller.ContractManager;
+import com.motodb.controller.ContractManagerImpl;
 import com.motodb.controller.ManufacturerManager;
 import com.motodb.controller.ManufacturerManagerImpl;
 import com.motodb.controller.MemberManager;
@@ -47,6 +49,7 @@ public class AddRacingRiderControl extends ScreenControl {
     // Controller
     private final SessionManager sessionManager = new SessionManagerImpl();
     private final ClaxManager classManager = new ClaxManagerImpl();
+    private final ContractManager contractManager = new ContractManagerImpl();
     private final RacingRiderManager racingRiderManager = new RacingRiderManagerImpl();
     private final MemberManager riderManager = new MemberManagerImpl();
     private final WeekendManager weekendManager = new WeekendManagerImpl();
@@ -58,7 +61,7 @@ public class AddRacingRiderControl extends ScreenControl {
 	private TableView<RacingRider> racingRidersTable;
 	@FXML
 	private TableColumn<RacingRider, String> yearColumn, weekendColumn, riderColumn, classColumn, sessionColumn, 
-	timeColumn, finishedColumn, positionColumn, pointsColumn, speedColumn, manufacturerColumn, modelColumn;
+	timeColumn, finishedColumn, positionColumn, pointsColumn, manufacturerColumn, modelColumn;
 	@FXML
 	private TextField timeField, speedField, positionField, searchField;
 	
@@ -133,11 +136,11 @@ public class AddRacingRiderControl extends ScreenControl {
     private void add() {
         try {
         	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15){
-        		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), classBox.getValue().getName(), sessionCodeBox.getValue().getCode(),
+        		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
                         timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
                         0);
         	}else{
-	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), classBox.getValue().getName(), sessionCodeBox.getValue().getCode(),
+	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
 	                    timeField.getText(), Integer.parseInt(positionField.getText()), Integer.parseInt(speedField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
 	                    points.get(Integer.parseInt(positionField.getText())-1));
         	}

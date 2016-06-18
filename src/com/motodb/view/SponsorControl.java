@@ -2,7 +2,6 @@ package com.motodb.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.motodb.controller.SponsorManager;
 import com.motodb.controller.SponsorManagerImpl;

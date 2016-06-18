@@ -170,5 +170,32 @@ public class ContractManagerImpl implements ContractManager {
 	}
 	
 	
+	@Override
+	public String getClassFromRiderYear(int year, int rider){
+		final DBManager db = DBManager.getDB();
+	    final Connection conn  = db.getConnection();
+	    
+	    final String retrieve = "select nomeClasse from CONTRATTO_PILOTA where annoCampionato = ? && codicePersonale = ?";
+	    
+	    try {
+	        PreparedStatement statement = null;
+	        ResultSet result = null;
+	    	statement = conn.prepareStatement(retrieve);
+	    	statement.setInt(1, year);
+	    	statement.setInt(2, rider);
+	        result = statement.executeQuery();
+	        
+	        while (result.next()) {
+	        	return result.getString("nomeClasse");
+	        }
+	        result.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        AlertTypes alert = new AlertTypesImpl();
+	        alert.showError(e);
+	    }
+	    return null;
+	    
+	}
 }
-
+	

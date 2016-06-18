@@ -43,4 +43,11 @@ public interface ContractManager {
 	 * @return
 	 */
 	public ObservableList<Contract> getMechanicContracts();
+	/**
+	 * 
+	 * @param year
+	 * @param rider
+	 * @return
+	 */
+	public String getClassFromRiderYear(int year, int rider);
 }

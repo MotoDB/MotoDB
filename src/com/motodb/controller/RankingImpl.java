@@ -29,7 +29,7 @@ public class RankingImpl implements Ranking {
 				+ "&& ps.nomeClasse = ? && c.annoCampionato = ? group by p.codicePersonale ";
 
 		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
-			statement.setString(1, "R");
+			statement.setString(1, "RACE");
 			statement.setInt(2, year);
 			statement.setString(3, className);
 			statement.setInt(4, year);

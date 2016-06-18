@@ -3,6 +3,7 @@ package com.motodb.controller;
 import java.sql.Date;
 
 import com.motodb.model.RacingRider;
+import com.motodb.model.Team;
 
 import javafx.collections.ObservableList;
 
@@ -30,6 +31,8 @@ public interface RacingRiderManager {
 	 * @return
 	 */
 	public ObservableList<RacingRider> getRacingRiders();
+	
+	public Team getTeamByRiderAndYear(int rider, int year);
 	
 	public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session);
 }

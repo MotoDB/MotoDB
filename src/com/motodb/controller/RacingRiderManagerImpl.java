@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.motodb.model.RacingRider;
+import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -17,8 +18,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
 	@Override
 	public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-			Integer position, boolean finished, int personalCode, String manufacturer,
-			String bikeModel, int points) {
+			Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points) {
 		final DBManager db = DBManager.getDB();
 		final Connection conn = db.getConnection();
 
@@ -60,9 +60,10 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 			while (result.next()) {
 				list.add(new RacingRider(result.getInt("annoCampionato"), result.getDate("dataInizioWeekend"),
 						result.getString("nomeClasse"), result.getString("codiceSessione"),
-						result.getString("tempoVeloce"), result.getInt("indicePosizione"), result.getBoolean("posizionato"),
-						result.getInt("codicePersonalePilota"), result.getString("nomeMarcaMoto"),
-						result.getString("modelloMoto"), result.getInt("valorePunteggio")));
+						result.getString("tempoVeloce"), result.getInt("indicePosizione"),
+						result.getBoolean("posizionato"), result.getInt("codicePersonalePilota"),
+						result.getString("nomeMarcaMoto"), result.getString("modelloMoto"),
+						result.getInt("valorePunteggio")));
 			}
 		} catch (SQLException e) {
 			try {
@@ -75,41 +76,78 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
 		return list;
 	}
-	
+
 	@Override
-	public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session){
+	public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session) {
 		final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
-        ObservableList<RacingRider> list = FXCollections.observableArrayList();
-        final String retrieve = "select * from PILOTA_IN_SESSIONE where annoCampionato = ? && dataInizioWeekend = ? && codiceSessione = ?";
-        
-        try {
-            PreparedStatement statement = null;
-            ResultSet result = null;
-        	statement = conn.prepareStatement(retrieve);
-        	statement.setInt(1, year);
-        	statement.setDate(2, weekend);
-        	statement.setString(3, session);
-            result = statement.executeQuery();
-            
-            while (result.next()) {
-            	
-            	list.add(new RacingRider(result.getInt("annoCampionato"), result.getDate("dataInizioWeekend"),
+		final Connection conn = db.getConnection();
+
+		ObservableList<RacingRider> list = FXCollections.observableArrayList();
+		final String retrieve = "select * from PILOTA_IN_SESSIONE where annoCampionato = ? && dataInizioWeekend = ? && codiceSessione = ?";
+
+		try {
+			PreparedStatement statement = null;
+			ResultSet result = null;
+			statement = conn.prepareStatement(retrieve);
+			statement.setInt(1, year);
+			statement.setDate(2, weekend);
+			statement.setString(3, session);
+			result = statement.executeQuery();
+
+			while (result.next()) {
+
+				list.add(new RacingRider(result.getInt("annoCampionato"), result.getDate("dataInizioWeekend"),
 						result.getString("nomeClasse"), result.getString("codiceSessione"),
-						result.getString("tempoVeloce"), result.getInt("indicePosizione"), result.getBoolean("posizionato"),
-						result.getInt("codicePersonalePilota"), result.getString("nomeMarcaMoto"),
-						result.getString("modelloMoto"), result.getInt("valorePunteggio")));
-                
-            }
-            result.close();
-            statement.close();
-        } catch (SQLException e) {
-            AlertTypes alert = new AlertTypesImpl();
-            alert.showError(e);
-        }
-        
-        return list;
+						result.getString("tempoVeloce"), result.getInt("indicePosizione"),
+						result.getBoolean("posizionato"), result.getInt("codicePersonalePilota"),
+						result.getString("nomeMarcaMoto"), result.getString("modelloMoto"),
+						result.getInt("valorePunteggio")));
+
+			}
+			result.close();
+			statement.close();
+		} catch (SQLException e) {
+			AlertTypes alert = new AlertTypesImpl();
+			alert.showError(e);
+		}
+
+		return list;
+	}
+
+	@Override
+	public Team getTeamByRiderAndYear(int rider, int year) {
+		final DBManager db = DBManager.getDB();
+		final Connection conn = db.getConnection();
+
+		Team team = new Team();
+		final String retrieve = "select nomeTeam from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?";
+		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+			statement.setInt(1, rider);
+			statement.setInt(2, rider);
+			statement.setInt(3, year);
+			try (final ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					
+					team.setName(result.getString(1));
+				}
+			} catch (SQLException e) {
+				try {
+					AlertTypes alert = new AlertTypesImpl();
+					alert.showError(e);
+				} catch (ExceptionInInitializerError ei) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			try {
+				AlertTypes alert = new AlertTypesImpl();
+				alert.showError(e);
+			} catch (ExceptionInInitializerError ei) {
+				e.printStackTrace();
+			}
+		}
+		
+		return team;
 	}
 
 }

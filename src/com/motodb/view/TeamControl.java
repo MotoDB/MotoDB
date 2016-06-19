@@ -203,6 +203,8 @@ public class TeamControl extends ScreenControl {
                             memberManager.getMembersFromTeam(teamsButtons.getSelectedToggle().getUserData().toString(),
                                     (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))));
                     vBoxTeam.getChildren().add(grid.getPane());
+                }else{
+                	membersTable.setItems(null);
                 }
             }
         });

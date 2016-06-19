@@ -47,4 +47,7 @@ public interface RacingRiderManager {
     ObservableList<RacingRiderView> getRacingRidersForView();
 
 	ObservableList<RacingRider> getRidersFromYearWeekSessClass(int year, Date weekend, String session, String clax);
+
+	public ObservableList<RacingRiderView> getRidersFromYearWeekSessClassForView(int parseInt, Date valueOf,
+			String string, String string2);
 }

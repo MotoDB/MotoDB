@@ -47,9 +47,9 @@
 									<columns>
 			                          	<TableColumn text="Year" fx:id="yearColumn"/>
 			                          	<TableColumn text="Team" fx:id="teamColumn"/>
-			                          	<TableColumn text="Personal Code" fx:id="manufacturerColumn"/>
-			                          	<TableColumn text="Date Of Birth" fx:id="modelColumn"/>
-			                          	<TableColumn text="Birthplace" fx:id="weightColumn"/>
+			                          	<TableColumn text="Manufacturer" fx:id="manufacturerColumn"/>
+			                          	<TableColumn text="Model" fx:id="modelColumn"/>
+			                          	<TableColumn text="Weight" fx:id="weightColumn"/>
 								    </columns>
 							        <columnResizePolicy>
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -27,7 +27,6 @@ public class AddBikeControl extends ScreenControl {
 
     // Controller
     private final TeamManager teamManager = new TeamManagerImpl();
-    private final ManufacturerManager manufacturerManager = new ManufacturerManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final BikeManager bikeManager = new BikeManagerImpl();
 
@@ -37,7 +36,6 @@ public class AddBikeControl extends ScreenControl {
     private TableColumn<Bike, String> yearColumn, teamColumn, manufacturerColumn, modelColumn, weightColumn;
     @FXML
     private TextField weightField, photoField, modelField, searchField;
-
     @FXML
     private ComboBox<Manufacturer> manufacturerBox;
     @FXML

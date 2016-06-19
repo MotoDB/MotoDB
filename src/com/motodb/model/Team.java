@@ -73,7 +73,7 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team " + name.get() + " " + year.get();
+        return name.get();
     }
 
 }

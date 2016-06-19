@@ -15,6 +15,7 @@ import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Championship;
 import com.motodb.model.Clax;
 import com.motodb.model.RacingRider;
+import com.motodb.model.RacingRiderView;
 import com.motodb.model.Session;
 import com.motodb.model.Weekend;
 import com.motodb.view.alert.AlertTypes;
@@ -51,9 +52,9 @@ public class SessionControl extends ScreenControl {
     private final ToggleGroup sessionsButtons = new PersistentButtonToggleGroup();
 
     @FXML
-    private TableView<RacingRider> sessionTable;
+    private TableView<RacingRiderView> sessionTable;
     @FXML
-    private TableColumn<RacingRider, String> riderColumn, sessionColumn, positionColumn, pointsColumn, classColumn;
+    private TableColumn<RacingRiderView, String> riderColumn, sessionColumn, positionColumn, pointsColumn, classColumn;
 
     @FXML
     private HBox years, weekend, clax, session;
@@ -117,7 +118,7 @@ public class SessionControl extends ScreenControl {
     public void initialize() {
 
         // Initialize the table
-        riderColumn.setCellValueFactory(cellData -> cellData.getValue().personalCodeProperty().asString());
+        riderColumn.setCellValueFactory(cellData -> cellData.getValue().acronymProperty());
         classColumn.setCellValueFactory(cellData -> cellData.getValue().classNameProperty());
         sessionColumn.setCellValueFactory(cellData -> cellData.getValue().sessionCodeProperty());
         positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty().asString());
@@ -283,7 +284,7 @@ public class SessionControl extends ScreenControl {
                             sessionsButtons.getSelectedToggle().getUserData().toString(),
                             classesButtons.getSelectedToggle().getUserData().toString()
                     		).isEmpty()) {
-                        sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSessClass(
+                        sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSessClassForView(
                                 Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
                                 Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()),
                                 sessionsButtons.getSelectedToggle().getUserData().toString(),

@@ -279,7 +279,6 @@ public class TeamManagerImpl implements TeamManager {
     	final DBManager db = DBManager.getDB();
         final Connection conn = db.getConnection();
 
-        ObservableList<String> list = FXCollections.observableArrayList();
         final String retrieve = "SELECT i.nomeTeam " + "FROM CONTRATTO_PILOTA i " + "WHERE i.annoCampionato = ? "
                 + "AND i.codicePersonale = ? ";
 

@@ -244,6 +244,7 @@ public class DBInitializer {
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
 		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, i, "Team Suzuki Racing");
 		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
+		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
 		i=2015;
@@ -252,13 +253,15 @@ public class DBInitializer {
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
 		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, i, "Team Suzuki Racing");
 		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
+		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
 		i=2014;
 		bike.addBike("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, i, "Honda Racing Team");
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
-		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
+		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Pramac Racing");
+		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Forward Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
 		
@@ -310,11 +313,9 @@ public class DBInitializer {
 			int i=1;
 			while(i<=list.size()){
 				for(Rider r:list){
-					//System.out.println(s.getYear()+" - "+ s.getWeekendDate()+" - "+ s.getClassName()+" - "+ s.getCode()+" - "+ (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999)+" - "+ i +" - "+ r.getPersonalCode()+" - "+ bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName()+" - "+ bike.getBikeByTeamAndYearAndRider(s.getYear() , r.getPersonalCode()).getModel() +" - "+ racingRider.getRiderNameByCode(r.getPersonalCode()) +" - "+ FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));
-					//racingRider.addRacingRider(s.getYear(), s.getWeekendDate(), s.getClassName(), s.getCode(), (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999), i, i<list.size()-random.nextInt(3)? true:false, r.getPersonalCode(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getModel(), racingRider.getRiderNameByCode(r.getPersonalCode()), i<points.size()&&s.getCode().equals("RACE")?points.get(i-1):0, FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));
 					racingRider.addRacingRider(s.getYear(), s.getWeekendDate(), s.getClassName(), s.getCode(), (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999), i, i<list.size()-random.nextInt(3)? true:false, r.getPersonalCode(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getModel(), racingRider.getTeamByRiderAndYear(r.getPersonalCode(), s.getYear()).getName(), i<points.size()&&s.getCode().equals("RACE")?points.get(i-1):0, FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));;
 					i++;
-					System.out.println("------ "+r.getFirstName()+" "+r.getLastName()+" -- "+r.getPersonalCode() + " -> Done");
+					System.out.println("------ "+r.getFirstName()+" "+r.getLastName()+" -- Code: " +r.getPersonalCode() + " -> Done");
 				}
 			}
 			System.out.println("---- "+ s.getClassName() + " -- " + s.getCode() + " -- " + s.getWeekendDate() + " -> Done");

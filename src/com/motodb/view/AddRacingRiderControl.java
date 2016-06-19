@@ -27,13 +27,11 @@ import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Bike;
 import com.motodb.model.Clax;
 import com.motodb.model.Manufacturer;
-import com.motodb.model.RacingRider;
 import com.motodb.model.RacingRiderView;
 import com.motodb.model.Rider;
 import com.motodb.model.Session;
 import com.motodb.model.Tyre;
 import com.motodb.model.Weekend;
-import com.motodb.view.AddSessionControl.SessionType;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 
@@ -153,7 +151,7 @@ public class AddRacingRiderControl extends ScreenControl {
     private void add() {
         try {
             if (finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText()) > 15
-                    || !sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString())) {
+                    || !sessionCodeBox.getValue().getCode().equals("RACE") ){
                 racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()),
                         weekendBox.getValue().getStartDate(),
                         contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()),

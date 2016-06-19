@@ -24,6 +24,11 @@
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD SESSION DATA" onAction="#switchScreen" fx:id="addRacingRider" />
                     </children>
                 </HBox>
+                <HBox fx:id="clax">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
                 <HBox fx:id="weekend">
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />

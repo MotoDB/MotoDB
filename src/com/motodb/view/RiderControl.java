@@ -70,7 +70,6 @@ public class RiderControl extends ScreenControl {
             }
 
         }
-
         /*
          * if (!classesButtons.getToggles().isEmpty()) {
          * classesButtons.getToggles().get(0).setSelected(true); }
@@ -134,7 +133,7 @@ public class RiderControl extends ScreenControl {
                 classesButtons.getToggles().get(1).setSelected(true);
 
                 if (!classesButtons.getToggles().isEmpty()) {
-                    classesButtons.getToggles().get(1).setSelected(true);
+                    classesButtons.getToggles().get(0).setSelected(true);
                 }
             }
         });

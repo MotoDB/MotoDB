@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
+import com.motodb.controller.ClaxManager;
+import com.motodb.controller.ClaxManagerImpl;
 import com.motodb.controller.RacingRiderManager;
 import com.motodb.controller.RacingRiderManagerImpl;
 import com.motodb.controller.SessionManager;
@@ -11,6 +13,7 @@ import com.motodb.controller.SessionManagerImpl;
 import com.motodb.controller.WeekendManager;
 import com.motodb.controller.WeekendManagerImpl;
 import com.motodb.model.Championship;
+import com.motodb.model.Clax;
 import com.motodb.model.RacingRider;
 import com.motodb.model.Session;
 import com.motodb.model.Weekend;
@@ -38,11 +41,13 @@ public class SessionControl extends ScreenControl {
     private final ChampionshipManager manager = new ChampionshipManagerImpl();
     private final RacingRiderManager racingRiderManager = new RacingRiderManagerImpl();
     private final WeekendManager weekendManager = new WeekendManagerImpl();
+    private final ClaxManager classManager = new ClaxManagerImpl();
     private final SessionManager sessionManager = new SessionManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup weeksButtons = new PersistentButtonToggleGroup();
+    private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup sessionsButtons = new PersistentButtonToggleGroup();
 
     @FXML
@@ -51,7 +56,7 @@ public class SessionControl extends ScreenControl {
     private TableColumn<RacingRider, String> riderColumn, sessionColumn, positionColumn, pointsColumn, classColumn;
 
     @FXML
-    private HBox years, weekend, session;
+    private HBox years, weekend, clax, session;
     @FXML
     private TextField searchField;
 
@@ -75,13 +80,23 @@ public class SessionControl extends ScreenControl {
                 button.setToggleGroup(weeksButtons);
                 button.setUserData(s.getStartDate().toString());
             }
+            
+            for (Clax s : classManager.getClassesFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
+
+                ToggleButton button = new ToggleButton(s.getName());
+                button.setToggleGroup(classesButtons);
+                button.setUserData(s.getName());
+            }
 
             if (!weeksButtons.getToggles().isEmpty()) {
                 weeksButtons.getToggles().get(0).setSelected(true);
+                
+                if (!classesButtons.getToggles().isEmpty()) {
+                	classesButtons.getToggles().get(0).setSelected(true);}
 
                 // Creating a button for each class of that year, and adding
                 // such button to the group
-                for (Session s : sessionManager.getSessionsFromWeekend(
+                for (Session s : sessionManager.getSessionByWeekendAndClass(classesButtons.getSelectedToggle().getUserData().toString(),
                         Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()))) {
 
                     ToggleButton button = new ToggleButton(s.getCode());
@@ -115,6 +130,10 @@ public class SessionControl extends ScreenControl {
         for (Toggle button : yearsButtons.getToggles()) {
             years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton) button);
         }
+        for (Toggle button : classesButtons.getToggles()) {
+            button.setToggleGroup(classesButtons);
+            clax.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
+        }
         for (Toggle button : weeksButtons.getToggles()) {
             button.setToggleGroup(weeksButtons);
             weekend.getChildren().add(weeksButtons.getToggles().indexOf(button), (ToggleButton) button);
@@ -146,7 +165,26 @@ public class SessionControl extends ScreenControl {
 
                 weeksButtons.getToggles().clear();
                 weekend.getChildren().clear();
+                
+                classesButtons.getToggles().clear();
+                clax.getChildren().clear();
+                
+                for (Clax c : classManager.getClassesFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
+                    ToggleButton button = new ToggleButton(c.getName());
+                    button.setToggleGroup(classesButtons);
+                    button.setUserData(c.getName());
+                }
 
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (Toggle button : classesButtons.getToggles()) {
+                    button.setToggleGroup(classesButtons);
+                    clax.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
+                }
+
+                if (!classesButtons.getToggles().isEmpty()) {
+                	classesButtons.getToggles().get(0).setSelected(true);
+                }
+                
                 // Creating a button for each class of that year, and adding
                 // such button to the group
                 for (Weekend s : weekendManager.getWeekendsFromYear(
@@ -177,9 +215,43 @@ public class SessionControl extends ScreenControl {
 
                 if (!weeksButtons.getToggles().isEmpty()) {
 
+                    if (!classesButtons.getToggles().isEmpty()) {
+                    	classesButtons.getToggles().get(0).setSelected(true);}
+
                     // Creating a button for each class of that weekend, and
                     // adding such button to the group
-                    for (Session s : sessionManager.getSessionsFromWeekend(
+                    for (Session s : sessionManager.getSessionByWeekendAndClass(classesButtons.getSelectedToggle().getUserData().toString(),
+                            Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()))) {
+                        ToggleButton button = new ToggleButton(s.getCode());
+                        button.setToggleGroup(sessionsButtons);
+                        button.setUserData(s.getCode());
+                    }
+
+                    // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                    for (Toggle button : sessionsButtons.getToggles()) {
+                        button.setToggleGroup(sessionsButtons);
+                        session.getChildren().add(sessionsButtons.getToggles().indexOf(button), (ToggleButton) button);
+                    }
+
+                    if (!sessionsButtons.getToggles().isEmpty()) {
+                        sessionsButtons.getToggles().get(0).setSelected(true);
+                    }
+                }
+
+            }
+        });
+        
+        classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+
+                sessionsButtons.getToggles().clear();
+                session.getChildren().clear();
+
+                if (!weeksButtons.getToggles().isEmpty() && !classesButtons.getToggles().isEmpty()) {
+
+                    // Creating a button for each class of that weekend, and
+                    // adding such button to the group
+                    for (Session s : sessionManager.getSessionByWeekendAndClass(classesButtons.getSelectedToggle().getUserData().toString(),
                             Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()))) {
                         ToggleButton button = new ToggleButton(s.getCode());
                         button.setToggleGroup(sessionsButtons);
@@ -219,6 +291,8 @@ public class SessionControl extends ScreenControl {
                 }
             }
         });
+        
+        
 
     }
 }

@@ -20,7 +20,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
     @Override
     public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, String teamName, int points,
+            int position, Boolean finished, Integer personalCode, String manufacturer, String bikeModel, String teamName, int points,
             ObservableList<Tyre> tyres) {
         final DBManager db = DBManager.getDB();
         final Connection conn = db.getConnection();
@@ -219,7 +219,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
         final Connection conn = db.getConnection();
 
         ObservableList<RacingRiderView> list = FXCollections.observableArrayList();
-        final String retrieve = "select ps.annoCampionato, ps.dataInizioWeekend, ps.nomeClasse, ps.codiceSessione, ps.tempoVeloce, ps.indicePosizione, ps.posizionato, pi.sigla, ps.nomeMarcaMoto, ps.modelloMoto, ps.noemTeam, ps.valorePunteggio  from PILOTA_IN_SESSIONE ps, PILOTA pi where ps.codicePersonalePilota = pi.codicePersonale";
+        final String retrieve = "select ps.annoCampionato, ps.dataInizioWeekend, ps.nomeClasse, ps.codiceSessione, ps.tempoVeloce, ps.indicePosizione, ps.posizionato, pi.sigla, ps.nomeMarcaMoto, ps.modelloMoto, ps.nomeTeam, ps.valorePunteggio  from PILOTA_IN_SESSIONE ps, PILOTA pi where ps.codicePersonalePilota = pi.codicePersonale";
         try (final PreparedStatement statement = conn.prepareStatement(retrieve);
                 final ResultSet result = statement.executeQuery()) {
             while (result.next()) {

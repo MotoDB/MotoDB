@@ -50,8 +50,6 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
         }
 
         final String insert2 = "insert into UTILIZZO_PNEUMATICO(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, indicePosizione, marca, modello, mescola) values (?,?,?,?,?,?,?,?)";
-
-        // TODO TeamName is missing here in UtilizzoPneumatico
         
         tyres.forEach(e -> {
             try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {

@@ -35,15 +35,13 @@ public interface RacingRiderManager {
      */
     public ObservableList<RacingRider> getRacingRiders();
 
+    /**
+     * @deprecated Now team is a field of racingRider. A simpler method should be done.  
+     */
     public Team getTeamByRiderAndYear(int rider, int year);
 
     public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session);
 
-    /**
-     * Now team is a field of racingRider.
-     *
-     * @deprecated use {@link #new()} instead.  
-     */
     String getRiderNameByCode(int code);
 
     ObservableList<RacingRiderView> getRacingRidersForView();

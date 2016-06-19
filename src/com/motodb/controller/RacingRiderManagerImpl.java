@@ -226,7 +226,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
                 list.add(new RacingRiderView(result.getInt("annoCampionato"), result.getDate("dataInizioWeekend"),
                         result.getString("nomeClasse"), result.getString("codiceSessione"),
                         result.getString("tempoVeloce"), result.getInt("indicePosizione"),
-                        result.getBoolean("posizionato"), result.getString("codicePersonalePilota"),
+                        result.getBoolean("posizionato"), result.getString("sigla"),
                         result.getString("nomeMarcaMoto"), result.getString("modelloMoto"), result.getString("nomeTeam"),
                         result.getInt("valorePunteggio")));
             }

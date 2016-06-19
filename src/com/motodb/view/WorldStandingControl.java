@@ -2,7 +2,7 @@ package com.motodb.view;
 
 import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
-import com.motodb.controller.RankingImpl;
+import com.motodb.controller.RankingManagerImpl;
 import com.motodb.model.Ranking;
 import com.motodb.model.Championship;
 import com.motodb.view.alert.AlertTypes;
@@ -32,7 +32,7 @@ public class WorldStandingControl extends ScreenControl {
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
 
-    private final com.motodb.controller.Ranking rankingManager = new RankingImpl();
+    private final com.motodb.controller.RankingManager rankingManager = new RankingManagerImpl();
     @FXML
     private HBox years, classes;
     @FXML

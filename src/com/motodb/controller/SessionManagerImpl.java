@@ -15,12 +15,12 @@ import javafx.collections.ObservableList;
 
 public class SessionManagerImpl implements SessionManager {
 
-	@Override
+    @Override
     public ObservableList<Session> getSessions() {
-    	
+
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<Session> sessions = FXCollections.observableArrayList();
         final String retrieve = "select * from SESSIONE";
         PreparedStatement statement = null;
@@ -29,41 +29,41 @@ public class SessionManagerImpl implements SessionManager {
             statement = conn.prepareStatement(retrieve);
             result = statement.executeQuery();
             while (result.next()) {
-            	sessions.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
-                			result.getDate("dataInizioWeekend"), result.getString("condizioniPista"), result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"), 
-                			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
-                			result.getString("tipo"), result.getInt("numeroGiri")));
+                sessions.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
+                        result.getDate("dataInizioWeekend"), result.getString("condizioniPista"),
+                        result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"),
+                        result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"),
+                        result.getString("codiceSessione"), result.getString("durataMax"), result.getString("tipo"),
+                        result.getInt("numeroGiri")));
             }
         } catch (SQLException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
-        }
-        finally {
+        } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
-                if (result != null) { 
+                if (result != null) {
                     result.close();
                 }
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(e);
             }
         }
-        
+
         return sessions;
-        
+
     }
-  
+
     @Override
-    public void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, 
-    		int groundTemp, int humidity, Date startDate, String code, String durationMax, String type, int laps) {
+    public void addSession(String className, int year, Date weekendDate, String conditions, int airTemp, int groundTemp,
+            int humidity, Date startDate, String code, String durationMax, String type, int laps) {
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         java.sql.PreparedStatement statement = null;
         final String insert = "insert into SESSIONE(nomeClasse, annoCampionato, dataInizioWeekend, condizioniPista, temperaturaEsterna, temperaturaAsfalto, percentualeUmidita, dataInizioSessione, codiceSessione, durataMax, tipo, numeroGiri) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -80,86 +80,86 @@ public class SessionManagerImpl implements SessionManager {
             statement.setString(10, durationMax);
             statement.setString(11, type);
             statement.setInt(12, laps);
-            
+
             statement.executeUpdate();
         } catch (SQLException e) {
             AlertTypes alert = new AlertTypesImpl();
-        	e.printStackTrace();
+            e.printStackTrace();
             alert.showError(e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(e);
             }
         }
-               
-        
+
     }
 
-	@Override
-	public ObservableList<Session> getSessionByWeekendAndClass(String className, Date startDate) {
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+    @Override
+    public ObservableList<Session> getSessionByWeekendAndClass(String className, Date startDate) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Session> sessions= FXCollections.observableArrayList();
-		final String retrieve = "select s.codiceSessione from SESSIONE s, WEEKEND w where w.dataInizio = ? && s.dataInizioWeekend = ? && s.nomeClasse = ?";
+        ObservableList<Session> sessions = FXCollections.observableArrayList();
+        final String retrieve = "select s.codiceSessione from SESSIONE s, WEEKEND w where w.dataInizio = ? && s.dataInizioWeekend = ? && s.nomeClasse = ?";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
-			statement.setDate(1, startDate);
-			statement.setDate(2, startDate);
-			statement.setString(3, className);
-			try (final ResultSet result = statement.executeQuery()) {
-				while (result.next()) {
-					Session session = new Session();
-					session.setCode(result.getString(1));
-					sessions.add(session);
-				}
-			} catch (SQLException e) {
-				try {
-					AlertTypes alert = new AlertTypesImpl();
-					alert.showError(e);
-				} catch (ExceptionInInitializerError ei) {
-					e.printStackTrace();
-				}
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-		return sessions;
-	}
-	
-	@Override
-	public ObservableList<Session> getSessionsFromWeekend(Date weekend) {
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setDate(1, startDate);
+            statement.setDate(2, startDate);
+            statement.setString(3, className);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    Session session = new Session();
+                    session.setCode(result.getString(1));
+                    sessions.add(session);
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+        return sessions;
+    }
+
+    @Override
+    public ObservableList<Session> getSessionsFromWeekend(Date weekend) {
 
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<Session> list = FXCollections.observableArrayList();
         final String retrieve = "select * from SESSIONE where dataInizioWeekend = ?";
-        
+
         try {
             PreparedStatement statement = null;
             ResultSet result = null;
-        	statement = conn.prepareStatement(retrieve);
-        	statement.setDate(1, weekend);
+            statement = conn.prepareStatement(retrieve);
+            statement.setDate(1, weekend);
             result = statement.executeQuery();
-            
+
             while (result.next()) {
-            	list.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
-            			result.getDate("dataInizioWeekend"), result.getString("condizioniPista"), result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"), 
-            			result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"), result.getString("codiceSessione"), result.getString("durataMax"),
-            			result.getString("tipo"), result.getInt("numeroGiri")));
-                
+                list.add(new Session(result.getString("nomeClasse"), result.getInt("annoCampionato"),
+                        result.getDate("dataInizioWeekend"), result.getString("condizioniPista"),
+                        result.getInt("temperaturaEsterna"), result.getInt("temperaturaAsfalto"),
+                        result.getInt("percentualeUmidita"), result.getDate("dataInizioSessione"),
+                        result.getString("codiceSessione"), result.getString("durataMax"), result.getString("tipo"),
+                        result.getInt("numeroGiri")));
+
             }
             result.close();
             statement.close();
@@ -167,8 +167,8 @@ public class SessionManagerImpl implements SessionManager {
             AlertTypes alert = new AlertTypesImpl();
             alert.showError(e);
         }
-        
+
         return list;
-	}
+    }
 
 }

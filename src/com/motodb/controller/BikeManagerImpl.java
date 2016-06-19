@@ -14,122 +14,122 @@ import javafx.collections.ObservableList;
 
 public class BikeManagerImpl implements BikeManager {
 
-	public ObservableList<Bike> getBikes() {
+    public ObservableList<Bike> getBikes() {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Bike> bikes = FXCollections.observableArrayList();
-		final String retrieve = "select * from MOTO order by nomeMarca";
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
-				final ResultSet result = statement.executeQuery()) {
+        ObservableList<Bike> bikes = FXCollections.observableArrayList();
+        final String retrieve = "select * from MOTO order by nomeMarca";
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {
 
-			while (result.next()) {
-				bikes.add(new Bike(result.getString("nomeMarca"), result.getString("modello"), result.getString("foto"),
-						result.getInt("peso"), result.getInt("annoCampionato"), result.getString("nomeTeam")));
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
+            while (result.next()) {
+                bikes.add(new Bike(result.getString("nomeMarca"), result.getString("modello"), result.getString("foto"),
+                        result.getInt("peso"), result.getInt("annoCampionato"), result.getString("nomeTeam")));
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
 
-		return bikes;
+        return bikes;
 
-	}
+    }
 
-	@Override
-	public void addBike(final String manufacturerName, final String model, final String photoUrl, final int weight,
-			final int championshipYear, final String teamName) {
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+    @Override
+    public void addBike(final String manufacturerName, final String model, final String photoUrl, final int weight,
+            final int championshipYear, final String teamName) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		final String insert = "insert into MOTO(nomeMarca, modello, foto, peso, annoCampionato, nomeTeam) values (?,?,?,?,?,?)";
-		try (final PreparedStatement statement = conn.prepareStatement(insert)) {
-			statement.setString(1, manufacturerName);
-			statement.setString(2, model);
-			statement.setString(3, photoUrl);
-			statement.setInt(4, weight);
-			statement.setInt(5, championshipYear);
-			statement.setString(6, teamName);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-	}
+        final String insert = "insert into MOTO(nomeMarca, modello, foto, peso, annoCampionato, nomeTeam) values (?,?,?,?,?,?)";
+        try (final PreparedStatement statement = conn.prepareStatement(insert)) {
+            statement.setString(1, manufacturerName);
+            statement.setString(2, model);
+            statement.setString(3, photoUrl);
+            statement.setInt(4, weight);
+            statement.setInt(5, championshipYear);
+            statement.setString(6, teamName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	public ObservableList<Bike> getBikesFromManufacturer(String manufacturer) {
+    public ObservableList<Bike> getBikesFromManufacturer(String manufacturer) {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Bike> list = FXCollections.observableArrayList();
-		final String retrieve = "select * from MOTO where nomeMarca = ?";
+        ObservableList<Bike> list = FXCollections.observableArrayList();
+        final String retrieve = "select * from MOTO where nomeMarca = ?";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
-			statement.setString(1, manufacturer);
-			try (final ResultSet result = statement.executeQuery()) {
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setString(1, manufacturer);
+            try (final ResultSet result = statement.executeQuery()) {
 
-				while (result.next()) {
-					list.add(new Bike(result.getString("nomeMarca"), result.getString("modello"),
-							result.getString("foto"), result.getInt("peso"), result.getInt("annoCampionato"),
-							result.getString("nomeTeam")));
+                while (result.next()) {
+                    list.add(new Bike(result.getString("nomeMarca"), result.getString("modello"),
+                            result.getString("foto"), result.getInt("peso"), result.getInt("annoCampionato"),
+                            result.getString("nomeTeam")));
 
-				}
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
 
-		return list;
-	}
+        return list;
+    }
 
-	@Override
-	public Bike getBikeByTeamAndYearAndRider(int year, int rider) {
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+    @Override
+    public Bike getBikeByTeamAndYearAndRider(int year, int rider) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		Bike bike = new Bike();
-		final String retrieve = "select MOTO.modello, MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?)";
+        Bike bike = new Bike();
+        final String retrieve = "select MOTO.modello, MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?)";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
-			statement.setInt(1, rider);
-			statement.setInt(2, rider);
-			statement.setInt(3, year);
-			try (final ResultSet result = statement.executeQuery()) {
-				while (result.next()) {
-					bike.setManufacturerName(result.getString(2));
-					bike.setModel(result.getString(1));
-				}
-			} catch (SQLException e) {
-				try {
-					AlertTypes alert = new AlertTypesImpl();
-					alert.showError(e);
-				} catch (ExceptionInInitializerError ei) {
-					e.printStackTrace();
-				}
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-		return bike;
-	}
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setInt(1, rider);
+            statement.setInt(2, rider);
+            statement.setInt(3, year);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    bike.setManufacturerName(result.getString(2));
+                    bike.setModel(result.getString(1));
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+        return bike;
+    }
 }

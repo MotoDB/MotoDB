@@ -6,23 +6,23 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Contract {
-	
-	protected final IntegerProperty year;
-	protected final StringProperty memberType;
-	protected final IntegerProperty member;
-	protected final StringProperty team;
+
+    protected final IntegerProperty year;
+    protected final StringProperty memberType;
+    protected final IntegerProperty member;
+    protected final StringProperty team;
 
     public Contract() {
         this(0, null, 0, null);
     }
- 
+
     public Contract(Integer year, String memberType, Integer member, String team) {
 
         this.year = new SimpleIntegerProperty(year);
         this.memberType = new SimpleStringProperty(memberType);
         this.member = new SimpleIntegerProperty(member);
         this.team = new SimpleStringProperty(team);
-        
+
     }
 
     // Member Type
@@ -36,7 +36,7 @@ public class Contract {
 
     public void setMemberType(String memberType) {
         this.memberType.set(memberType);
-    } 
+    }
 
     // Member
     public IntegerProperty memberProperty() {
@@ -50,7 +50,7 @@ public class Contract {
     public void setMember(int member) {
         this.member.set(member);
     }
-    
+
     // Location
     public StringProperty teamProperty() {
         return team;
@@ -63,7 +63,7 @@ public class Contract {
     public void setTeam(String team) {
         this.team.set(team);
     }
- 
+
     // Year
     public IntegerProperty yearProperty() {
         return year;

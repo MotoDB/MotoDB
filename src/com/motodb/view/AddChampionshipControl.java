@@ -23,8 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class AddChampionshipControl extends ScreenControl {
-    
-    
+
     // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
@@ -32,7 +31,7 @@ public class AddChampionshipControl extends ScreenControl {
     private final ChampionshipManager manager = new ChampionshipManagerImpl();
     private final ClaxManager classesManager = new ClaxManagerImpl();
     private final SponsorManager sponsorManager = new SponsorManagerImpl();
-    
+
     @FXML
     private TableView<ChampionshipsView> championshipTable;
     @FXML
@@ -45,31 +44,30 @@ public class AddChampionshipControl extends ScreenControl {
     private VBox vBoxFields;
     @FXML
     private Button addCircuit, addWeekend, addSession;
-	    
+
     /**
-     * Called after the fxml file has been loaded; this method initializes 
-     * the fxml control class. 
+     * Called after the fxml file has been loaded; this method initializes the
+     * fxml control class.
      */
     public void initialize() {
-    	classesField=new CheckComboBox<String>(classesManager.getClassesNames());
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-3, classesField);
-    	classesField.setPrefWidth(300.0);
-    	classesField.setMaxWidth(300.0);
-    	
-    	sponsorsField=new CheckComboBox<String>(sponsorManager.getSponsorsNames());
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, sponsorsField);
-    	sponsorsField.setPrefWidth(300.0);
-    	sponsorsField.setMaxWidth(300.0);
-        
-    	
-    	// Initialize the table
+        classesField = new CheckComboBox<String>(classesManager.getClassesNames());
+        vBoxFields.getChildren().add(vBoxFields.getChildren().size() - 3, classesField);
+        classesField.setPrefWidth(300.0);
+        classesField.setMaxWidth(300.0);
+
+        sponsorsField = new CheckComboBox<String>(sponsorManager.getSponsorsNames());
+        vBoxFields.getChildren().add(vBoxFields.getChildren().size() - 2, sponsorsField);
+        sponsorsField.setPrefWidth(300.0);
+        sponsorsField.setMaxWidth(300.0);
+
+        // Initialize the table
         yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
         editionColumn.setCellValueFactory(cellData -> cellData.getValue().editionProperty().asString());
         classesColumn.setCellValueFactory(cellData -> cellData.getValue().classesProperty());
         sponsorsColumn.setCellValueFactory(cellData -> cellData.getValue().sponsorsProperty());
         // Add observable list data to the table
         championshipTable.setItems(manager.getChampionshipViews());
-        
+
         // Make the table columns editable by double clicking
         this.edit();
         // Use a 'searchField' to search for books in the tableView
@@ -77,56 +75,58 @@ public class AddChampionshipControl extends ScreenControl {
         // Listen for selection changes and enable delete button
         this.update();
     }
-    
+
     /**
-     * Called when the user press the 'add' button; this method adds
-     * a new depot to the controller ObservableList of depots
+     * Called when the user press the 'add' button; this method adds a new depot
+     * to the controller ObservableList of depots
      */
-        @FXML
+    @FXML
     private void add() {
         try {
-                manager.addChampionship(Integer.parseInt(yearField.getText()),Integer.parseInt(editionField.getText()),
-                                classesField.getCheckModel().getCheckedItems(),sponsorsField.getCheckModel().getCheckedItems());
-                championshipTable.setItems(manager.getChampionshipViews()); // Update table view
-                this.clear();
+            manager.addChampionship(Integer.parseInt(yearField.getText()), Integer.parseInt(editionField.getText()),
+                    classesField.getCheckModel().getCheckedItems(), sponsorsField.getCheckModel().getCheckedItems());
+            championshipTable.setItems(manager.getChampionshipViews()); // Update
+                                                                        // table
+                                                                        // view
+            this.clear();
         } catch (Exception e) {
             alert.showWarning(e);
         }
     }
-        
-        /**
+
+    /**
      * Called when the user edit a depot name directly from the tableColumn;
-     * This method edits the selected field in the observableList of depots and 
+     * This method edits the selected field in the observableList of depots and
      * makes fields editable directly from the table
      */
-        private void edit() {
-                
-        }
-        
-        /**
-     * Called on delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element; this method is called 
-     * to delete the selected element from the observableList
+    private void edit() {
+
+    }
+
+    /**
+     * Called on delete button press, opens a confirmation dialog asking if you
+     * really want to delete the element; this method is called to delete the
+     * selected element from the observableList
      */
     @FXML
     private void delete() {
-        
+
     }
-    
+
     /**
-     * Called when the user enter something in the search field;
-     * It search name of the depot
+     * Called when the user enter something in the search field; It search name
+     * of the depot
      */
-    private void search(){
-        
+    private void search() {
+
     }
-    
+
     /**
-     * It listen for selection changes to disable/enable the delete button 
-     * when the user selects something in the table
+     * It listen for selection changes to disable/enable the delete button when
+     * the user selects something in the table
      */
-    private void update(){
-    
+    private void update() {
+
     }
 
 }

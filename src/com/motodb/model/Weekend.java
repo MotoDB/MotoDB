@@ -8,23 +8,23 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Weekend {
-	
-	private final IntegerProperty championshipYear;
-	private final StringProperty circuitName;
-	private Date startDate;
-	private Date finishDate;
-	
-	public Weekend() {
+
+    private final IntegerProperty championshipYear;
+    private final StringProperty circuitName;
+    private Date startDate;
+    private Date finishDate;
+
+    public Weekend() {
         this(0, null, null, null);
     }
-    
-    public Weekend(int championshipYear, String circuitName, Date startDate, Date finishDate){
-    	 this.championshipYear = new SimpleIntegerProperty(championshipYear);
-         this.circuitName = new SimpleStringProperty(circuitName);
-         this.startDate = startDate;
-         this.finishDate = finishDate;
+
+    public Weekend(int championshipYear, String circuitName, Date startDate, Date finishDate) {
+        this.championshipYear = new SimpleIntegerProperty(championshipYear);
+        this.circuitName = new SimpleStringProperty(circuitName);
+        this.startDate = startDate;
+        this.finishDate = finishDate;
     }
-    
+
     // championshipYear
     public IntegerProperty championshipYearProperty() {
         return championshipYear;
@@ -37,7 +37,7 @@ public class Weekend {
     public void setChampionshipYear(int championshipYear) {
         this.championshipYear.set(championshipYear);
     }
-    
+
     // Circuit Name
     public StringProperty circuitNameProperty() {
         return circuitName;
@@ -59,7 +59,7 @@ public class Weekend {
     public Date getStartDate() {
         return this.startDate;
     }
-    
+
     // Finish Date
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
@@ -68,9 +68,9 @@ public class Weekend {
     public Date getFinishDate() {
         return this.finishDate;
     }
-    
+
     @Override
-	public String toString() {
-		return circuitName.get()+ " " +startDate.toString();
-	}
+    public String toString() {
+        return circuitName.get() + " " + startDate.toString();
+    }
 }

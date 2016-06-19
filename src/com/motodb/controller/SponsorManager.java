@@ -9,7 +9,7 @@ public interface SponsorManager {
     void addSponsor(String name, String urlLogo);
 
     ObservableList<Sponsor> getSponsors();
-    
+
     ObservableList<String> getSponsorsNames();
 
 }

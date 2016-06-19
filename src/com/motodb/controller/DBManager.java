@@ -1,4 +1,5 @@
 package com.motodb.controller;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -7,7 +8,7 @@ import com.motodb.view.alert.AlertTypesImpl;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class DBManager {
-    
+
     // Info connessioni DB
     private static final String dbName = "MotoDB";
     private static final String url = "motodb.c1s5lipxxzvy.eu-west-1.rds.amazonaws.com";
@@ -17,18 +18,18 @@ public class DBManager {
 
     private Connection connection;
     private MysqlDataSource dataSource;
-    
+
     private DBManager() {
     }
-    
+
     public static DBManager getDB() {
         return DB;
     }
-    
-    public Connection getConnection()  {        
+
+    public Connection getConnection() {
         return this.connection;
     }
-    
+
     public void createConnection() {
         if (this.connection != null) {
             System.out.println("Connection already established!");
@@ -39,7 +40,7 @@ public class DBManager {
         dataSource.setPassword(password);
         dataSource.setServerName(url);
         dataSource.setDatabaseName(dbName);
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception e) {
@@ -56,7 +57,7 @@ public class DBManager {
             e.printStackTrace();
         }
     }
-    
+
     public void closeConnection() {
         try {
             this.connection.close();
@@ -66,6 +67,5 @@ public class DBManager {
             e.printStackTrace();
         }
     }
-
 
 }

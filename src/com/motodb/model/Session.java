@@ -7,8 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Session{
-	
+public class Session {
+
     private final StringProperty className;
     private final IntegerProperty year;
     private Date weekendDate;
@@ -25,8 +25,9 @@ public class Session{
     public Session() {
         this(null, 0, null, null, 0, 0, 0, null, null, null, null, 0);
     }
- 
-    public Session(String className, int year, Date weekendDate, String conditions, int airTemp, int groundTemp, int humidity, Date startDate, String code, String durationMax, String type, Integer laps) {
+
+    public Session(String className, int year, Date weekendDate, String conditions, int airTemp, int groundTemp,
+            int humidity, Date startDate, String code, String durationMax, String type, Integer laps) {
 
         this.className = new SimpleStringProperty(className);
         this.year = new SimpleIntegerProperty(year);
@@ -53,7 +54,7 @@ public class Session{
 
     public void setClassName(String className) {
         this.className.set(className);
-    } 
+    }
 
     // Year
     public IntegerProperty yearProperty() {
@@ -67,16 +68,16 @@ public class Session{
     public void setYear(int year) {
         this.year.set(year);
     }
-    
+
     // WeekendDate
     public Date getWeekendDate() {
         return weekendDate;
     }
 
     public void setWeekendDate(Date weekendDate) {
-        this.weekendDate=weekendDate;
+        this.weekendDate = weekendDate;
     }
- 
+
     // Conditions
     public StringProperty conditionsProperty() {
         return conditions;
@@ -102,7 +103,7 @@ public class Session{
     public void setAirTemp(int airTemp) {
         this.airTemp.set(airTemp);
     }
-    
+
     // GroundTemp
     public IntegerProperty groundTempProperty() {
         return groundTemp;
@@ -115,7 +116,7 @@ public class Session{
     public void setGroundTemp(int groundTemp) {
         this.groundTemp.set(groundTemp);
     }
-    
+
     // Humidity
     public IntegerProperty humidityProperty() {
         return humidity;
@@ -128,14 +129,14 @@ public class Session{
     public void setHumidity(int humidity) {
         this.humidity.set(humidity);
     }
- 
+
     // StartDate
     public Date getStartDate() {
         return startDate;
     }
 
     public void setStartDate(Date startDate) {
-       this.startDate=startDate;
+        this.startDate = startDate;
     }
 
     // Code
@@ -150,7 +151,7 @@ public class Session{
     public void setCode(String code) {
         this.code.set(code);
     }
-    
+
     // DurationMax
     public StringProperty durationMaxProperty() {
         return durationMax;
@@ -176,7 +177,7 @@ public class Session{
     public void setType(String type) {
         this.type.set(type);
     }
-    
+
     // Laps
     public IntegerProperty lapsProperty() {
         return laps;
@@ -189,11 +190,10 @@ public class Session{
     public void setLaps(int laps) {
         this.laps.set(laps);
     }
-    
-	@Override
-	public String toString() {
-		return code.get();
-	}
-    
-    
+
+    @Override
+    public String toString() {
+        return code.get();
+    }
+
 }

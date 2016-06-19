@@ -28,6 +28,7 @@ import com.motodb.model.Bike;
 import com.motodb.model.Clax;
 import com.motodb.model.Manufacturer;
 import com.motodb.model.RacingRider;
+import com.motodb.model.RacingRiderView;
 import com.motodb.model.Rider;
 import com.motodb.model.Session;
 import com.motodb.model.Tyre;
@@ -48,8 +49,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class AddRacingRiderControl extends ScreenControl {
-	
-	// Alert panel to manage exceptions
+
+    // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 
     // Controller
@@ -64,251 +65,276 @@ public class AddRacingRiderControl extends ScreenControl {
     private final TyreManager tyreManager = new TyreManagerImpl();
     private final BikeManager bykeManager = new BikeManagerImpl();
 
-	@FXML
-	private TableView<RacingRider> racingRidersTable;
-	@FXML
-	private TableColumn<RacingRider, String> yearColumn, weekendColumn, riderColumn, classColumn, sessionColumn, 
-	timeColumn, finishedColumn, positionColumn, pointsColumn, manufacturerColumn, modelColumn;
-	@FXML
-	private TextField timeField, positionField, searchField;
-	
-	@FXML
-	private ComboBox<Session> sessionCodeBox;
-	@FXML
-	private ComboBox<String> yearBox;
-	@FXML
-	private ComboBox<Rider> riderBox;
-	@FXML
-	private ComboBox<Weekend> weekendBox;
-	@FXML
-	private ComboBox<Clax> classBox;
-	@FXML
-	private ComboBox<Boolean> finishedBox;
-	@FXML
-	private ComboBox<Manufacturer> manufacturerBox;
-	@FXML
-	private ComboBox<Bike> bikeModelBox;
-	@FXML
-	private CheckComboBox<Tyre> tyreBox;
-	
-	private final ObservableList<Integer> points = new com.motodb.controller.DBInitializer().getPoints();
-	
-	@FXML
-	private Button delete;
-	@FXML
-	private VBox vBoxFields;
+    @FXML
+    private TableView<RacingRiderView> racingRidersTable;
+    @FXML
+    private TableColumn<RacingRiderView, String> yearColumn, weekendColumn, riderColumn, classColumn, sessionColumn,
+            timeColumn, finishedColumn, positionColumn, pointsColumn, manufacturerColumn, modelColumn;
+    @FXML
+    private TextField timeField, positionField, searchField;
+
+    @FXML
+    private ComboBox<Session> sessionCodeBox;
+    @FXML
+    private ComboBox<String> yearBox;
+    @FXML
+    private ComboBox<Rider> riderBox;
+    @FXML
+    private ComboBox<Weekend> weekendBox;
+    @FXML
+    private ComboBox<Clax> classBox;
+    @FXML
+    private ComboBox<Boolean> finishedBox;
+    @FXML
+    private ComboBox<Manufacturer> manufacturerBox;
+    @FXML
+    private ComboBox<Bike> bikeModelBox;
+    @FXML
+    private CheckComboBox<Tyre> tyreBox;
+
+    private final ObservableList<Integer> points = new com.motodb.controller.DBInitializer().getPoints();
+
+    @FXML
+    private Button delete;
+    @FXML
+    private VBox vBoxFields;
 
     /**
-     * Called after the fxml file has been loaded; this method initializes 
-     * the fxml control class. 
+     * Called after the fxml file has been loaded; this method initializes the
+     * fxml control class.
      */
     public void initialize() {
-    	manufacturerBox.setDisable(true);
-    	bikeModelBox.setDisable(true);
-    	classBox.setDisable(true);
-    	riderBox.setDisable(true);
-    	weekendBox.setDisable(true);
-    	sessionCodeBox.setDisable(true);
-    	finishedBox.setItems(FXCollections.observableArrayList(Arrays.asList(true,false)));
-    	manufacturerBox.setDisable(true);
-    	championshipManager.getChampionships().forEach(l->yearBox.getItems().add(Integer.toString(l.getYear())));
+        manufacturerBox.setDisable(true);
+        bikeModelBox.setDisable(true);
+        classBox.setDisable(true);
+        riderBox.setDisable(true);
+        weekendBox.setDisable(true);
+        sessionCodeBox.setDisable(true);
+        finishedBox.setItems(FXCollections.observableArrayList(Arrays.asList(true, false)));
+        manufacturerBox.setDisable(true);
+        championshipManager.getChampionships().forEach(l -> yearBox.getItems().add(Integer.toString(l.getYear())));
 
-    	
-    	tyreBox=new CheckComboBox<Tyre>();
-    	vBoxFields.getChildren().add(vBoxFields.getChildren().size()-2, tyreBox);
-    	tyreBox.getItems().addAll(tyreManager.getTyres());
-    	tyreBox.setPrefWidth(300.0);
-    	tyreBox.setMaxWidth(300.0);
-    	
-    	this.update();
-    	
-    	// Initialize the table
-    	yearColumn.setCellValueFactory(cellData -> cellData.getValue().championshipYearProperty().asString());
-    	weekendColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getWeekendStartingDate().toString()));
-    	riderColumn.setCellValueFactory(cellData -> cellData.getValue().personalCodeProperty().asString());
-    	classColumn.setCellValueFactory(cellData -> cellData.getValue().classNameProperty());
-    	modelColumn.setCellValueFactory(cellData -> cellData.getValue().bikeModelProperty());
-    	sessionColumn.setCellValueFactory(cellData -> cellData.getValue().sessionCodeProperty());
-    	timeColumn.setCellValueFactory(cellData -> cellData.getValue().fastestTimeProperty());
-    	finishedColumn.setCellValueFactory(cellData -> cellData.getValue().finishedProperty().asString());
-    	positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty().asString());
-    	pointsColumn.setCellValueFactory(cellData -> cellData.getValue().pointsProperty().asString());
-    	manufacturerColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturerNameProperty());
-    	          
+        tyreBox = new CheckComboBox<Tyre>();
+        vBoxFields.getChildren().add(vBoxFields.getChildren().size() - 2, tyreBox);
+        tyreBox.getItems().addAll(tyreManager.getTyres());
+        tyreBox.setPrefWidth(300.0);
+        tyreBox.setMaxWidth(300.0);
+
+        this.update();
+
+        // Initialize the table
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().championshipYearProperty().asString());
+        weekendColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getWeekendStartingDate().toString()));
+        riderColumn.setCellValueFactory(cellData -> cellData.getValue().acronymProperty());
+        classColumn.setCellValueFactory(cellData -> cellData.getValue().classNameProperty());
+        modelColumn.setCellValueFactory(cellData -> cellData.getValue().bikeModelProperty());
+        sessionColumn.setCellValueFactory(cellData -> cellData.getValue().sessionCodeProperty());
+        timeColumn.setCellValueFactory(cellData -> cellData.getValue().fastestTimeProperty());
+        finishedColumn.setCellValueFactory(cellData -> cellData.getValue().finishedProperty().asString());
+        positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty().asString());
+        pointsColumn.setCellValueFactory(cellData -> cellData.getValue().pointsProperty().asString());
+        manufacturerColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturerNameProperty());
+
         // Add observable list data to the table
-    	racingRidersTable.setItems(racingRiderManager.getRacingRiders());
-        
+        racingRidersTable.setItems(racingRiderManager.getRacingRidersForView());
+
         // Make the table columns editable by double clicking
         this.edit();
         // Use a 'searchField' to search for books in the tableView
         this.search();
     }
-    
+
     /**
-     * Called when the user press the 'add' button; this method adds
-     * a new depot to the controller ObservableList of depots
+     * Called when the user press the 'add' button; this method adds a new depot
+     * to the controller ObservableList of depots
      */
-	@FXML
+    @FXML
     private void add() {
         try {
-        	if(finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText())>15 || !sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString())){
-        		racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
-                        timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
-                        0, tyreBox.getCheckModel().getCheckedItems());
-        	}else{
-	        	racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()), weekendBox.getValue().getStartDate(), contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), sessionCodeBox.getValue().getCode(),
-	                    timeField.getText(), Integer.parseInt(positionField.getText()), finishedBox.getValue(), riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(), bikeModelBox.getValue().getModel(),
-	                    points.get(Integer.parseInt(positionField.getText())-1), tyreBox.getCheckModel().getCheckedItems());
-        	}
-        
-        	racingRidersTable.setItems(racingRiderManager.getRacingRiders()); // Update table view
-        	this.clear();
+            if (finishedBox.getValue().equals("false") || Integer.parseInt(positionField.getText()) > 15
+                    || !sessionCodeBox.getValue().getType().toString().equals(SessionType.Gara.toString())) {
+                racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()),
+                        weekendBox.getValue().getStartDate(),
+                        contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()),
+                                riderBox.getValue().getPersonalCode()),
+                        sessionCodeBox.getValue().getCode(), timeField.getText(),
+                        Integer.parseInt(positionField.getText()), finishedBox.getValue(),
+                        riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(),
+                        bikeModelBox.getValue().getModel(), 0, tyreBox.getCheckModel().getCheckedItems());
+            } else {
+                racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()),
+                        weekendBox.getValue().getStartDate(),
+                        contractManager.getClassFromRiderYear(Integer.parseInt(yearBox.getValue()),
+                                riderBox.getValue().getPersonalCode()),
+                        sessionCodeBox.getValue().getCode(), timeField.getText(),
+                        Integer.parseInt(positionField.getText()), finishedBox.getValue(),
+                        riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(),
+                        bikeModelBox.getValue().getModel(), points.get(Integer.parseInt(positionField.getText()) - 1),
+                        tyreBox.getCheckModel().getCheckedItems());
+            }
+
+            racingRidersTable.setItems(racingRiderManager.getRacingRidersForView()); // Update
+                                                                              // table
+                                                                              // view
+            this.clear();
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             alert.showWarning(e);
         }
     }
-	
-	/**
+
+    /**
      * Called when the user edit a depot name directly from the tableColumn;
-     * This method edits the selected field in the observableList of depots and 
+     * This method edits the selected field in the observableList of depots and
      * makes fields editable directly from the table
      */
-	private void edit() {
+    private void edit() {
 
-	}
-	
-	/**
-     * Called on delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element; this method is called 
-     * to delete the selected element from the observableList
+    }
+
+    /**
+     * Called on delete button press, opens a confirmation dialog asking if you
+     * really want to delete the element; this method is called to delete the
+     * selected element from the observableList
      */
     @FXML
     private void delete() {
 
     }
-    
+
     /**
-     * Called when the user enter something in the search field;
-     * It search name of the depot
+     * Called when the user enter something in the search field; It search name
+     * of the depot
      */
-    private void search(){/*
-    	// 1. Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Clax> filteredData = new FilteredList<>(manager.getClasses(), p -> true);
+    private void search() {/*
+                            * // 1. Wrap the ObservableList in a FilteredList
+                            * (initially display all data). FilteredList<Clax>
+                            * filteredData = new
+                            * FilteredList<>(manager.getClasses(), p -> true);
+                            * 
+                            * // 2. Set the filter Predicate whenever the filter
+                            * changes. searchField.textProperty().addListener((
+                            * observable, oldValue, newValue) -> {
+                            * filteredData.setPredicate(e -> { // If filter text
+                            * is empty, display all persons. if (newValue ==
+                            * null || newValue.isEmpty()) { return true; }
+                            * 
+                            * // Compare first name and last name of every
+                            * person with filter text. String lowerCaseFilter =
+                            * newValue.toLowerCase();
+                            * 
+                            * if (e.getName().toLowerCase().contains(
+                            * lowerCaseFilter)) { return true; // Filter matches
+                            * first name. } else if
+                            * (e.getRules().toLowerCase().contains(
+                            * lowerCaseFilter)) { return true; // Filter matches
+                            * last name. } return false; // Does not match. });
+                            * });
+                            * 
+                            * // 3. Wrap the FilteredList in a SortedList.
+                            * SortedList<Clax> sortedData = new
+                            * SortedList<>(filteredData);
+                            * 
+                            * // 4. Bind the SortedList comparator to the
+                            * TableView comparator.
+                            * sortedData.comparatorProperty().bind(classesTable.
+                            * comparatorProperty());
+                            * 
+                            * // 5. Add sorted (and filtered) data to the table.
+                            * classesTable.setItems(sortedData);
+                            */
+    }
 
-        // 2. Set the filter Predicate whenever the filter changes.
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(e -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
+    /**
+     * It listen for selection changes to disable/enable the delete button when
+     * the user selects something in the table
+     */
+    private void update() {
+
+        yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                if (!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()) {
+                    classBox.setDisable(false);
+                    classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
+                } else {
+                    classBox.setDisable(true);
                 }
 
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
+                if (!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()) {
+                    weekendBox.setDisable(false);
+                    weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
 
-                if (e.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                } else if (e.getRules().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
+                } else {
+                    weekendBox.setDisable(true);
                 }
-                return false; // Does not match.
-            });
+
+                if (!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()) {
+                    classBox.setDisable(false);
+                    classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
+
+                } else {
+                    riderBox.setDisable(true);
+                }
+            }
         });
 
-        // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<Clax> sortedData = new SortedList<>(filteredData);
+        weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (!sessionManager.getSessionByWeekendAndClass(classBox.getValue().getName(),
+                        weekendBox.getValue().getStartDate()).isEmpty()) {
+                    sessionCodeBox.setDisable(false);
+                    sessionCodeBox.setItems(sessionManager.getSessionByWeekendAndClass(classBox.getValue().getName(),
+                            weekendBox.getValue().getStartDate()));
 
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(classesTable.comparatorProperty());
+                } else {
+                    sessionCodeBox.setDisable(true);
+                }
+            }
+        });
 
-        // 5. Add sorted (and filtered) data to the table.
-        classesTable.setItems(sortedData);*/
+        manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()) {
+                    bikeModelBox.setDisable(false);
+                    bikeModelBox.setItems(
+                            bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
+
+                } else {
+                    bikeModelBox.setDisable(true);
+                }
+            }
+        });
+
+        classBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (!riderManager.getRidersFromClassAndYear(newValue.getName(), Integer.parseInt(yearBox.getValue()))
+                        .isEmpty()) {
+                    riderBox.setDisable(false);
+                    riderBox.setItems(riderManager.getRidersFromClassAndYear(newValue.getName(),
+                            Integer.parseInt(yearBox.getValue())));
+
+                } else {
+                    riderBox.setDisable(true);
+                }
+            }
+        });
+
+        riderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (bykeManager.getBikeByTeamAndYearAndRider(Integer.parseInt(yearBox.getValue()),
+                        riderBox.getValue().getPersonalCode()) != null) {
+                    manufacturerBox.setDisable(false);
+                    manufacturerBox.setItems(manufacturerManager.getManufacturersByRiderAndYear(
+                            riderBox.getValue().getPersonalCode(), Integer.parseInt(yearBox.getValue())));
+
+                } else {
+                    riderBox.setDisable(true);
+                }
+            }
+        });
+
     }
-    
-    /**
-	 * It listen for selection changes to disable/enable the delete button 
-	 * when the user selects something in the table
-	 */
-	private void update(){
-		
-		yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				
-				if(!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()){
-					classBox.setDisable(false);
-					classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
-				}else{
-					classBox.setDisable(true);
-				}
-					
-				if(!weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)).isEmpty()){
-					weekendBox.setDisable(false);
-					weekendBox.setItems(weekendManager.getWeekendsFromYear(Integer.parseInt(newValue)));
-					
-				}else{
-					weekendBox.setDisable(true);
-				}
-				
-				if(!classManager.getClassesFromYear(Integer.parseInt(newValue)).isEmpty()){
-					classBox.setDisable(false);
-					classBox.setItems(classManager.getClassesFromYear(Integer.parseInt(newValue)));
-					
-				}else{
-					riderBox.setDisable(true);
-				}
-			}
-		});
-		
-		
-		weekendBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				if(!sessionManager.getSessionByWeekendAndClass(classBox.getValue().getName(), weekendBox.getValue().getStartDate()).isEmpty()){
-					sessionCodeBox.setDisable(false);
-					sessionCodeBox.setItems(sessionManager.getSessionByWeekendAndClass(classBox.getValue().getName(), weekendBox.getValue().getStartDate()));
-					
-				}else{
-					sessionCodeBox.setDisable(true);
-				}
-			}
-		});
-		
-		manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				if(!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()){
-					bikeModelBox.setDisable(false);
-					bikeModelBox.setItems(bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
-					
-				}else{
-					bikeModelBox.setDisable(true);
-				}
-			}
-		});
-		
-		classBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				if(!riderManager.getRidersFromClassAndYear(newValue.getName(), Integer.parseInt(yearBox.getValue())).isEmpty()){
-					riderBox.setDisable(false);
-					riderBox.setItems(riderManager.getRidersFromClassAndYear(newValue.getName(), Integer.parseInt(yearBox.getValue())));
-					
-				}else{
-					riderBox.setDisable(true);
-				}
-			}
-		});
-		
-		riderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue!=null){
-				if(bykeManager.getBikeByTeamAndYearAndRider(Integer.parseInt(yearBox.getValue()),riderBox.getValue().getPersonalCode())!=null){
-					manufacturerBox.setDisable(false);
-					manufacturerBox.setItems(manufacturerManager.getManufacturersByRiderAndYear(riderBox.getValue().getPersonalCode(), Integer.parseInt(yearBox.getValue())));
-					
-				}else{
-					riderBox.setDisable(true);
-				}
-			}
-		});
-		
-	}
-	
+
 }

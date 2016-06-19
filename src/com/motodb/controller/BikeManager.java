@@ -5,12 +5,13 @@ import com.motodb.model.Bike;
 import javafx.collections.ObservableList;
 
 public interface BikeManager {
-    
+
     ObservableList<Bike> getBikes();
 
-    void addBike(String manufacturerName, String model, String photoUrl, int weight, int championshipYear, String teamName);
+    void addBike(String manufacturerName, String model, String photoUrl, int weight, int championshipYear,
+            String teamName);
 
     public ObservableList<Bike> getBikesFromManufacturer(String manufacturer);
-    
-	Bike getBikeByTeamAndYearAndRider(int year, int rider);
+
+    Bike getBikeByTeamAndYearAndRider(int year, int rider);
 }

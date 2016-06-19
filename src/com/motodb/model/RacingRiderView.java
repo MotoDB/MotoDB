@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class RacingRider {
+public class RacingRiderView {
 
     private final IntegerProperty championshipYear;
     private Date weekendStartingDate;
@@ -18,17 +18,17 @@ public class RacingRider {
     private final StringProperty fastestTime;
     private final IntegerProperty position;
     private final BooleanProperty finished;
-    private final IntegerProperty personalCode;
+    private final StringProperty acronym;
     private final StringProperty manufacturerName;
     private final StringProperty bikeModel;
     private final IntegerProperty points;
 
-    public RacingRider() {
-        this(0, null, null, null, null, 0, null, 0, null, null, 0);
+    public RacingRiderView() {
+        this(0, null, null, null, null, 0, null, null, null, null, 0);
     }
 
-    public RacingRider(int championshipYear, Date weekendStartingDate, String className, String sessionCode,
-            String fastestTime, int position, Boolean finished, int personalCode, String manufacturerName,
+    public RacingRiderView(int championshipYear, Date weekendStartingDate, String className, String sessionCode,
+            String fastestTime, int position, Boolean finished, String acronym, String manufacturerName,
             String bikeModel, int points) {
         this.championshipYear = new SimpleIntegerProperty(championshipYear);
         this.weekendStartingDate = weekendStartingDate;
@@ -37,7 +37,7 @@ public class RacingRider {
         this.fastestTime = new SimpleStringProperty(fastestTime);
         this.position = new SimpleIntegerProperty(position);
         this.finished = new SimpleBooleanProperty(finished);
-        this.personalCode = new SimpleIntegerProperty(personalCode);
+        this.acronym = new SimpleStringProperty(acronym);
         this.manufacturerName = new SimpleStringProperty(manufacturerName);
         this.bikeModel = new SimpleStringProperty(bikeModel);
         this.points = new SimpleIntegerProperty(points);
@@ -131,16 +131,16 @@ public class RacingRider {
     }
 
     // Personal Code
-    public IntegerProperty personalCodeProperty() {
-        return personalCode;
+    public StringProperty acronymProperty() {
+        return acronym;
     }
 
-    public Integer getPersonalCode() {
-        return personalCode.get();
+    public String getAcronym() {
+        return acronym.get();
     }
 
-    public void setPersonalCode(int personalCode) {
-        this.personalCode.set(personalCode);
+    public void setAcronym(String acronym) {
+        this.acronym.set(acronym);
     }
 
     // Manufacturer Name

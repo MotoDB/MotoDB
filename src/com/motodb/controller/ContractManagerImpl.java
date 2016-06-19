@@ -15,187 +15,185 @@ import javafx.collections.ObservableList;
 
 public class ContractManagerImpl implements ContractManager {
 
-	@Override
-	public ObservableList<Contract> getContracts() {
+    @Override
+    public ObservableList<Contract> getContracts() {
 
-		ObservableList<Contract> contracts = FXCollections.observableArrayList();
+        ObservableList<Contract> contracts = FXCollections.observableArrayList();
 
-		contracts.addAll(this.getRiderContracts());
-		contracts.addAll(this.getMechanicContracts());
-		contracts.addAll(this.getEngineerContracts());
+        contracts.addAll(this.getRiderContracts());
+        contracts.addAll(this.getMechanicContracts());
+        contracts.addAll(this.getEngineerContracts());
 
-		return contracts;
-	}
+        return contracts;
+    }
 
-	@Override
-	public ObservableList<Contract> getRiderContracts() {
+    @Override
+    public ObservableList<Contract> getRiderContracts() {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Contract> contracts = FXCollections.observableArrayList();
+        ObservableList<Contract> contracts = FXCollections.observableArrayList();
 
-		final String retrieve = "select * from CONTRATTO_PILOTA";
+        final String retrieve = "select * from CONTRATTO_PILOTA";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
-				final ResultSet result = statement.executeQuery()) {
-			while (result.next()) {
-				contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Rider.toString(),
-						result.getInt("codicePersonale"), result.getString("nomeTeam")));
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Rider.toString(),
+                        result.getInt("codicePersonale"), result.getString("nomeTeam")));
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
 
-		return contracts;
+        return contracts;
 
-	}
+    }
 
-	@Override
-	public ObservableList<Contract> getMechanicContracts() {
+    @Override
+    public ObservableList<Contract> getMechanicContracts() {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Contract> contracts = FXCollections.observableArrayList();
+        ObservableList<Contract> contracts = FXCollections.observableArrayList();
 
-		final String retrieve = "select * from CONTRATTO_MECCANICO";
+        final String retrieve = "select * from CONTRATTO_MECCANICO";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
-				final ResultSet result = statement.executeQuery()) {
-			while (result.next()) {
-				contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Mechanic.toString(),
-						result.getInt("codicePersonale"), result.getString("nomeTeam")));
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Mechanic.toString(),
+                        result.getInt("codicePersonale"), result.getString("nomeTeam")));
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
 
-		return contracts;
+        return contracts;
 
-	}
+    }
 
-	@Override
-	public ObservableList<Contract> getEngineerContracts() {
+    @Override
+    public ObservableList<Contract> getEngineerContracts() {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Contract> contracts = FXCollections.observableArrayList();
+        ObservableList<Contract> contracts = FXCollections.observableArrayList();
 
-		final String retrieve = "select * from CONTRATTO_INGEGNERE";
+        final String retrieve = "select * from CONTRATTO_INGEGNERE";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve);
-				final ResultSet result = statement.executeQuery()) {
-			while (result.next()) {
-				contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Engineer.toString(),
-						result.getInt("codicePersonale"), result.getString("nomeTeam")));
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve);
+                final ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                contracts.add(new Contract(result.getInt("annoCampionato"), MemberType.Engineer.toString(),
+                        result.getInt("codicePersonale"), result.getString("nomeTeam")));
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
 
-		return contracts;
+        return contracts;
 
-	}
+    }
 
-	@Override
-	public void addContract(Integer year, MemberType memberType, Integer member, String team, String className) {
+    @Override
+    public void addContract(Integer year, MemberType memberType, Integer member, String team, String className) {
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		final String insert;
+        final String insert;
 
-		insert = "insert into CONTRATTO_PILOTA(annoCampionato, codicePersonale, nomeTeam, nomeClasse) values (?,?,?,?)";
-		
-		try (final PreparedStatement statement = conn.prepareStatement(insert)) {
-			statement.setInt(1, year);
-			statement.setInt(2, member);
-			statement.setString(3, team);
-			statement.setString(4, className);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-	}
+        insert = "insert into CONTRATTO_PILOTA(annoCampionato, codicePersonale, nomeTeam, nomeClasse) values (?,?,?,?)";
 
-	@Override
-	public void addContract(Integer year, MemberType memberType, Integer member, String team) {
+        try (final PreparedStatement statement = conn.prepareStatement(insert)) {
+            statement.setInt(1, year);
+            statement.setInt(2, member);
+            statement.setString(3, team);
+            statement.setString(4, className);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+    @Override
+    public void addContract(Integer year, MemberType memberType, Integer member, String team) {
 
-		final String insert;
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		if (memberType.equals(MemberType.Engineer)) {
-			insert = "insert into CONTRATTO_INGEGNERE(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
-		} else {
-			insert = "insert into CONTRATTO_MECCANICO(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
-		}
+        final String insert;
 
-		try (final PreparedStatement statement = conn.prepareStatement(insert)) {
-			statement.setInt(1, year);
-			statement.setInt(2, member);
-			statement.setString(3, team);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	
-	@Override
-	public String getClassFromRiderYear(int year, int rider){
-		final DBManager db = DBManager.getDB();
-	    final Connection conn  = db.getConnection();
-	    
-	    final String retrieve = "select nomeClasse from CONTRATTO_PILOTA where annoCampionato = ? && codicePersonale = ?";
-	    
-	    try {
-	        PreparedStatement statement = null;
-	        ResultSet result = null;
-	    	statement = conn.prepareStatement(retrieve);
-	    	statement.setInt(1, year);
-	    	statement.setInt(2, rider);
-	        result = statement.executeQuery();
-	        
-	        while (result.next()) {
-	        	return result.getString("nomeClasse");
-	        }
-	        result.close();
-	        statement.close();
-	    } catch (SQLException e) {
-	        AlertTypes alert = new AlertTypesImpl();
-	        alert.showError(e);
-	    }
-	    return null;
-	    
-	}
+        if (memberType.equals(MemberType.Engineer)) {
+            insert = "insert into CONTRATTO_INGEGNERE(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
+        } else {
+            insert = "insert into CONTRATTO_MECCANICO(annoCampionato, codicePersonale, nomeTeam) values (?,?,?)";
+        }
+
+        try (final PreparedStatement statement = conn.prepareStatement(insert)) {
+            statement.setInt(1, year);
+            statement.setInt(2, member);
+            statement.setString(3, team);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public String getClassFromRiderYear(int year, int rider) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+
+        final String retrieve = "select nomeClasse from CONTRATTO_PILOTA where annoCampionato = ? && codicePersonale = ?";
+
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+            statement = conn.prepareStatement(retrieve);
+            statement.setInt(1, year);
+            statement.setInt(2, rider);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                return result.getString("nomeClasse");
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+        return null;
+
+    }
 }
-	

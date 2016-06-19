@@ -33,7 +33,7 @@ public class Member {
         this.role = new SimpleStringProperty(role);
         this.dateOfBirth = dateOfBirth;
     }
-    
+
     // Personal Code
     public IntegerProperty personalCodeProperty() {
         return personalCode;
@@ -134,9 +134,9 @@ public class Member {
         return this.dateOfBirth;
     }
 
-	@Override
-	public String toString() {
-		return firstName.get() + " " + lastName.get();
-	}
+    @Override
+    public String toString() {
+        return firstName.get() + " " + lastName.get();
+    }
 
 }

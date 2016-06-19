@@ -11,7 +11,7 @@ public class ChampionshipsView {
     private final IntegerProperty edition;
     private final StringProperty classes;
     private final StringProperty sponsors;
-    
+
     public ChampionshipsView() {
         this(0, 0, null, null);
     }
@@ -54,7 +54,7 @@ public class ChampionshipsView {
     public StringProperty sponsorsProperty() {
         return sponsors;
     }
-    
+
     public void setYear(int year) {
         this.year.set(year);
     }
@@ -70,5 +70,5 @@ public class ChampionshipsView {
     public void setSponsors(String sponsors) {
         this.sponsors.set(sponsors);
     }
-  
+
 }

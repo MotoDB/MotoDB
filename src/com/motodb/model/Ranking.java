@@ -14,12 +14,13 @@ public class Ranking {
     private final StringProperty team;
     private final StringProperty manufacturer;
     private final IntegerProperty points;
-    
+
     public Ranking() {
         this(null, null, null, 0, null, null, 0);
     }
 
-    public Ranking(String name, String surname, String team, int number, String manufacturer, String nation, int points) {
+    public Ranking(String name, String surname, String team, int number, String manufacturer, String nation,
+            int points) {
         this.name = new SimpleStringProperty(name);
         this.surname = new SimpleStringProperty(surname);
         this.team = new SimpleStringProperty(team);
@@ -44,17 +45,17 @@ public class Ranking {
     public String getManufacturer() {
         return this.manufacturer.get();
     }
-    
+
     public String getNation() {
         return this.nation.get();
     }
-    
+
     public int getPoints() {
         return this.points.get();
     }
-    
+
     public int getNumber() {
-    	return this.number.get();
+        return this.number.get();
     }
 
     public StringProperty nameProperty() {
@@ -72,19 +73,19 @@ public class Ranking {
     public StringProperty manufacturerProperty() {
         return this.manufacturer;
     }
-    
+
     public StringProperty nationProperty() {
         return this.nation;
     }
-    
+
     public IntegerProperty pointsProperty() {
         return this.points;
     }
-    
+
     public IntegerProperty numberProperty() {
         return this.number;
     }
-    
+
     public void setPoints(int points) {
         this.points.set(points);
     }
@@ -96,21 +97,21 @@ public class Ranking {
     public void setSurname(String surname) {
         this.surname.set(surname);
     }
-    
+
     public void setTeam(String team) {
         this.team.set(team);
     }
-    
+
     public void setManufacturer(String manufacturer) {
         this.manufacturer.set(manufacturer);
     }
-    
+
     public void setNation(String nation) {
         this.nation.set(nation);
     }
-    
+
     public void setNumber(int number) {
-    	this.number.set(number);
+        this.number.set(number);
     }
-  
+
 }

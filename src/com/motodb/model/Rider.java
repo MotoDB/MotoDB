@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Rider extends Member{
+public class Rider extends Member {
 
     private final IntegerProperty height;
     private final IntegerProperty weight;
@@ -75,6 +75,5 @@ public class Rider extends Member{
     public void setAcronym(String acronym) {
         this.acronym.set(acronym);
     }
-
 
 }

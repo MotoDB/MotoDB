@@ -40,7 +40,7 @@ public class ScreenControl extends GUI {
     public void switchScreen(ActionEvent event) {
         try {
 
-            URL paneMovementsUrl = getClass().getResource(((Control) event.getSource()).getId() + ".fxml"); 
+            URL paneMovementsUrl = getClass().getResource(((Control) event.getSource()).getId() + ".fxml");
             ScrollPane paneMovements = FXMLLoader.load(paneMovementsUrl);
 
             this.getMainPane().setCenter(paneMovements);
@@ -70,7 +70,7 @@ public class ScreenControl extends GUI {
             }
         }
     }
-    
+
     /**
      * Method to open a popup and show the authors of the program
      */

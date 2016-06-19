@@ -28,7 +28,7 @@ public class RiderControl extends ScreenControl {
 
     // Alert panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-    
+
     // Controller
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final MemberManager riderManager = new MemberManagerImpl();
@@ -36,43 +36,43 @@ public class RiderControl extends ScreenControl {
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
     private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
-    
+
     @FXML
     private HBox mainPane;
     @FXML
     private Button addRacingRider;
     @FXML
-    private HBox years,classes,teams;
-    
+    private HBox years, classes, teams;
+
     private List<RiderGridPane> list = new ArrayList<>();
 
-
-	GridPane grid = new GridPane();
+    GridPane grid = new GridPane();
 
     public RiderControl() {
         super();
 
         for (Championship c : championshipManager.getChampionships()) {
-        	ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
+            ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
             button.setToggleGroup(yearsButtons);
             button.setUserData(c.getYear());
         }
 
         if (!yearsButtons.getToggles().isEmpty()) {
             yearsButtons.getToggles().get(0).setSelected(true);
-            
-            // Creating a button for each class of that year, and adding such button to the group
-            for (String s : championshipManager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+
+            // Creating a button for each class of that year, and adding such
+            // button to the group
+            for (String s : championshipManager
+                    .getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                 ToggleButton button = new ToggleButton(s);
                 button.setToggleGroup(classesButtons);
                 button.setUserData(s);
             }
-            
-            
+
         }
-        
+
         if (!classesButtons.getToggles().isEmpty()) {
-        	classesButtons.getToggles().get(0).setSelected(true);
+            classesButtons.getToggles().get(0).setSelected(true);
         }
     }
 
@@ -82,94 +82,97 @@ public class RiderControl extends ScreenControl {
      */
     public void initialize() {
 
-        // Adding the buttons created in the constructor to the hBox, before the button
+        // Adding the buttons created in the constructor to the hBox, before the
+        // button
         for (Toggle button : yearsButtons.getToggles()) {
-            years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton)button);
+            years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton) button);
         }
         for (Toggle button : classesButtons.getToggles()) {
             button.setToggleGroup(classesButtons);
-            classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
+            classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
         }
-       
-        
+
         // Method which handles the selection of a year
         this.filter();
-        
+
     }
 
     /**
-     * Called when the user selects a toggle-button to filter classes so
-     * there are only buttons for each class of that year
+     * Called when the user selects a toggle-button to filter classes so there
+     * are only buttons for each class of that year
      */
     private void filter() {
-    	
+
         yearsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-            	
-            	list.clear();
-            	mainPane.getChildren().clear();
-            	
+
+                list.clear();
+                mainPane.getChildren().clear();
+
                 classesButtons.getToggles().clear();
                 classes.getChildren().clear();
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (String s : championshipManager.getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                for (String s : championshipManager.getClassesNames(
+                        (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                     ToggleButton button = new ToggleButton(s);
                     button.setToggleGroup(classesButtons);
                     button.setUserData(s);
                 }
-                
+
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                 for (Toggle button : classesButtons.getToggles()) {
                     button.setToggleGroup(classesButtons);
-                    classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton)button);
+                    classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
                 }
-                
+
                 if (!classesButtons.getToggles().isEmpty()) {
-                	classesButtons.getToggles().get(0).setSelected(true);
+                    classesButtons.getToggles().get(0).setSelected(true);
                 }
-                
+
             }
 
         });
-        
+
         classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 
-            	mainPane.getChildren().clear();
+                mainPane.getChildren().clear();
 
-            	if(newValue!=null){
-	            	if(!riderManager.getRidersFromClassAndYear(
-	            			classesButtons.getSelectedToggle().getUserData().toString(), 
-	            			(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))).isEmpty()
-	            		){
-	            		list.clear();
-	            		for(Rider rider : riderManager.getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(), (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))){
-			     	    	RiderGridPane riderPane = new RiderGridPane(rider);
-			     	    	list.add(riderPane);
-			     	    }
-	                	
-	            		grid = new GridPane();
-	                	
-			         	int i=0, riders=0;
-			         	
-			     	    while(i<(int)Math.ceil(list.size()/(4.0)) || riders<list.size()){
-			     	    	int j=0;
-			     	    	while(j<4 && riders<list.size()){
-			     		        grid.add(list.get(riders).getPane(), j, i);
-			     		        riders++;
-			     		        j++;
-			     	    	}
-			     	    	i++;
-			     	   }
-			           mainPane.getChildren().add(grid);  
-		            }else{
-		            	mainPane.getChildren().clear();
-		            }
-            	}
-            	
+                if (newValue != null) {
+                    if (!riderManager
+                            .getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(),
+                                    (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))
+                            .isEmpty()) {
+                        list.clear();
+                        for (Rider rider : riderManager.getRidersFromClassAndYear(
+                                classesButtons.getSelectedToggle().getUserData().toString(),
+                                (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                            RiderGridPane riderPane = new RiderGridPane(rider);
+                            list.add(riderPane);
+                        }
+
+                        grid = new GridPane();
+
+                        int i = 0, riders = 0;
+
+                        while (i < (int) Math.ceil(list.size() / (4.0)) || riders < list.size()) {
+                            int j = 0;
+                            while (j < 4 && riders < list.size()) {
+                                grid.add(list.get(riders).getPane(), j, i);
+                                riders++;
+                                j++;
+                            }
+                            i++;
+                        }
+                        mainPane.getChildren().add(grid);
+                    } else {
+                        mainPane.getChildren().clear();
+                    }
+                }
+
             }
         });
-        
-    }     
+
+    }
 }

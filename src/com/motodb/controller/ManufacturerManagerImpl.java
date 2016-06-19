@@ -18,15 +18,15 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
     public ObservableList<Manufacturer> getManufacturers() {
 
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         ObservableList<Manufacturer> manufacturer = FXCollections.observableArrayList();
         final String retrieve = "select * from MARCA";
 
         try (final PreparedStatement statement = conn.prepareStatement(retrieve);
-                final ResultSet result = statement.executeQuery()) {    
+                final ResultSet result = statement.executeQuery()) {
             while (result.next()) {
-            	manufacturer.add(new Manufacturer(result.getString("nome"), result.getString("logo")));
+                manufacturer.add(new Manufacturer(result.getString("nome"), result.getString("logo")));
             }
         } catch (SQLException e) {
             try {
@@ -36,25 +36,25 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
                 e.printStackTrace();
             }
         }
-        
+
         return manufacturer;
-        
+
     }
-	
-	public ObservableList<String> getManufacturersNames() {
-    	ObservableList<Manufacturer> manufacturers = this.getManufacturers();
-    	ObservableList<String> names = FXCollections.observableArrayList();
-    	for(Manufacturer m : manufacturers){
-    		names.add(m.getManufacturerName());
-    	}
-    	return names;
+
+    public ObservableList<String> getManufacturersNames() {
+        ObservableList<Manufacturer> manufacturers = this.getManufacturers();
+        ObservableList<String> names = FXCollections.observableArrayList();
+        for (Manufacturer m : manufacturers) {
+            names.add(m.getManufacturerName());
+        }
+        return names;
     }
-	
+
     @Override
     public void addManufacturer(String name, String urlLogo) {
         final DBManager db = DBManager.getDB();
-        final Connection conn  = db.getConnection();
-        
+        final Connection conn = db.getConnection();
+
         java.sql.PreparedStatement statement = null;
         final String insert = "insert into MARCA(nome, logo) values (?,?)";
         try {
@@ -70,49 +70,48 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
                 if (statement != null) {
                     statement.close();
                 }
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 AlertTypes alert = new AlertTypesImpl();
                 alert.showError(e);
             }
         }
     }
 
-	@Override
-	public ObservableList<Manufacturer> getManufacturersByRiderAndYear(int rider, int year) {
-		final DBManager db = DBManager.getDB();
-		final Connection conn = db.getConnection();
+    @Override
+    public ObservableList<Manufacturer> getManufacturersByRiderAndYear(int rider, int year) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
 
-		ObservableList<Manufacturer> manufacturers = FXCollections.observableArrayList();
-		final String retrieve = "select MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?)";
+        ObservableList<Manufacturer> manufacturers = FXCollections.observableArrayList();
+        final String retrieve = "select MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?)";
 
-		try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
-			statement.setInt(1, rider);
-			statement.setInt(2, rider);
-			statement.setInt(3, year);
-			try (final ResultSet result = statement.executeQuery()) {
-				while (result.next()) {
-					Manufacturer manufacturer = new Manufacturer();
-					manufacturer.setManufacturerName(result.getString(1));
-					manufacturers.add(manufacturer);
-				}
-			} catch (SQLException e) {
-				try {
-					AlertTypes alert = new AlertTypesImpl();
-					alert.showError(e);
-				} catch (ExceptionInInitializerError ei) {
-					e.printStackTrace();
-				}
-			}
-		} catch (SQLException e) {
-			try {
-				AlertTypes alert = new AlertTypesImpl();
-				alert.showError(e);
-			} catch (ExceptionInInitializerError ei) {
-				e.printStackTrace();
-			}
-		}
-		return manufacturers;
-	}
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setInt(1, rider);
+            statement.setInt(2, rider);
+            statement.setInt(3, year);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    Manufacturer manufacturer = new Manufacturer();
+                    manufacturer.setManufacturerName(result.getString(1));
+                    manufacturers.add(manufacturer);
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+        return manufacturers;
+    }
 
 }

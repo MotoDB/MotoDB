@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Circuit{
+public class Circuit {
 
     private final StringProperty name;
     private final StringProperty state;
@@ -22,8 +22,9 @@ public class Circuit{
     public Circuit() {
         this(null, null, null, 0, 0, 0, 0, null, null, 0, 0);
     }
- 
-    public Circuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght, int straight, String photo, String record, Integer recordRider, Integer recordYear) {
+
+    public Circuit(String name, String state, String location, int rightHanders, int leftHanders, int lenght,
+            int straight, String photo, String record, Integer recordRider, Integer recordYear) {
 
         this.name = new SimpleStringProperty(name);
         this.state = new SimpleStringProperty(state);
@@ -49,7 +50,7 @@ public class Circuit{
 
     public void setName(String name) {
         this.name.set(name);
-    } 
+    }
 
     // State
     public StringProperty stateProperty() {
@@ -63,7 +64,7 @@ public class Circuit{
     public void setState(String state) {
         this.state.set(state);
     }
-    
+
     // Location
     public StringProperty locationProperty() {
         return location;
@@ -76,7 +77,7 @@ public class Circuit{
     public void setLocation(String location) {
         this.location.set(location);
     }
- 
+
     // RightHanders
     public IntegerProperty rightHandersProperty() {
         return rightHanders;
@@ -102,7 +103,7 @@ public class Circuit{
     public void setLeftHanders(int number) {
         this.leftHanders.set(number);
     }
-    
+
     // Lenght
     public IntegerProperty lenghtProperty() {
         return lenght;
@@ -115,7 +116,7 @@ public class Circuit{
     public void setLenght(int lenght) {
         this.lenght.set(lenght);
     }
-    
+
     // Straight
     public IntegerProperty straightProperty() {
         return straight;
@@ -128,7 +129,7 @@ public class Circuit{
     public void setStraight(int straight) {
         this.straight.set(straight);
     }
- 
+
     // Photo
     public StringProperty photoProperty() {
         return photo;
@@ -141,7 +142,7 @@ public class Circuit{
     public void setPhoto(String photo) {
         this.photo.set(photo);
     }
-    
+
     // Record
     public StringProperty recordProperty() {
         return record;
@@ -167,7 +168,7 @@ public class Circuit{
     public void setRecordRider(int recordRider) {
         this.recordRider.set(recordRider);
     }
-    
+
     // Record Year
     public IntegerProperty recordYearProperty() {
         return recordYear;
@@ -181,10 +182,9 @@ public class Circuit{
         this.recordYear.set(recordYear);
     }
 
-	@Override
-	public String toString() {
-		return name.get();
-	}
-    
-    
+    @Override
+    public String toString() {
+        return name.get();
+    }
+
 }

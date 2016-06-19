@@ -97,8 +97,10 @@ public class DBInitializer {
 		manufacturer.addManufacturer("Honda", "http://i.imgur.com/gpgmssX.png");
 		manufacturer.addManufacturer("Suzuki", "http://i.imgur.com/mvdTzMG.png");
 		manufacturer.addManufacturer("Yamaha", "http://i.imgur.com/dsKjxrP.png");
+		manufacturer.addManufacturer("Aprilia", "http://i.imgur.com/I0g41aL.png");
 		manufacturer.addManufacturer("KTM", "http://i.imgur.com/1pLLecR.png");
 		manufacturer.addManufacturer("Kalex", "http://i.imgur.com/faPucgQ.png");
+		manufacturer.addManufacturer("Suter", "http://i.imgur.com/akvGiWt.jpg");
 	}
 	
 	private static void initTeams(){
@@ -110,6 +112,8 @@ public class DBInitializer {
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
 		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Aprilia", "Kalex", "Honda")));
+		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 		// TODO team moto2
 		// TODO team moto3
 		i=2015;
@@ -120,6 +124,8 @@ public class DBInitializer {
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
 		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Honda", "Suter")));
+		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 		i=2014;
 		team.addTeam(i, "Ducati Team" , "Borgo Panigale, Italy", "http://i.imgur.com/r8GLh1q.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "TIM", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
@@ -127,6 +133,8 @@ public class DBInitializer {
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
 		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Honda", "Suter")));
+		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 	}
 
 	private static void initCircuits(){
@@ -140,7 +148,7 @@ public class DBInitializer {
 	
 	private static void initMembers(){
 		int i=1;
-		//MotoGP
+		//
 		member.addRider(i++, "Marc", "Marquez", "http://www.motogp.com/en/api/rider/photo/grid/old/7444.jpg", "Cervera, Catalunya", "Spain", "Official Rider", new Date(729962150000l), 93, 58, 168, "Mar");
 		member.addRider(i++, "Jorge", "Lorenzo", "http://www.motogp.com/en/api/rider/photo/grid/old/6060.jpg", "Palma de Mallorca, Catalunya", "Spain", "Official Rider", new Date(547139750000l), 99, 64, 173, "Lor");
 		member.addRider(i++, "Andrea", "Dovizioso", "http://www.motogp.com/en/api/rider/photo/grid/old/5885.jpg", "Forlimpopoli, Emilia-Romagna", "Italy", "Official Rider", new Date(511974950000l), 4, 67, 167, "Dov");
@@ -150,12 +158,13 @@ public class DBInitializer {
 		member.addRider(i++, "Valentino", "Rossi", "http://www.motogp.com/en/api/rider/photo/grid/old/158.jpg", "Tavullia, Marche", "Italy", "Official Rider", Date.valueOf("1979-2-16"), 46, 65, 182, "Ros");
 		member.addRider(i++, "Andrea", "Iannone", "http://www.motogp.com/en/api/rider/photo/grid/old/6848.jpg", "Vasto, Abruzzo", "Italy", "Official Rider", Date.valueOf("1989-8-9"), 29, 67, 178, "Ian");
 		member.addRider(i++, "Aleix", "Espargaro", "http://www.motogp.com/en/api/rider/photo/grid/old/6854.jpg", "Granollers, Catalunya", "Spain", "Official Rider", Date.valueOf("1989-7-30"), 41, 71, 180, "EsA");
-		//Moto2
+		//9
 		member.addRider(i++, "Johann", "Zarco", "http://www.motogp.com/en/api/rider/photo/grid/old/7236.jpg", "Cannes, Cote D'Azur", "France", "Official Rider", new Date(648144409000l), 5, 65, 171, "Zar");
 		member.addRider(i++, "Lorenzo", "Baldassarri", "http://www.motogp.com/en/api/rider/photo/grid/old/8030.jpg", "San Severino, Marche", "Italy", "Official Rider", new Date(847296409000l), 7, 68, 183, "Bal");
 		member.addRider(i++, "Danny", "Kent", "http://www.motogp.com/en/api/rider/photo/grid/old/7461.jpg", "Chippenham, Wiltshire", "United Kingdom", "Official Rider", new Date(754243609000l), 52, 65, 172, "Ken");
 		member.addRider(i++, "Hafizh", "Syarin", "http://www.motogp.com/en/api/rider/photo/grid/old/8132.jpg", "Ampang, Kuala Lumpur", "Malaysia", "Official Rider", new Date(768154009000l), 55, 65, 180, "Sya");
-		//Moto3
+		member.addRider(i++, "Sam", "Lowes", "http://www.motogp.com/en/api/rider/photo/grid/old/8469.jpg", "Lincoln, Lincolnshire", "United Kingdom", "Official Rider", Date.valueOf("1990-9-14"), 22, 66, 168, "Low");
+		//14
 		member.addRider(i++, "Enea", "Bastianini", "http://www.motogp.com/en/api/rider/photo/grid/old/8295.jpg", "Rimini, Emilia-Romagna", "Italy", "Official Rider", new Date(883496074000l), 33, 60, 169, "Bas");
 		member.addRider(i++, "Brad", "Binder", "http://www.motogp.com/en/api/rider/photo/grid/old/7646.jpg", "Potchefstroom, North-West", "South Africa", "Official Rider", new Date(808155274000l), 41, 61, 170, "BiB");
 		member.addRider(i++, "Nicolo", "Bulega", "http://www.motogp.com/en/api/rider/photo/grid/old/8756.jpg", "Montecchio, Emilia-Romagna", "Italy", "Official Rider", new Date(940089373000l), 8, 63, 180, "Bul");
@@ -183,6 +192,9 @@ public class DBInitializer {
 		contract.addContract(i, MemberType.Rider, 8, "Ducati Team", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 9, "Team Suzuki Racing", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 11, "Forward Racing", "Moto2");
+		contract.addContract(i, MemberType.Rider, 14, "Team Gresini Racing", "Moto2");
+		contract.addContract(i, MemberType.Rider, 15, "Team Gresini Racing", "Moto3");
+		contract.addContract(i, MemberType.Rider, 17, "SKY Racing Team VR46", "Moto3");
 		contract.addContract(i, MemberType.Engineer, 501, "Honda Racing Team");
 		contract.addContract(i, MemberType.Engineer, 502, "Honda Racing Team");
 		contract.addContract(i, MemberType.Mechanic, 1001, "Ducati Team");
@@ -197,6 +209,7 @@ public class DBInitializer {
 		contract.addContract(i, MemberType.Rider, 8, "Ducati Team", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 9, "Team Suzuki Racing", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 11, "Forward Racing", "Moto2");
+		contract.addContract(i, MemberType.Rider, 15, "Team Gresini Racing", "Moto3");
 		contract.addContract(i, MemberType.Engineer, 501, "Honda Racing Team");
 		contract.addContract(i, MemberType.Engineer, 502, "Honda Racing Team");
 		contract.addContract(i, MemberType.Mechanic, 1001, "Ducati Team");
@@ -210,6 +223,9 @@ public class DBInitializer {
 		contract.addContract(i, MemberType.Rider, 7, "Yamaha Factory Racing", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 8, "Pramac Racing", "MotoGP");
 		contract.addContract(i, MemberType.Rider, 9, "Forward Racing", "MotoGP");
+		contract.addContract(i, MemberType.Rider, 11, "Team Gresini Racing", "Moto2");
+		contract.addContract(i, MemberType.Rider, 15, "Team Gresini Racing", "Moto3");
+		contract.addContract(i, MemberType.Rider, 18, "SKY Racing Team VR46", "Moto3");
 		contract.addContract(i, MemberType.Engineer, 501, "Honda Racing Team");
 		contract.addContract(i, MemberType.Engineer, 502, "Honda Racing Team");
 		contract.addContract(i, MemberType.Mechanic, 1001, "Ducati Team");
@@ -247,6 +263,8 @@ public class DBInitializer {
 		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("Honda", "NSF250R", "http://www.motogp.com/en/api/rider/photo/bike/old/8295.jpg", 84, i, "Team Gresini Racing");
+		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");
 		i=2015;
 		bike.addBike("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, i, "Honda Racing Team");
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
@@ -254,8 +272,10 @@ public class DBInitializer {
 		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, i, "Team Suzuki Racing");
 		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
 		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
-		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
-		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
+		bike.addBike("Honda", "NSF250RW", "http://www.motogp.com/en/api/rider/photo/bike/old/8295.jpg", 84, i, "Team Gresini Racing");
+		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");
 		i=2014;
 		bike.addBike("Honda", "RC213V", "http://www.motogp.com/en/api/rider/photo/bike/old/7444.jpg", 157, i, "Honda Racing Team");
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
@@ -264,6 +284,8 @@ public class DBInitializer {
 		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Forward Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("KTM", "KTM RC250GP", "http://i.imgur.com/GnBMC1j.jpg", 84, i, "Team Gresini Racing");
+		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");
 		
 	}
 	
@@ -313,6 +335,7 @@ public class DBInitializer {
 			int i=1;
 			while(i<=list.size()){
 				for(Rider r:list){
+					System.out.println(r.getAcronym());
 					racingRider.addRacingRider(s.getYear(), s.getWeekendDate(), s.getClassName(), s.getCode(), (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999), i, i<list.size()-random.nextInt(3)? true:false, r.getPersonalCode(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getModel(), racingRider.getTeamByRiderAndYear(r.getPersonalCode(), s.getYear()).getName(), i<points.size()&&s.getCode().equals("RACE")?points.get(i-1):0, FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));;
 					i++;
 					System.out.println("------ "+r.getFirstName()+" "+r.getLastName()+" -- Code: " +r.getPersonalCode() + " -> Done");

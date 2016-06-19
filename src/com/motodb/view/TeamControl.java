@@ -198,7 +198,7 @@ public class TeamControl extends ScreenControl {
                 vBoxTeam.getChildren().clear();
                 if (newValue != null) {
                     TeamGridPane grid = new TeamGridPane(
-                            manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString()), manager.getSponsorsByTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), memberManager.getRidersFromTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())));
+                            manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString()), manager.getSponsorsByTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), memberManager.getRidersFromTeamAndYearAndClass(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()), classesButtons.getSelectedToggle().getUserData().toString()));
                     membersTable.setItems(
                             memberManager.getMembersFromTeam(teamsButtons.getSelectedToggle().getUserData().toString(),
                                     (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))));

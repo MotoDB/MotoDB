@@ -297,10 +297,10 @@ public class AddRacingRiderControl extends ScreenControl {
 
         manufacturerBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                if (!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()).isEmpty()) {
+                if (!bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName(), Integer.parseInt(yearBox.getValue())).isEmpty()) {
                     bikeModelBox.setDisable(false);
                     bikeModelBox.setItems(
-                            bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName()));
+                            bykeManager.getBikesFromManufacturer(manufacturerBox.getValue().getManufacturerName(),Integer.parseInt(yearBox.getValue())));
 
                 } else {
                     bikeModelBox.setDisable(true);

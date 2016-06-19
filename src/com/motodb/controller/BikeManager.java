@@ -11,7 +11,7 @@ public interface BikeManager {
     void addBike(String manufacturerName, String model, String photoUrl, int weight, int championshipYear,
             String teamName);
 
-    public ObservableList<Bike> getBikesFromManufacturer(String manufacturer);
+    public ObservableList<Bike> getBikesFromManufacturer(String manufacturer, int year);
 
     Bike getBikeByTeamAndYearAndRider(int year, int rider);
 }

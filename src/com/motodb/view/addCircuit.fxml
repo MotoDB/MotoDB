@@ -85,13 +85,13 @@
 							<children>
 								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="circuitTable">
 									<columns>
-			                          	<TableColumn text="First Name" fx:id="nameColumn"/>
-			                          	<TableColumn text="Last Name" fx:id="locationColumn"/>
-			                          	<TableColumn text="Personal Code" fx:id="stateColumn"/>
-			                          	<TableColumn text="Birthplace" fx:id="rightHandersColumn"/>
-			                          	<TableColumn text="State" fx:id="leftHandersColumn"/>
-			                          	<TableColumn text="Role" fx:id="lenghtColumn"/>
-			                          	<TableColumn text="Height" fx:id="straightColumn"/>
+			                          	<TableColumn text="Name" fx:id="nameColumn"/>
+			                          	<TableColumn text="Location" fx:id="locationColumn"/>
+			                          	<TableColumn text="State" fx:id="stateColumn"/>
+			                          	<TableColumn text="Right Corners" fx:id="rightHandersColumn"/>
+			                          	<TableColumn text="Left Corners" fx:id="leftHandersColumn"/>
+			                          	<TableColumn text="Length (m)" fx:id="lenghtColumn"/>
+			                          	<TableColumn text="Max Straight (m)" fx:id="straightColumn"/>
 			                          	<TableColumn text="Record Time" fx:id="recordColumn"/>
 			                          	<TableColumn text="Record Rider" fx:id="recordRiderColumn"/>
 			                          	<TableColumn text="Record Year" fx:id="recordYearColumn"/>

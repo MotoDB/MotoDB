@@ -275,14 +275,18 @@ public class SessionControl extends ScreenControl {
         sessionsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 if (newValue != null) {
-                    if (!racingRiderManager.getRidersFromYearWeekSess(
+                    if (!racingRiderManager.getRidersFromYearWeekSessClass(
                             Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
                             Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()),
-                            sessionsButtons.getSelectedToggle().getUserData().toString()).isEmpty()) {
-                        sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSess(
+                            sessionsButtons.getSelectedToggle().getUserData().toString(),
+                            classesButtons.getSelectedToggle().getUserData().toString()
+                    		).isEmpty()) {
+                        sessionTable.setItems(racingRiderManager.getRidersFromYearWeekSessClass(
                                 Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
                                 Date.valueOf(weeksButtons.getSelectedToggle().getUserData().toString()),
-                                sessionsButtons.getSelectedToggle().getUserData().toString()));
+                                sessionsButtons.getSelectedToggle().getUserData().toString(),
+                                classesButtons.getSelectedToggle().getUserData().toString()
+                        		));
                     } else {
                         sessionTable.setItems(null);
                     }

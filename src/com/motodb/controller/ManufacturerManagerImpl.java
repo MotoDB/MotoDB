@@ -83,12 +83,13 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
         final Connection conn = db.getConnection();
 
         ObservableList<Manufacturer> manufacturers = FXCollections.observableArrayList();
-        final String retrieve = "select MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ?)";
+        final String retrieve = "select MOTO.nomeMarca from MOTO where MOTO.nomeTeam =( select nomeTeam  from CONTRATTO_PILOTA c, PILOTA ps where c.codicePersonale = ? && ps.codicePersonale = ? && c.annoCampionato = ? && MOTO.annoCampionato = ?)";
 
         try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
             statement.setInt(1, rider);
             statement.setInt(2, rider);
             statement.setInt(3, year);
+            statement.setInt(4, year);
             try (final ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
                     Manufacturer manufacturer = new Manufacturer();

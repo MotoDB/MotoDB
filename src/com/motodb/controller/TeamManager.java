@@ -19,5 +19,7 @@ public interface TeamManager {
     public ObservableList<Team> getTeamsFromYear(int year);
     
     public ObservableList<Sponsor> getSponsorsByTeamAndYear(String name, int year);
+    
+    public String getTeamByYearAndRider(int year, int rider);
 
 }

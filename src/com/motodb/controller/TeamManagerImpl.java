@@ -273,4 +273,41 @@ public class TeamManagerImpl implements TeamManager {
 
         return list;
     }
+    
+    @Override
+    public String getTeamByYearAndRider(int year, int rider){
+    	final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+        final String retrieve = "SELECT i.nomeTeam " + "FROM CONTRATTO_PILOTA i " + "WHERE i.annoCampionato = ? "
+                + "AND i.codicePersonale = ? ";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setInt(1, year);
+            statement.setInt(2, rider);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    return result.getString("nomeTeam");
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
 }

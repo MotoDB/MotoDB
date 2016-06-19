@@ -20,6 +20,8 @@ import com.motodb.controller.RacingRiderManager;
 import com.motodb.controller.RacingRiderManagerImpl;
 import com.motodb.controller.SessionManager;
 import com.motodb.controller.SessionManagerImpl;
+import com.motodb.controller.TeamManager;
+import com.motodb.controller.TeamManagerImpl;
 import com.motodb.controller.TyreManager;
 import com.motodb.controller.TyreManagerImpl;
 import com.motodb.controller.WeekendManager;
@@ -62,6 +64,7 @@ public class AddRacingRiderControl extends ScreenControl {
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final TyreManager tyreManager = new TyreManagerImpl();
     private final BikeManager bykeManager = new BikeManagerImpl();
+    private final TeamManager teamManager = new TeamManagerImpl();
 
     @FXML
     private TableView<RacingRiderView> racingRidersTable;
@@ -159,7 +162,7 @@ public class AddRacingRiderControl extends ScreenControl {
                         sessionCodeBox.getValue().getCode(), timeField.getText(),
                         Integer.parseInt(positionField.getText()), finishedBox.getValue(),
                         riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(),
-                        bikeModelBox.getValue().getModel(), 0, tyreBox.getCheckModel().getCheckedItems());
+                        bikeModelBox.getValue().getModel(), teamManager.getTeamByYearAndRider(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), 0, tyreBox.getCheckModel().getCheckedItems());
             } else {
                 racingRiderManager.addRacingRider(Integer.parseInt(yearBox.getValue()),
                         weekendBox.getValue().getStartDate(),
@@ -168,7 +171,7 @@ public class AddRacingRiderControl extends ScreenControl {
                         sessionCodeBox.getValue().getCode(), timeField.getText(),
                         Integer.parseInt(positionField.getText()), finishedBox.getValue(),
                         riderBox.getValue().getPersonalCode(), manufacturerBox.getValue().getManufacturerName(),
-                        bikeModelBox.getValue().getModel(), points.get(Integer.parseInt(positionField.getText()) - 1),
+                        bikeModelBox.getValue().getModel(), teamManager.getTeamByYearAndRider(Integer.parseInt(yearBox.getValue()), riderBox.getValue().getPersonalCode()), points.get(Integer.parseInt(positionField.getText()) - 1),
                         tyreBox.getCheckModel().getCheckedItems());
             }
 

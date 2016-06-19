@@ -26,7 +26,7 @@ public interface RacingRiderManager {
      * @param points
      */
     public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, String teamName, int points,
+            int position, Boolean finished, Integer personalCode, String manufacturer, String bikeModel, String teamName, int points,
             ObservableList<Tyre> tyres);
 
     /**

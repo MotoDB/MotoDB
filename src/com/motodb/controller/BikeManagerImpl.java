@@ -111,8 +111,8 @@ public class BikeManagerImpl implements BikeManager {
             statement.setInt(3, year);
             try (final ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                    bike.setManufacturerName(result.getString(2));
                     bike.setModel(result.getString(1));
+                    bike.setManufacturerName(result.getString(2));
                 }
             } catch (SQLException e) {
                 try {

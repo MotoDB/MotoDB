@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.motodb.model.Sponsor;
 import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
@@ -237,4 +238,39 @@ public class TeamManagerImpl implements TeamManager {
         return team;
     }
 
+    @Override
+    public ObservableList<Sponsor> getSponsorsByTeamAndYear(String name, int year) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+        
+        ObservableList<Sponsor> list = FXCollections.observableArrayList();
+        final String retrieve = "select s.* from FINANZIAMENTO f, SPONSOR s where s.nomeSponsor=f.nomeSponsor && f.nomeTeam = ? && f.annoCampionato = ?";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setString(1, name);
+            statement.setInt(2, year);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    list.add(new Sponsor(result.getString("nomeSponsor"), result.getString("logo")));
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
+    }
 }

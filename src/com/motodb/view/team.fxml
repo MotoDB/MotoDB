@@ -20,13 +20,18 @@
 					</padding>
 	            	<children>
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD TEAM" onAction="#switchScreen" fx:id="addTeam" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="CREATE TEAM" onAction="#switchScreen" fx:id="addTeam" />
+                        <Button fx:id="addMember" mnemonicParsing="false" styleClass="button-flat" text="CREATE MEMBER" onAction="#switchScreen"/>
                     </children>
                 </HBox>
                 <HBox fx:id="classes">
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>
+					<children>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CONTRACT" onAction="#switchScreen" fx:id="addContract" />
+                    </children>
                 </HBox>
                 <HBox fx:id="teams">
                 	<padding>

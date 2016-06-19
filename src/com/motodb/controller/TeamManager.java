@@ -1,5 +1,6 @@
 package com.motodb.controller;
 
+import com.motodb.model.Sponsor;
 import com.motodb.model.Team;
 
 import javafx.collections.ObservableList;
@@ -16,5 +17,7 @@ public interface TeamManager {
     public Team getTeamByName(final String name);
 
     public ObservableList<Team> getTeamsFromYear(int year);
+    
+    public ObservableList<Sponsor> getSponsorsByTeamAndYear(String name, int year);
 
 }

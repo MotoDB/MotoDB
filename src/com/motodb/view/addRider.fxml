@@ -14,7 +14,6 @@
 					    <Label styleClass="card-title" text="Add Rider"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button fx:id="addClass" mnemonicParsing="false" styleClass="button-flat" text="CREATE NEW CLASS" onAction="#switchScreen"/>
-                        <Button fx:id="addMember" mnemonicParsing="false" styleClass="button-flat" text="CREATE MEMBER" onAction="#switchScreen"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">

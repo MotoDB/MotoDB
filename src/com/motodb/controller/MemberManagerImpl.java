@@ -400,4 +400,49 @@ public class MemberManagerImpl implements MemberManager {
         }
         return list;
     }
+    
+    @Override
+    public ObservableList<Rider> getRidersFromTeamAndYear(String teamName, int year) {
+
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+
+        ObservableList<Rider> list = FXCollections.observableArrayList();
+        final String retrieve = "select p.* from PILOTA p, CONTRATTO_PILOTA c where p.codicePersonale = c.codicePersonale AND c.nomeTeam = ? AND c.annoCampionato = ?";
+
+        try {
+            PreparedStatement statement = null;
+            ResultSet result = null;
+            statement = conn.prepareStatement(retrieve);
+            statement.setString(1, teamName);
+            statement.setInt(2, year);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+
+                final Rider rider = new Rider();
+                rider.setPhoto(result.getString("foto"));
+                rider.setPersonalCode(result.getInt("codicePersonale"));
+                rider.setFirstName(result.getString("nomeMembro"));
+                rider.setLastName(result.getString("cognomeMembro"));
+                rider.setDate(result.getDate("dataNascita"));
+                rider.setBirthplace(result.getString("luogoNascita"));
+                rider.setState(result.getString("nazione"));
+                rider.setRole(result.getString("ruolo"));
+                rider.setHeight(result.getInt("altezza"));
+                rider.setWeight(result.getInt("peso"));
+                rider.setNumber(result.getInt("numero"));
+                rider.setAcronym(result.getString("sigla"));
+                list.add(rider);
+
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            AlertTypes alert = new AlertTypesImpl();
+            alert.showError(e);
+        }
+
+        return list;
+    }
 }

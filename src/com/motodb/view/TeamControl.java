@@ -4,6 +4,8 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
+import com.motodb.controller.SponsorManager;
+import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.controller.TeamManager;
 import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Championship;
@@ -196,7 +198,7 @@ public class TeamControl extends ScreenControl {
                 vBoxTeam.getChildren().clear();
                 if (newValue != null) {
                     TeamGridPane grid = new TeamGridPane(
-                            manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString()));
+                            manager.getTeamByName(teamsButtons.getSelectedToggle().getUserData().toString()), manager.getSponsorsByTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())), memberManager.getRidersFromTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())));
                     membersTable.setItems(
                             memberManager.getMembersFromTeam(teamsButtons.getSelectedToggle().getUserData().toString(),
                                     (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))));

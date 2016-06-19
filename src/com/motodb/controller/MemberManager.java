@@ -29,4 +29,6 @@ public interface MemberManager {
     public ObservableList<Rider> getRidersFromClassAndYear(String className, int year);
 
     public ObservableList<Member> getMembersFromTeam(String teamName, int annoCampionato);
+
+    public ObservableList<Rider> getRidersFromTeamAndYear(String teamName, int year);
 }

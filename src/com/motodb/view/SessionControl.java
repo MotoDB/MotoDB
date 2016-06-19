@@ -81,11 +81,12 @@ public class SessionControl extends ScreenControl {
                 button.setUserData(s.getStartDate().toString());
             }
             
-            for (Clax s : classManager.getClassesFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
-
-                ToggleButton button = new ToggleButton(s.getName());
+            // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+            for (String s : manager.getClassesNames(
+                    (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                ToggleButton button = new ToggleButton(s);
                 button.setToggleGroup(classesButtons);
-                button.setUserData(s.getName());
+                button.setUserData(s);
             }
 
             if (!weeksButtons.getToggles().isEmpty()) {
@@ -169,12 +170,13 @@ public class SessionControl extends ScreenControl {
                 classesButtons.getToggles().clear();
                 clax.getChildren().clear();
                 
-                for (Clax c : classManager.getClassesFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
-                    ToggleButton button = new ToggleButton(c.getName());
+                // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
+                for (String s : manager.getClassesNames(
+                        (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
+                    ToggleButton button = new ToggleButton(s);
                     button.setToggleGroup(classesButtons);
-                    button.setUserData(c.getName());
+                    button.setUserData(s);
                 }
-
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                 for (Toggle button : classesButtons.getToggles()) {
                     button.setToggleGroup(classesButtons);

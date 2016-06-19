@@ -175,8 +175,8 @@ public class AddRacingRiderControl extends ScreenControl {
             }
 
             racingRidersTable.setItems(racingRiderManager.getRacingRidersForView()); // Update
-                                                                              // table
-                                                                              // view
+            // table
+            // view
             this.clear();
         } catch (Exception e) {
             e.printStackTrace();

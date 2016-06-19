@@ -49,7 +49,7 @@ public class RiderControl extends ScreenControl {
     GridPane grid = new GridPane();
 
     public RiderControl() {
-        super();
+        // super();
 
         for (Championship c : championshipManager.getChampionships()) {
             ToggleButton button = new ToggleButton(Integer.toString(c.getYear()));
@@ -71,9 +71,10 @@ public class RiderControl extends ScreenControl {
 
         }
 
-        if (!classesButtons.getToggles().isEmpty()) {
-            classesButtons.getToggles().get(0).setSelected(true);
-        }
+        /*
+         * if (!classesButtons.getToggles().isEmpty()) {
+         * classesButtons.getToggles().get(0).setSelected(true); }
+         */
     }
 
     /**
@@ -94,6 +95,12 @@ public class RiderControl extends ScreenControl {
 
         // Method which handles the selection of a year
         this.filter();
+        if (!yearsButtons.getToggles().isEmpty()) {
+            yearsButtons.getToggles().get(0).setSelected(true);
+            if (!classesButtons.getToggles().isEmpty()) {
+                classesButtons.getToggles().get(0).setSelected(true);
+            }
+        }
 
     }
 
@@ -102,7 +109,6 @@ public class RiderControl extends ScreenControl {
      * are only buttons for each class of that year
      */
     private void filter() {
-
         yearsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 
@@ -125,18 +131,16 @@ public class RiderControl extends ScreenControl {
                     button.setToggleGroup(classesButtons);
                     classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
                 }
+                classesButtons.getToggles().get(1).setSelected(true);
 
                 if (!classesButtons.getToggles().isEmpty()) {
-                    classesButtons.getToggles().get(0).setSelected(true);
+                    classesButtons.getToggles().get(1).setSelected(true);
                 }
-
             }
-
         });
 
         classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-
                 mainPane.getChildren().clear();
 
                 if (newValue != null) {
@@ -144,6 +148,7 @@ public class RiderControl extends ScreenControl {
                             .getRidersFromClassAndYear(classesButtons.getSelectedToggle().getUserData().toString(),
                                     (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))
                             .isEmpty()) {
+
                         list.clear();
                         for (Rider rider : riderManager.getRidersFromClassAndYear(
                                 classesButtons.getSelectedToggle().getUserData().toString(),
@@ -166,6 +171,7 @@ public class RiderControl extends ScreenControl {
                             i++;
                         }
                         mainPane.getChildren().add(grid);
+
                     } else {
                         mainPane.getChildren().clear();
                     }

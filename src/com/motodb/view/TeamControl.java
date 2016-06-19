@@ -184,7 +184,6 @@ public class TeamControl extends ScreenControl {
                         button.setToggleGroup(teamsButtons);
                         teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton) button);
                     }
-
                     if (!teamsButtons.getToggles().isEmpty()) {
                         teamsButtons.getToggles().get(0).setSelected(true);
                     }

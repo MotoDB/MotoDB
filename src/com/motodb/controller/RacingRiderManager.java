@@ -40,6 +40,6 @@ public interface RacingRiderManager {
     public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session);
 
     String getRiderNameByCode(int code);
-    
+
     ObservableList<RacingRiderView> getRacingRidersForView();
 }

@@ -66,10 +66,6 @@ public class WorldStandingControl extends ScreenControl {
             }
         }
 
-        if (!classesButtons.getToggles().isEmpty()) {
-            classesButtons.getToggles().get(0).setSelected(true);
-        }
-
     }
 
     /**
@@ -102,6 +98,12 @@ public class WorldStandingControl extends ScreenControl {
 
         // Method which handles the selection of a year
         this.filter();
+        if (!yearsButtons.getToggles().isEmpty()) {
+            yearsButtons.getToggles().get(0).setSelected(true);
+            if (!classesButtons.getToggles().isEmpty()) {
+                classesButtons.getToggles().get(0).setSelected(true);
+            }
+        }
 
         rankingManager.getRankingByYearAndClass(
                 Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),

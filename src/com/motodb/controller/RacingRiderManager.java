@@ -26,7 +26,7 @@ public interface RacingRiderManager {
      * @param points
      */
     public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points,
+            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, String teamName, int points,
             ObservableList<Tyre> tyres);
 
     /**
@@ -39,6 +39,11 @@ public interface RacingRiderManager {
 
     public ObservableList<RacingRider> getRidersFromYearWeekSess(int year, Date weekend, String session);
 
+    /**
+     * Now team is a field of racingRider.
+     *
+     * @deprecated use {@link #new()} instead.  
+     */
     String getRiderNameByCode(int code);
 
     ObservableList<RacingRiderView> getRacingRidersForView();

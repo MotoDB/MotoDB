@@ -21,15 +21,16 @@ public class RacingRider {
     private final IntegerProperty personalCode;
     private final StringProperty manufacturerName;
     private final StringProperty bikeModel;
+    private final StringProperty teamName;
     private final IntegerProperty points;
 
     public RacingRider() {
-        this(0, null, null, null, null, 0, null, 0, null, null, 0);
+        this(0, null, null, null, null, 0, null, 0, null, null, null, 0);
     }
 
     public RacingRider(int championshipYear, Date weekendStartingDate, String className, String sessionCode,
             String fastestTime, int position, Boolean finished, int personalCode, String manufacturerName,
-            String bikeModel, int points) {
+            String bikeModel, String teamName, int points) {
         this.championshipYear = new SimpleIntegerProperty(championshipYear);
         this.weekendStartingDate = weekendStartingDate;
         this.className = new SimpleStringProperty(className);
@@ -40,6 +41,7 @@ public class RacingRider {
         this.personalCode = new SimpleIntegerProperty(personalCode);
         this.manufacturerName = new SimpleStringProperty(manufacturerName);
         this.bikeModel = new SimpleStringProperty(bikeModel);
+        this.teamName = new SimpleStringProperty(teamName);
         this.points = new SimpleIntegerProperty(points);
     }
 
@@ -167,6 +169,19 @@ public class RacingRider {
 
     public void setBikeModel(String bikeModel) {
         this.bikeModel.set(bikeModel);
+    }
+    
+    // Team Name
+    public StringProperty teamNameProperty() {
+        return teamName;
+    }
+
+    public String getTeamNameModel() {
+        return teamName.get();
+    }
+
+    public void setTeamNameModel(String teamName) {
+        this.teamName.set(teamName);
     }
 
     // Points

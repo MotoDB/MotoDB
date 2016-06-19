@@ -20,12 +20,12 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
     @Override
     public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, int points,
+            Integer position, boolean finished, int personalCode, String manufacturer, String bikeModel, String teamName, int points,
             ObservableList<Tyre> tyres) {
         final DBManager db = DBManager.getDB();
         final Connection conn = db.getConnection();
 
-        final String insert = "insert into PILOTA_IN_SESSIONE(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, tempoVeloce, indicePosizione, posizionato, codicePersonalePilota, nomeMarcaMoto, modelloMoto, valorePunteggio) values (?,?,?,?,?,?,?,?,?,?,?)";
+        final String insert = "insert into PILOTA_IN_SESSIONE(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, tempoVeloce, indicePosizione, posizionato, codicePersonalePilota, nomeMarcaMoto, modelloMoto, nomeTeam, valorePunteggio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try (final PreparedStatement statement = conn.prepareStatement(insert)) {
             statement.setInt(1, year);
             statement.setDate(2, weekendDate);
@@ -37,7 +37,8 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
             statement.setInt(8, personalCode);
             statement.setString(9, manufacturer);
             statement.setString(10, bikeModel);
-            statement.setInt(11, points);
+            statement.setString(11, teamName);
+            statement.setInt(12, points);
             statement.executeUpdate();
         } catch (SQLException e) {
             try {
@@ -50,6 +51,8 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
 
         final String insert2 = "insert into UTILIZZO_PNEUMATICO(annoCampionato, dataInizioWeekend, nomeClasse, codiceSessione, indicePosizione, marca, modello, mescola) values (?,?,?,?,?,?,?,?)";
 
+        // TODO TeamName is missing here in UtilizzoPneumatico
+        
         tyres.forEach(e -> {
             try (final PreparedStatement statement2 = conn.prepareStatement(insert2)) {
                 statement2.setInt(1, year);
@@ -88,7 +91,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
                         result.getString("nomeClasse"), result.getString("codiceSessione"),
                         result.getString("tempoVeloce"), result.getInt("indicePosizione"),
                         result.getBoolean("posizionato"), result.getInt("codicePersonalePilota"),
-                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"),
+                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"), result.getString("nomeTeam"),
                         result.getInt("valorePunteggio")));
             }
         } catch (SQLException e) {
@@ -126,7 +129,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
                         result.getString("nomeClasse"), result.getString("codiceSessione"),
                         result.getString("tempoVeloce"), result.getInt("indicePosizione"),
                         result.getBoolean("posizionato"), result.getInt("codicePersonalePilota"),
-                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"),
+                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"), result.getString("nomeTeam"),
                         result.getInt("valorePunteggio")));
 
             }
@@ -140,6 +143,9 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
         return list;
     }
 
+    /**
+     * @deprecated Now team is a field of racingRider. A simpler method should be done.  
+     */
     @Override
     public Team getTeamByRiderAndYear(int rider, int year) {
         final DBManager db = DBManager.getDB();
@@ -215,7 +221,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
         final Connection conn = db.getConnection();
 
         ObservableList<RacingRiderView> list = FXCollections.observableArrayList();
-        final String retrieve = "select ps.annoCampionato, ps.dataInizioWeekend, ps.nomeClasse, ps.codiceSessione, ps.tempoVeloce, ps.indicePosizione, ps.posizionato, pi.sigla, ps.nomeMarcaMoto, ps.modelloMoto, ps.valorePunteggio  from PILOTA_IN_SESSIONE ps, PILOTA pi where ps.codicePersonalePilota = pi.codicePersonale";
+        final String retrieve = "select ps.annoCampionato, ps.dataInizioWeekend, ps.nomeClasse, ps.codiceSessione, ps.tempoVeloce, ps.indicePosizione, ps.posizionato, pi.sigla, ps.nomeMarcaMoto, ps.modelloMoto, ps.noemTeam, ps.valorePunteggio  from PILOTA_IN_SESSIONE ps, PILOTA pi where ps.codicePersonalePilota = pi.codicePersonale";
         try (final PreparedStatement statement = conn.prepareStatement(retrieve);
                 final ResultSet result = statement.executeQuery()) {
             while (result.next()) {
@@ -223,7 +229,7 @@ public class RacingRiderManagerImpl implements RacingRiderManager {
                         result.getString("nomeClasse"), result.getString("codiceSessione"),
                         result.getString("tempoVeloce"), result.getInt("indicePosizione"),
                         result.getBoolean("posizionato"), result.getString("codicePersonalePilota"),
-                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"),
+                        result.getString("nomeMarcaMoto"), result.getString("modelloMoto"), result.getString("nomeTeam"),
                         result.getInt("valorePunteggio")));
             }
         } catch (SQLException e) {

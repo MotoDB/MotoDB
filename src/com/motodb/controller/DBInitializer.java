@@ -310,12 +310,13 @@ public class DBInitializer {
 			int i=1;
 			while(i<=list.size()){
 				for(Rider r:list){
-					racingRider.addRacingRider(s.getYear(), s.getWeekendDate(), s.getClassName(), s.getCode(), (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999), i, i<list.size()-random.nextInt(4)? true:false, r.getPersonalCode(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getModel(), i<points.size()&&s.getCode().equals("RACE")?points.get(i-1):0, FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));
+					System.out.println(s.getYear()+" - "+ s.getWeekendDate()+" - "+ s.getClassName()+" - "+ s.getCode()+" - "+ (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999)+" - "+ i +" - "+ r.getPersonalCode()+" - "+ bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName()+" - "+ bike.getBikeByTeamAndYearAndRider(s.getYear() , r.getPersonalCode()).getModel() +" - "+ racingRider.getRiderNameByCode(r.getPersonalCode()) +" - "+ FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));
+					racingRider.addRacingRider(s.getYear(), s.getWeekendDate(), s.getClassName(), s.getCode(), (random.nextInt(1)+1) +"'"+random.nextInt(60)+"."+random.nextInt(999), i, i<list.size()-random.nextInt(3)? true:false, r.getPersonalCode(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getManufacturerName(), bike.getBikeByTeamAndYearAndRider(s.getYear(), r.getPersonalCode()).getModel(), racingRider.getRiderNameByCode(r.getPersonalCode()), i<points.size()&&s.getCode().equals("RACE")?points.get(i-1):0, FXCollections.observableArrayList(Arrays.asList(tyre.getTyres().get(random.nextInt( tyre.getTyres().size())))));
 					i++;
-					System.out.println("------ "+r.getFirstName()+" "+r.getLastName()+" -- "+r.getPersonalCode());
+					System.out.println("------ "+r.getFirstName()+" "+r.getLastName()+" -- "+r.getPersonalCode() + " -> Done");
 				}
 			}
-			System.out.println("---- "+ s.getClassName() + " -- " + s.getCode() + " -- " + s.getWeekendDate());
+			System.out.println("---- "+ s.getClassName() + " -- " + s.getCode() + " -- " + s.getWeekendDate() + " -> Done");
 		});
 	}
 	

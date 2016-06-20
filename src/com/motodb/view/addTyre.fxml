@@ -13,7 +13,6 @@
 					<children>
 					    <Label styleClass="card-title" text="Add Tyre"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
-                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
@@ -45,7 +44,7 @@
 								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="tyresTable">
 									<columns>
 			                          	<TableColumn text="Make" fx:id="makeColumn"/>
-			                          	<TableColumn text="Make" fx:id="modelColumn"/>
+			                          	<TableColumn text="Model" fx:id="modelColumn"/>
 			                          	<TableColumn text="Size" fx:id="sizeColumn"/>
 			                          	<TableColumn text="Compound" fx:id="compoundColumn"/>
 								    </columns>
@@ -57,13 +56,7 @@
 						</VBox>
 					</children>
 				</HBox>
-				<HBox>
-	            	<children>
-	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   
-	            		<TextField promptText="Search" fx:id="searchField" />
-	            		<Label styleClass="icon-label" text="" />
-	            	</children>
-                </HBox>
+				
 	        </children>	
 		</VBox>					
 	</content>

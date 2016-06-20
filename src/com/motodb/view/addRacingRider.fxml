@@ -113,13 +113,7 @@
 						</VBox>
 					</children>
 				</HBox>
-				<HBox>
-	            	<children>
-	            		<Pane prefWidth="300.0" HBox.hgrow="ALWAYS" />   
-	            		<TextField promptText="Search" fx:id="searchField" />
-	            		<Label styleClass="icon-label" text="" />
-	            	</children>
-                </HBox>
+				
 	        </children>	
 		</VBox>					
 	</content>

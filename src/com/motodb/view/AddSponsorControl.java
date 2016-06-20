@@ -45,7 +45,6 @@ public class AddSponsorControl extends ScreenControl {
         // Make the table columns editable by double clicking
         this.edit();
         // Use a 'searchField' to search for books in the tableView
-        this.search();
         // Listen for selection changes and enable delete button
         this.update();
     }
@@ -89,42 +88,7 @@ public class AddSponsorControl extends ScreenControl {
      * Called when the user enter something in the search field; It search name
      * of the depot
      */
-    private void search() {
-
-        // 1. Wrap the ObservableList in a FilteredList (initially display all
-        // data).
-        FilteredList<Sponsor> filteredData = new FilteredList<>(manager.getSponsors(), p -> true);
-
-        // 2. Set the filter Predicate whenever the filter changes.
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(e -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter
-                // text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (e.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                } else if (e.getLogo().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
-                }
-                return false; // Does not match.
-            });
-        });
-
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Sponsor> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(sponsorsTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        sponsorsTable.setItems(sortedData);
-    }
+    
 
     /**
      * It listen for selection changes to disable/enable the delete button when

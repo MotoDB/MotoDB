@@ -107,7 +107,6 @@ public class WorldStandingControl extends ScreenControl {
                 classesButtons.getToggles().get(0).setSelected(true);
             }
         }
-        this.search();
     }
 
     /**
@@ -161,40 +160,5 @@ public class WorldStandingControl extends ScreenControl {
         });
     }
     
-    private void search() {
-        // 1. Wrap the ObservableList in a FilteredList (initially display all
-        // data).
-        FilteredList<Ranking> filteredData = new FilteredList<>(rankingManager.getRankingByYearAndClass(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()),
-                classesButtons.getSelectedToggle().getUserData().toString()), p -> true);
-
-        // 2. Set the filter Predicate whenever the filter changes.
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(e -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter
-                // text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (e.getSurname().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                } else if (e.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
-                }
-                return false; // Does not match.
-            });
-        });
-
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Ranking> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(rankingTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        rankingTable.setItems(sortedData);
-    }
+   
 }

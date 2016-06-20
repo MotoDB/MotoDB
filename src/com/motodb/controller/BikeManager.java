@@ -14,4 +14,6 @@ public interface BikeManager {
     public ObservableList<Bike> getBikesFromManufacturer(String manufacturer, int year);
 
     Bike getBikeByTeamAndYearAndRider(int year, int rider);
+    
+	Bike getBikeByYear(int year);
 }

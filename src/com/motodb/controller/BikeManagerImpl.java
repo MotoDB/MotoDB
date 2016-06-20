@@ -134,4 +134,40 @@ public class BikeManagerImpl implements BikeManager {
         }
         return bike;
     }
+
+	@Override
+	public Bike getBikeByYear(int year) {
+		final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+
+        Bike bike = new Bike();
+        final String retrieve = "select m.nomeMarca, m.foto, m.modello, m.nomeTeam from MOTO m where m.annoCampionato = ?";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setInt(1, year);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    bike.setModel(result.getString(1));
+                    bike.setManufacturerName(result.getString(2));
+                    bike.setPhotoUrl(result.getString(2));
+                    bike.setTeamName(result.getString(4));
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+        return bike;
+	}
 }

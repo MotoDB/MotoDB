@@ -138,11 +138,11 @@ public class DBInitializer {
 	}
 
 	private static void initCircuits(){
-		circuit.addCircuit("Autodromo del Mugello", "Italy", "Scarperia, Tuscany", 9, 6, 5245, 1141, "http://css.motogp.com/w2015/img/circuits/circuits_6.svg", Optional.of("1'47.639"), Optional.of(1), Optional.of(2013));
-		circuit.addCircuit("Circuit de Barcelona", "Spain", "Montmelo, Catalunya", 8, 5, 4655, 1047, "http://css.motogp.com/w2015/img/circuits/circuits_116.svg", Optional.of("1'45.971"), Optional.of(4), Optional.of(2016));
-		circuit.addCircuit("Misano World Circuit", "Italy", "Misano Adriatico, Emilia-Romagna", 10, 6, 4266, 565, "http://css.motogp.com/w2015/img/circuits/circuits_102.svg", Optional.of("1'33.273"), Optional.of(2), Optional.of(2015));
-		circuit.addCircuit("Twin Ring Motegi", "Japan", "Tochigi, Haga", 8, 6, 4801, 762, "http://css.motogp.com/w2015/img/circuits/circuits_76.svg", Optional.of("1'45.350"), Optional.of(2), Optional.of(2014));
-		circuit.addCircuit("Circuit of the Americas", "United States", "Austin, Texas", 9, 11, 5513, 1200, "http://css.motogp.com/w2015/img/circuits/circuits_116.svg", Optional.of("2'03.575"), Optional.of(1), Optional.of(2014));
+		circuit.addCircuit("Autodromo del Mugello", "Italy", "Scarperia, Tuscany", 9, 6, 5245, 1141, "http://css.motogp.com/w2015/img/event/648x286/ITA.jpg", Optional.of("1'47.639"), Optional.of(1), Optional.of(2013));
+		circuit.addCircuit("Circuit de Barcelona", "Spain", "Montmelo, Catalunya", 8, 5, 4655, 1047, "http://css.motogp.com/w2015/img/event/648x286/CAT.jpg", Optional.of("1'45.971"), Optional.of(4), Optional.of(2016));
+		circuit.addCircuit("Misano World Circuit", "Italy", "Misano Adriatico, Emilia-Romagna", 10, 6, 4266, 565, "http://css.motogp.com/w2015/img/event/648x286/RSM.jpg", Optional.of("1'33.273"), Optional.of(2), Optional.of(2015));
+		circuit.addCircuit("Twin Ring Motegi", "Japan", "Tochigi, Haga", 8, 6, 4801, 762, "http://css.motogp.com/w2015/img/event/648x286/JPN.jpg", Optional.of("1'45.350"), Optional.of(2), Optional.of(2014));
+		circuit.addCircuit("Circuit of the Americas", "United States", "Austin, Texas", 9, 11, 5513, 1200, "http://css.motogp.com/w2015/img/event/648x286/AME.jpg", Optional.of("2'03.575"), Optional.of(1), Optional.of(2014));
 		// TODO add more
 	}
 	

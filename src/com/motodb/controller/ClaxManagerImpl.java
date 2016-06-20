@@ -78,7 +78,7 @@ public class ClaxManagerImpl implements ClaxManager {
         final Connection conn = db.getConnection();
 
         ObservableList<Clax> list = FXCollections.observableArrayList();
-        final String retrieve = "select c.* from CLASSE c, CLASSE_IN_CAMPIONATO i where c.nomeClasse = i.nomeClasse AND i.annoCampionato = ?";
+        final String retrieve = "select * from CLASSE_IN_CAMPIONATO where annoCampionato = ?";
 
         try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
             statement.setInt(1, year);

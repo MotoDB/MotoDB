@@ -26,8 +26,8 @@ public interface RacingRiderManager {
      * @param points
      */
     public void addRacingRider(int year, Date weekendDate, String className, String sessionCode, String fastestTime,
-            int position, Boolean finished, Integer personalCode, String manufacturer, String bikeModel, String teamName, int points,
-            ObservableList<Tyre> tyres);
+            int position, Boolean finished, Integer personalCode, String manufacturer, String bikeModel,
+            String teamName, int points, ObservableList<Tyre> tyres);
 
     /**
      * 
@@ -36,7 +36,8 @@ public interface RacingRiderManager {
     public ObservableList<RacingRider> getRacingRiders();
 
     /**
-     * @deprecated Now team is a field of racingRider. A simpler method should be done.  
+     * @deprecated Now team is a field of racingRider. A simpler method should
+     *             be done.
      */
     public Team getTeamByRiderAndYear(int rider, int year);
 
@@ -46,8 +47,8 @@ public interface RacingRiderManager {
 
     ObservableList<RacingRiderView> getRacingRidersForView();
 
-	ObservableList<RacingRider> getRidersFromYearWeekSessClass(int year, Date weekend, String session, String clax);
+    ObservableList<RacingRider> getRidersFromYearWeekSessClass(int year, Date weekend, String session, String clax);
 
-	public ObservableList<RacingRiderView> getRidersFromYearWeekSessClassForView(int parseInt, Date valueOf,
-			String string, String string2);
+    public ObservableList<RacingRiderView> getRidersFromYearWeekSessClassForView(int parseInt, Date valueOf,
+            String string, String string2);
 }

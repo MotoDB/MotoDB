@@ -17,10 +17,8 @@
 				<Button fx:id="sponsor" mnemonicParsing="false" styleClass="button-flat" text="SPONSOR" onAction="#switchScreen" />
 				
 				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="120">
+				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="40">
 					<children>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="statistics" onAction="#switchScreen" />
-						
 						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="credits" onAction="#openPopup"/>
 					</children>
 				</HBox>

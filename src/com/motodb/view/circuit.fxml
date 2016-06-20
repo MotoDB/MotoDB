@@ -20,7 +20,7 @@
 					</padding>
 	            	<children>
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CIRCUIT" onAction="#switchScreen" fx:id="addTyre" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CIRCUIT" onAction="#switchScreen" fx:id="addCircuit" />
                     </children>
                 </HBox>
                 <HBox fx:id="mainPane">

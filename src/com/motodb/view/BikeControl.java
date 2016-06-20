@@ -119,11 +119,10 @@ public class BikeControl extends ScreenControl {
                 teams.getChildren().clear();
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (String s : championshipManager.getClassesNames(
-                        (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
-                    ToggleButton button = new ToggleButton(s);
+                for (Team t : teamManager.getTeamsFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
+                    ToggleButton button = new ToggleButton(t.getName());
                     button.setToggleGroup(teamsButtons);
-                    button.setUserData(s);
+                    button.setUserData(t.getName());
                 }
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
@@ -131,7 +130,6 @@ public class BikeControl extends ScreenControl {
                     button.setToggleGroup(teamsButtons);
                     teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton) button);
                 }
-                teamsButtons.getToggles().get(1).setSelected(true);
 
                 if (!teamsButtons.getToggles().isEmpty()) {
                     teamsButtons.getToggles().get(0).setSelected(true);

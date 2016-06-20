@@ -37,7 +37,6 @@ public class CircuitControl extends ScreenControl {
         list.clear();
 
         GridPane grid = new GridPane();
-
         for (Circuit circuit : circuitManager.getCircuits()) {
             CircuitGridPane sponsorPane = new CircuitGridPane(circuit);
             list.add(sponsorPane);
@@ -46,9 +45,9 @@ public class CircuitControl extends ScreenControl {
         int i = 0;
         int riders = 0;
 
-        while (i < ((list.size()) / 4)) {
+        while (i < (int) Math.ceil(list.size() / (4.0)) || riders < list.size()) {
             int j = 0;
-            while (j <= 3) {
+            while (j < 4 && riders < list.size()) {
                 grid.add(list.get(riders).getPane(), j, i);
                 j++;
                 riders++;

@@ -170,4 +170,36 @@ public class BikeManagerImpl implements BikeManager {
         }
         return bike;
 	}
+
+	@Override
+	public ObservableList<Bike> getBikesFromTeamAndYear(String team, int year) {
+		final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+        
+        ObservableList<Bike> list = FXCollections.observableArrayList();
+        final String retrieve = "select * from MOTO where nomeTeam = ? && MOTO.annoCampionato = ?";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setString(1, team);
+            statement.setInt(2, year);
+            try (final ResultSet result = statement.executeQuery()) {
+
+                while (result.next()) {
+                    list.add(new Bike(result.getString("nomeMarca"), result.getString("modello"),
+                            result.getString("foto"), result.getInt("peso"), result.getInt("annoCampionato"),
+                            result.getString("nomeTeam")));
+
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
+	}
 }

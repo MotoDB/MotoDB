@@ -21,6 +21,8 @@
 	            	<children>
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="CREATE TEAM" onAction="#switchScreen" fx:id="addTeam" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CONTRACT" onAction="#switchScreen" fx:id="addContract" />
+                        <Button fx:id="addBike" mnemonicParsing="false" styleClass="button-flat" text="CREATE BYKE" onAction="#switchScreen"/>
                         <Button fx:id="addMember" mnemonicParsing="false" styleClass="button-flat" text="CREATE MEMBER" onAction="#switchScreen"/>
                     </children>
                 </HBox>
@@ -30,7 +32,6 @@
 					</padding>
 					<children>
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD CONTRACT" onAction="#switchScreen" fx:id="addContract" />
                     </children>
                 </HBox>
                 <HBox fx:id="teams">

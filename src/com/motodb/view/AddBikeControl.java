@@ -28,6 +28,7 @@ public class AddBikeControl extends ScreenControl {
     // Controller
     private final TeamManager teamManager = new TeamManagerImpl();
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
+    private final ManufacturerManager manufacturersManager = new ManufacturerManagerImpl();
     private final BikeManager bikeManager = new BikeManagerImpl();
 
     @FXML
@@ -169,17 +170,15 @@ public class AddBikeControl extends ScreenControl {
                 }
             }
         });
-        /*
-         * manufacturerBox.getSelectionModel().selectedItemProperty().
-         * addListener((observable, oldValue, newValue) -> { if(newValue!=null){
-         * if(!manufacturerManager.
-         * .getBikesFromManufacturer(manufacturerBox.getValue().
-         * getManufacturerName()).isEmpty()){ bikeModelBox.setDisable(false);
-         * bikeModelBox.setItems(bykeManager.getBikesFromManufacturer(
-         * manufacturerBox.getValue().getManufacturerName()));
-         * 
-         * }else{ bikeModelBox.setDisable(true); } } });
-         */
+        
+        teamBox.getSelectionModel().selectedItemProperty().
+        addListener((observable, oldValue, newValue) -> { if(newValue!=null){
+        if(!manufacturersManager.getManufacturersByTeamAndYear(teamBox.getValue().getName(), Integer.parseInt(yearBox.getValue())).isEmpty()){ 
+            manufacturerBox.setDisable(false);
+        manufacturerBox.setItems(manufacturersManager.getManufacturersByTeamAndYear(teamBox.getValue().getName(), Integer.parseInt(yearBox.getValue())));
+        
+        }else{ manufacturerBox.setDisable(true); } } }); 
+         
 
     }
 

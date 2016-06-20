@@ -115,4 +115,40 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
         return manufacturers;
     }
 
+    @Override
+    public ObservableList<Manufacturer> getManufacturersByTeamAndYear(String team, int year) {
+        final DBManager db = DBManager.getDB();
+        final Connection conn = db.getConnection();
+
+        ObservableList<Manufacturer> manufacturers = FXCollections.observableArrayList();
+        final String retrieve = "select nomeMarca from CONTRATTO_MARCA where annoCampionato = ? and nomeTeam = ?";
+
+        try (final PreparedStatement statement = conn.prepareStatement(retrieve)) {
+            statement.setInt(1, year);
+            statement.setString(2, team);
+            try (final ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    Manufacturer manufacturer = new Manufacturer();
+                    manufacturer.setManufacturerName(result.getString(1));
+                    manufacturers.add(manufacturer);
+                }
+            } catch (SQLException e) {
+                try {
+                    AlertTypes alert = new AlertTypesImpl();
+                    alert.showError(e);
+                } catch (ExceptionInInitializerError ei) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                AlertTypes alert = new AlertTypesImpl();
+                alert.showError(e);
+            } catch (ExceptionInInitializerError ei) {
+                e.printStackTrace();
+            }
+        }
+        return manufacturers;
+    }
+
 }

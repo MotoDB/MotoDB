@@ -29,6 +29,8 @@
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="photoField"/>
 					        	<Label styleClass="control-label" text="Model" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="modelField"/>
+				                <Label styleClass="control-label" text="Weight" />
+                                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="weightField"/>
               					<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>

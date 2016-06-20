@@ -110,8 +110,8 @@ public class DBInitializer {
 		team.addTeam(i, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
 		team.addTeam(i, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Motul")), FXCollections.observableArrayList(Arrays.asList("Suzuki")));
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
-		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
-		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Motul")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
+		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Michelin", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Aprilia", "Kalex", "Honda")));
 		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 		// TODO team moto2
@@ -122,8 +122,8 @@ public class DBInitializer {
 		team.addTeam(i, "Team Suzuki Racing", "Hamamatsu, Japan", "http://i.imgur.com/4Zp2MPi.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Suzuki")));
 		team.addTeam(i, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Movistar", "Monster Energy", "Abarth", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
-		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
-		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Honda", "Suter")));
 		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 		i=2014;
@@ -131,8 +131,8 @@ public class DBInitializer {
 		team.addTeam(i, "Honda Racing Team", "Saitama, Japan", "https://www.supersprox.com/wp-content/uploads/2011/07/46cf4b4a17c095136bf56aeb4d4b0d96.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Repsol", "Red Bull")), FXCollections.observableArrayList(Arrays.asList("Honda")));
 		team.addTeam(i, "Yamaha Factory Racing" , "Gerno di Lesmo, Italy", "https://www.yamahamotogp.com/assets/img/logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Monster Energy", "Abarth", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Yamaha")));
 		team.addTeam(i, "Pons HP40", "Barcelona, Spain", "http://i.imgur.com/jvMgddG.png", FXCollections.observableArrayList(Arrays.asList("Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Kalex")));
-		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
-		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Forward Racing", "Agno, Switzerland", "http://www.petracubonova.com/wp-content/uploads/2015/10/forward_logo.png", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Bridgestone", "Motul")), FXCollections.observableArrayList(Arrays.asList("Yamaha", "Kalex")));
+		team.addTeam(i, "Pramac Racing", "Casole d'Elsa, Italy", "https://pbs.twimg.com/profile_images/689396677329838080/yc34t1an.jpg", FXCollections.observableArrayList(Arrays.asList("MotoGP")), FXCollections.observableArrayList(Arrays.asList("Bridgestone", "Shell", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Ducati")));
 		team.addTeam(i, "Team Gresini Racing", "Faenza, Italy", "https://pbs.twimg.com/profile_images/532459702060195840/61JcOHO-_400x400.jpeg", FXCollections.observableArrayList(Arrays.asList("MotoGP", "Moto2", "Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Michelin", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("Honda", "Suter")));
 		team.addTeam(i, "SKY Racing Team VR46", "Tavullia, Italy", "https://pbs.twimg.com/profile_images/711276082402619393/BfimDI3N.jpg", FXCollections.observableArrayList(Arrays.asList("Moto3")), FXCollections.observableArrayList(Arrays.asList("Dunlop", "Akrapovic")), FXCollections.observableArrayList(Arrays.asList("KTM")));
 	}
@@ -259,10 +259,9 @@ public class DBInitializer {
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
 		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, i, "Team Suzuki Racing");
-		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
 		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
-		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
-		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
+		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8030.jpg", 140, i, "Forward Racing");
 		bike.addBike("Honda", "NSF250R", "http://www.motogp.com/en/api/rider/photo/bike/old/8295.jpg", 84, i, "Team Gresini Racing");
 		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");
 		i=2015;
@@ -270,10 +269,10 @@ public class DBInitializer {
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
 		bike.addBike("Suzuki", "GSX-RR", "http://www.motogp.com/en/api/rider/photo/bike/old/7409.jpg", 157, i, "Team Suzuki Racing");
-		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 157, i, "Forward Racing");
+		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/7030.jpg", 157, i, "Forward Racing");
 		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Pramac Racing");
 		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
-		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
+		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8030.jpg", 140, i, "Forward Racing");
 		bike.addBike("Honda", "NSF250RW", "http://www.motogp.com/en/api/rider/photo/bike/old/8295.jpg", 84, i, "Team Gresini Racing");
 		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");
 		i=2014;
@@ -281,8 +280,8 @@ public class DBInitializer {
 		bike.addBike("Yamaha", "YZR-M1", "http://www.motogp.com/en/api/rider/photo/bike/old/6060.jpg", 157, i, "Yamaha Factory Racing");
 		bike.addBike("Ducati", "Desmosedici GP", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Ducati Team");
 		bike.addBike("Ducati", "Desmosedici GP Open", "http://www.motogp.com/en/api/rider/photo/bike/old/5885.jpg", 157, i, "Pramac Racing");
-		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/8148.jpg", 157, i, "Forward Racing");
-		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Forward Racing");
+		bike.addBike("Yamaha", "YZR-M1 Open", "http://www.motogp.com/en/api/rider/photo/bike/old/7030.jpg", 157, i, "Forward Racing");
+		bike.addBike("Kalex", "Pons Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8030.jpg", 140, i, "Forward Racing");
 		bike.addBike("Kalex", "Forward Kalex", "http://www.motogp.com/en/api/rider/photo/bike/old/8150.jpg", 140, i, "Pons HP40");
 		bike.addBike("KTM", "KTM RC250GP", "http://i.imgur.com/GnBMC1j.jpg", 84, i, "Team Gresini Racing");
 		bike.addBike("KTM", "KTM RC250GP", "http://www.motogp.com/en/api/rider/photo/bike/old/8149.jpg", 84, i, "SKY Racing Team VR46");

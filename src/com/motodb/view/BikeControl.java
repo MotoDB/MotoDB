@@ -144,10 +144,10 @@ public class BikeControl extends ScreenControl {
                 mainPane.getChildren().clear();
 
                 if (newValue != null) {
-                    if (!bikeManager.getBikes().isEmpty()) {
+                    if (!bikeManager.getBikesFromTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())).isEmpty()){
 
                         list.clear();
-                        for (Bike bike : bikeManager.getBikes()) {
+                        for (Bike bike : bikeManager.getBikesFromTeamAndYear(teamsButtons.getSelectedToggle().getUserData().toString(), Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
                             BikeGridPane riderPane = new BikeGridPane(bike);
                             list.add(riderPane);
                         }

@@ -5,12 +5,8 @@ import java.util.List;
 
 import com.motodb.controller.CircuitManager;
 import com.motodb.controller.CircuitManagerImpl;
-import com.motodb.controller.SponsorManager;
-import com.motodb.controller.SponsorManagerImpl;
 import com.motodb.model.Circuit;
-import com.motodb.model.Sponsor;
 import com.motodb.view.util.CircuitGridPane;
-import com.motodb.view.util.SponsorGridPane;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

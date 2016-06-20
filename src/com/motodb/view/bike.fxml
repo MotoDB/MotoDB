@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@/materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.motodb.view.BikeControl">
+	<content>
+		<VBox styleClass="card">
+			<children>
+				<HBox>
+	            	<children>
+                   		<Label styleClass="card-title" text="Bike" />
+                   	</children>
+                </HBox>
+	        	<HBox fx:id="years">
+	        		<padding>
+						<Insets bottom="0" left="0" right="0" top="5" />
+					</padding>
+	            	<children>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD BIKE" onAction="#switchScreen" fx:id="addBike" />
+                    </children>
+                </HBox>
+                <HBox fx:id="classes">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
+                <HBox fx:id="teams">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
+	            <HBox fx:id="mainPane">
+                	<padding>
+						<Insets bottom="0" left="0" right="0" top="10" />
+					</padding>
+                </HBox>
+	        </children>	
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>

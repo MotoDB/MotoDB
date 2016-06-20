@@ -12,8 +12,9 @@
 				<Button fx:id="session" mnemonicParsing="false" styleClass="button-flat" text="SESSION" onAction="#switchScreen" />
 				<Button fx:id="team" mnemonicParsing="false" styleClass="button-flat" text="TEAM" onAction="#switchScreen" />
 				<Button fx:id="rider" mnemonicParsing="false" styleClass="button-flat" text="RIDER" onAction="#switchScreen" />
-				<Button fx:id="sponsor" mnemonicParsing="false" styleClass="button-flat" text="SPONSOR" onAction="#switchScreen" />
 				<Button fx:id="circuit" mnemonicParsing="false" styleClass="button-flat" text="CIRCUIT" onAction="#switchScreen" />
+				<Button fx:id="bike" mnemonicParsing="false" styleClass="button-flat" text="BIKES" onAction="#switchScreen" />
+				<Button fx:id="sponsor" mnemonicParsing="false" styleClass="button-flat" text="SPONSOR" onAction="#switchScreen" />
 				
 				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
 				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="120">

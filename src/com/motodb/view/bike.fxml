@@ -24,12 +24,12 @@
                     	<Button mnemonicParsing="false" styleClass="button-flat" text="ADD TYRE" onAction="#switchScreen" fx:id="addTyre" />
                     </children>
                 </HBox>
-                <HBox fx:id="classes">
+                <HBox fx:id="teams">
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>
                 </HBox>
-                <HBox fx:id="teams">
+                <HBox fx:id="bikes">
                 	<padding>
 						<Insets bottom="0" left="0" right="0" top="10" />
 					</padding>

@@ -9,9 +9,12 @@ import com.motodb.controller.ChampionshipManager;
 import com.motodb.controller.ChampionshipManagerImpl;
 import com.motodb.controller.MemberManager;
 import com.motodb.controller.MemberManagerImpl;
+import com.motodb.controller.TeamManager;
+import com.motodb.controller.TeamManagerImpl;
 import com.motodb.model.Bike;
 import com.motodb.model.Championship;
 import com.motodb.model.Rider;
+import com.motodb.model.Team;
 import com.motodb.view.alert.AlertTypes;
 import com.motodb.view.alert.AlertTypesImpl;
 import com.motodb.view.util.RiderGridPane;
@@ -36,17 +39,16 @@ public class BikeControl extends ScreenControl {
     // Controller
     private final ChampionshipManager championshipManager = new ChampionshipManagerImpl();
     private final BikeManager bikeManager = new BikeManagerImpl();
+    private final TeamManager teamManager = new TeamManagerImpl();
 
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup yearsButtons = new PersistentButtonToggleGroup();
-    private final ToggleGroup classesButtons = new PersistentButtonToggleGroup();
+    private final ToggleGroup teamsButtons = new PersistentButtonToggleGroup();
 
     @FXML
     private HBox mainPane;
     @FXML
-    private Button addRacingRider;
-    @FXML
-    private HBox years, classes, teams;
+    private HBox years, teams, bikes;
 
     private List<BikeGridPane> list = new ArrayList<>();
 
@@ -66,11 +68,10 @@ public class BikeControl extends ScreenControl {
 
             // Creating a button for each class of that year, and adding such
             // button to the group
-            for (String s : championshipManager
-                    .getClassesNames((Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
-                ToggleButton button = new ToggleButton(s);
-                button.setToggleGroup(classesButtons);
-                button.setUserData(s);
+            for (Team t : teamManager.getTeamsFromYear(Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString()))) {
+                ToggleButton button = new ToggleButton(t.getName());
+                button.setToggleGroup(teamsButtons);
+                button.setUserData(t.getName());
             }
 
         }
@@ -87,17 +88,17 @@ public class BikeControl extends ScreenControl {
         for (Toggle button : yearsButtons.getToggles()) {
             years.getChildren().add(yearsButtons.getToggles().indexOf(button), (ToggleButton) button);
         }
-        for (Toggle button : classesButtons.getToggles()) {
-            button.setToggleGroup(classesButtons);
-            classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
+        for (Toggle button : teamsButtons.getToggles()) {
+            button.setToggleGroup(teamsButtons);
+            teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton) button);
         }
 
         // Method which handles the selection of a year
         this.filter();
         if (!yearsButtons.getToggles().isEmpty()) {
             yearsButtons.getToggles().get(0).setSelected(true);
-            if (!classesButtons.getToggles().isEmpty()) {
-                classesButtons.getToggles().get(0).setSelected(true);
+            if (!teamsButtons.getToggles().isEmpty()) {
+                teamsButtons.getToggles().get(0).setSelected(true);
             }
         }
 
@@ -114,31 +115,31 @@ public class BikeControl extends ScreenControl {
                 list.clear();
                 mainPane.getChildren().clear();
 
-                classesButtons.getToggles().clear();
-                classes.getChildren().clear();
+                teamsButtons.getToggles().clear();
+                teams.getChildren().clear();
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
                 for (String s : championshipManager.getClassesNames(
                         (Integer.parseInt(yearsButtons.getSelectedToggle().getUserData().toString())))) {
                     ToggleButton button = new ToggleButton(s);
-                    button.setToggleGroup(classesButtons);
+                    button.setToggleGroup(teamsButtons);
                     button.setUserData(s);
                 }
 
                 // THIS CODE IS COPIED FROM TOP, IT NEEDS TO BE REFACTORED
-                for (Toggle button : classesButtons.getToggles()) {
-                    button.setToggleGroup(classesButtons);
-                    classes.getChildren().add(classesButtons.getToggles().indexOf(button), (ToggleButton) button);
+                for (Toggle button : teamsButtons.getToggles()) {
+                    button.setToggleGroup(teamsButtons);
+                    teams.getChildren().add(teamsButtons.getToggles().indexOf(button), (ToggleButton) button);
                 }
-                classesButtons.getToggles().get(1).setSelected(true);
+                teamsButtons.getToggles().get(1).setSelected(true);
 
-                if (!classesButtons.getToggles().isEmpty()) {
-                    classesButtons.getToggles().get(0).setSelected(true);
+                if (!teamsButtons.getToggles().isEmpty()) {
+                    teamsButtons.getToggles().get(0).setSelected(true);
                 }
             }
         });
 
-        classesButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+        teamsButtons.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 mainPane.getChildren().clear();
 

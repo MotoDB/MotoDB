@@ -11,8 +11,8 @@ public class DBManager {
 
     // Info connessioni DB
     private static final String dbName = "MotoDB";
-    private static final String url = "motodb.c1s5lipxxzvy.eu-west-1.rds.amazonaws.com";
-    private static final String username = "Administrator";
+    private static final String url = "motodb.crpgp9pbtfrc.us-west-2.rds.amazonaws.com";
+    private static final String username = "admin";
     private static final String password = "cocomero";
     private static final DBManager DB = new DBManager();
 

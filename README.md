@@ -1,8 +1,10 @@
 # MotoDB
-Progetto di una base di dati per la gestione e lo storico di campionati MotoGP
 
-studenti: Andrea Colombo - Giulia Cecchetti - Tommaso Bonato
+Java application for managing MotoGP championships. 
 
-aa: 2015/2016
+Technologies used:
+* Java
+* JavaFX
+* MySQL
+* CSS (Material Design)
 
-prof: Dario Maio
